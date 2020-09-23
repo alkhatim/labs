@@ -157,11 +157,14 @@ export default function AddApplicationForm(props) {
               application.name4.trim(),
           };
           const result = await addApplication(submit);
-          if (result && role === "agency")
+          if (result && role === "agency") {
+            messages.success("تم تسجيل الفحص");
             props.history.push(`/my-applications`);
-          if (result && (role === "lab" || role === "admin"))
+          }
+          if (result && (role === "lab" || role === "admin")) {
+            messages.success("تم تسجيل الفحص");
             props.history.push(`/all-applications`);
-          messages.success("تم تسجيل الفحص");
+          }
         } catch (error) {
           messages.error(error);
         }
