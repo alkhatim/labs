@@ -9,6 +9,8 @@ import Typography from "@material-ui/core/Typography";
 import Joi from "joi";
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
+import { useSelector } from "react-redux";
+
 import messages from "../../helpers/messages";
 import { addUser } from "../../redux/actions/users_actions";
 import GeneralForm from "./GeneralForm";
@@ -52,7 +54,7 @@ const steps = ["بيانات المستخدم", "مراجعة البيانات"]
 
 export default function AddUser(props) {
   const classes = useStyles();
-  const role = localStorage.getItem("role");
+  const role = useSelector((store) => store.authReducer.role);
 
   const [activeStep, setActiveStep] = useState(0);
 
@@ -140,6 +142,7 @@ export default function AddUser(props) {
           messages.error(error);
         }
         break;
+
       default:
         break;
     }

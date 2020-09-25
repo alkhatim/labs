@@ -29,6 +29,7 @@ import GroupIcon from "@material-ui/icons/Group";
 import AssignmentTurnedInIcon from "@material-ui/icons/AssignmentTurnedIn";
 import clsx from "clsx";
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 const drawerWidth = 340;
@@ -112,7 +113,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function AppContainer(props) {
-  const role = localStorage.getItem("role");
+  const role = useSelector((store) => store.authReducer.role);
 
   const classes = useStyles();
   const theme = useTheme();

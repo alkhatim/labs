@@ -5,6 +5,8 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { Link } from "react-router-dom";
 import Card from "@material-ui/core/Card";
+import { useSelector } from "react-redux";
+
 import DirectionsIcon from "@material-ui/icons/Directions";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
@@ -51,7 +53,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CenteredGrid() {
   const classes = useStyles();
-  const role = localStorage.getItem("role");
+  const role = useSelector((store) => store.authReducer.role);
+
   const [applications, setApplications] = useState({});
   const dispatch = useDispatch();
 

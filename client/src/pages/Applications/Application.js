@@ -16,6 +16,7 @@ import SaveIcon from "@material-ui/icons/Save";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import Dialog from "@material-ui/core/Dialog";
+import { useSelector } from "react-redux";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
@@ -92,7 +93,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default (props) => {
   const classes = useStyles();
-  const role = localStorage.getItem("role");
+  const role = useSelector((store) => store.authReducer.role);
 
   const [application, setApplication] = useState({
     name: "",

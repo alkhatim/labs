@@ -1,6 +1,7 @@
 import OpenIcon from "@material-ui/icons/Launch";
 import MaterialTable from "material-table";
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useHistory, Redirect } from "react-router-dom";
 import { getUsers, deleteUser } from "../../redux/actions/users_actions";
 
@@ -56,7 +57,7 @@ const getRole = (role) => {
 
 export default function Users(props) {
   const history = useHistory();
-  const role = localStorage.getItem("role");
+  const role = useSelector((store) => store.authReducer.role);
 
   const [users, setUsers] = useState([]);
 

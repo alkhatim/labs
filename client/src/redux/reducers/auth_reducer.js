@@ -4,6 +4,7 @@ const initialState = {
   user: {},
   isLoggedIn: false,
   isLoading: true,
+  role: "",
 };
 
 export default (state = initialState, action) => {
@@ -15,6 +16,7 @@ export default (state = initialState, action) => {
         user: { ...action.payload },
         isLoading: false,
         isLoggedIn: true,
+        role: action.payload.role,
       };
     case authConstants.LOGIN_FAILURE:
     case authConstants.LOAD_FAILURE:

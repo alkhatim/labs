@@ -7,6 +7,8 @@ import Stepper from "@material-ui/core/Stepper";
 import { Redirect } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
+import { useSelector } from "react-redux";
+
 import Joi from "joi";
 import React, { useState } from "react";
 import messages from "../../../helpers/messages";
@@ -52,7 +54,7 @@ const steps = ["البيانات الاساسية", "مراجعة البيانا
 
 export default function AddApplicationForm(props) {
   const classes = useStyles();
-  const role = localStorage.getItem("role");
+  const role = useSelector((store) => store.authReducer.role);
 
   const [activeStep, setActiveStep] = useState(0);
 
@@ -157,14 +159,10 @@ export default function AddApplicationForm(props) {
               application.name4.trim(),
           };
           const result = await addApplication(submit);
-          if (result && role === "agency") {
-            messages.success("تم تسجيل الفحص");
+          if (result && role === "agency")
             props.history.push(`/my-applications`);
-          }
-          if (result && (role === "lab" || role === "admin")) {
-            messages.success("تم تسجيل الفحص");
+          if (result && (role === "lab" || role === "admin"))
             props.history.push(`/all-applications`);
-          }
         } catch (error) {
           messages.error(error);
         }

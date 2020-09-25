@@ -1,8 +1,71 @@
 import OpenIcon from "@material-ui/icons/Launch";
 import MaterialTable from "material-table";
 import React, { useEffect, useState } from "react";
+import { makeStyles } from "@material-ui/core/styles";
 import { useHistory } from "react-router-dom";
 import { getApplications } from "../../redux/actions/applications_actions";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+    backgroundColor: theme.palette.background.paper,
+  },
+  layout: {
+    width: "auto",
+    marginLeft: theme.spacing(2),
+    marginRight: theme.spacing(2),
+    [theme.breakpoints.up(800 + theme.spacing(2) * 2)]: {
+      width: "80vw",
+      marginLeft: "auto",
+      marginRight: "auto",
+    },
+  },
+  paper: {
+    marginBottom: theme.spacing(3),
+    padding: theme.spacing(2),
+    [theme.breakpoints.up(800 + theme.spacing(3) * 2)]: {
+      marginBottom: theme.spacing(6),
+      padding: theme.spacing(2),
+    },
+  },
+  buttons: {
+    display: "flex",
+    justifyContent: "flex-end",
+  },
+  button: {
+    marginTop: theme.spacing(3),
+    marginLeft: theme.spacing(1),
+  },
+  texField: {
+    marginTop: 15,
+    marginBottom: 15,
+  },
+  select: {
+    minWidth: 185,
+    marginTop: 15,
+    marginBottom: 15,
+  },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 180,
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2),
+  },
+  autoComplete: {
+    minWidth: 250,
+    marginTop: 15,
+    marginBottom: 15,
+  },
+  indicator: {
+    backgroundColor: "white",
+    height: "5px",
+  },
+  modal: {
+    width: "100%",
+    height: "100%",
+  },
+}));
 
 const columns = [
   {
@@ -36,6 +99,7 @@ const columns = [
 ];
 
 export default function Applications(props) {
+  const classes = useStyles();
   const history = useHistory();
 
   const [applications, setApplications] = useState([]);
