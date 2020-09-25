@@ -64,6 +64,11 @@ export default function AddApplicationForm(props) {
     name2: "",
     name3: "",
     name4: "",
+    ename: "",
+    ename1: "",
+    ename2: "",
+    ename3: "",
+    ename4: "",
     destination: "",
     phoneNumber: "",
     passportNumber: "",
@@ -77,6 +82,10 @@ export default function AddApplicationForm(props) {
     name2: false,
     name3: false,
     name4: false,
+    ename1: false,
+    ename2: false,
+    ename3: false,
+    ename4: false,
     destination: false,
     phoneNumber: false,
     passportNumber: false,
@@ -90,6 +99,10 @@ export default function AddApplicationForm(props) {
       name2: Joi.string().min(3).required().label("Name2"),
       name3: Joi.string().min(3).required().label("Name3"),
       name4: Joi.string().min(3).required().label("Name4"),
+      ename1: Joi.string().min(3).required().label("Name1"),
+      ename2: Joi.string().min(3).required().label("Name2"),
+      ename3: Joi.string().min(3).required().label("Name3"),
+      ename4: Joi.string().min(3).required().label("Name4"),
       destination: Joi.string().min(3).required().label("Destination"),
       passportNumber: Joi.string().min(6).required().label("PassportNumber"),
       flightDate: Joi.date().min(6).required().label("FlightDate"),
@@ -119,6 +132,10 @@ export default function AddApplicationForm(props) {
       name2: false,
       name3: false,
       name4: false,
+      ename1: false,
+      ename2: false,
+      ename3: false,
+      ename4: false,
       destination: false,
       passportNumber: false,
       flightDate: false,
@@ -157,6 +174,14 @@ export default function AddApplicationForm(props) {
               application.name3.trim() +
               " " +
               application.name4.trim(),
+            ename:
+              application.ename1.trim() +
+              " " +
+              application.ename2.trim() +
+              " " +
+              application.ename3.trim() +
+              " " +
+              application.ename4.trim(),
           };
           const result = await addApplication(submit);
           if (result && role === "agency")

@@ -76,6 +76,46 @@ export default function GeneralInfoForm({
             value={application.name4}
           />
         </Grid>
+        <Grid item xs={12}>
+          <TextField
+            className={classes.texField}
+            name="ename1"
+            error={errors.ename1}
+            label="الاسم الانجليزي الاول"
+            onChange={onChange}
+            value={application.ename1}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            className={classes.texField}
+            name="ename2"
+            error={errors.ename2}
+            label="الاسم الانجليزي الثاني"
+            onChange={onChange}
+            value={application.ename2}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            className={classes.texField}
+            name="ename3"
+            error={errors.ename3}
+            label="الاسم الانجليزي الثالث"
+            onChange={onChange}
+            value={application.ename3}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            className={classes.texField}
+            name="ename4"
+            error={errors.ename4}
+            label="الاسم الانجليزي الرابع"
+            onChange={onChange}
+            value={application.ename4}
+          />
+        </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
             className={classes.texField}
