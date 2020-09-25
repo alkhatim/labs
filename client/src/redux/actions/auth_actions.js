@@ -4,7 +4,7 @@ import messages from "../../helpers/messages";
 
 export const loginAction = (auth) => async (dispatch) => {
   try {
-    const result = await axios.post("http://localhost:5000/api/v1/auth/login", {
+    const result = await axios.post("/api/v1/auth/login", {
       password: auth.password,
       userName: auth.userName,
     });
@@ -37,10 +37,9 @@ export const loadUserAction = () => async (dispatch) => {
       type: authConstants.LOAD_FAILURE,
     });
   try {
-    const result = await axios.get(
-      "http://localhost:5000/api/v1/auth/my-account",
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
+    const result = await axios.get("/api/v1/auth/my-account", {
+      headers: { Authorization: `Bearer ${token}` },
+    });
     dispatch({
       type: authConstants.LOAD_SUCCESS,
       payload: { user: result.data.data, role: result.data.data.role },
