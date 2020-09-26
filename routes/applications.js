@@ -58,8 +58,4 @@ router
   .put(protect, authorize("admin", "agency", "lab"), updateApplication)
   .delete(protect, authorize("admin", "agency", "lab"), deleteApplication);
 
-router
-  .route("/createpdf")
-  .post(protect, authorize("admin", "agency", "lab"), createPdf);
-
 module.exports = router;

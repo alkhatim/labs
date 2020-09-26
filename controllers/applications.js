@@ -8,7 +8,6 @@ const path = require("path");
 
 //Import Models
 const Application = require("../models/Application");
-const Agency = require("../models/Agency");
 
 exports.getApplications = asyncHandler(async (req, res, next) => {
   const applications = await Application.find();
