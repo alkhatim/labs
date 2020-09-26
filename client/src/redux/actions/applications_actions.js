@@ -1,5 +1,6 @@
 import http from "../../helpers/http";
 import messages from "../../helpers/messages";
+import { saveAs } from "file-saver";
 
 export const getApplication = async (applicationId) => {
   try {
@@ -34,7 +35,32 @@ export const updateApplication = async (application) => {
 export const addApplication = async (application) => {
   try {
     const result = await http.post(`/api/v1/applications`, application);
+    const file = await http.post(`/api/v1/createpdf`, {
+      name: application.name,
+      passport: application.passport,
+      country: application.destination,
+      travelDate: application.flightDate,
+      testDate: application.testDate,
+    });
+    const pdfBlob = new Blob([file.data], { type: "application/pdf" });
+    saveAs(pdfBlob, `فاتورة الحجز.pdf`);
     return result.data.data;
+  } catch (error) {
+    messages.error(error);
+  }
+};
+
+export const downloadReciept = async (application) => {
+  try {
+    const file = await http.post(`/api/v1/createpdf`, {
+      name: application.name,
+      passport: application.passport,
+      country: application.destination,
+      travelDate: application.flightDate,
+      testDate: application.testDate,
+    });
+    const pdfBlob = new Blob([file.data], { type: "application/pdf" });
+    saveAs(pdfBlob, `فاتورة الحجز.pdf`);
   } catch (error) {
     messages.error(error);
   }

@@ -8,6 +8,7 @@ const {
   addApplication,
   updateApplication,
   deleteApplication,
+  createPdf,
   getMyApplicationsCountAccordingToState,
   getApplicationsCountAccordingToState,
 } = require("../controllers/applications");
@@ -46,5 +47,9 @@ router
   .get(getApplication)
   .put(protect, authorize("admin", "agency", "lab"), updateApplication)
   .delete(protect, authorize("admin", "agency", "lab"), deleteApplication);
+
+router
+  .route("/createpdf")
+  .post(protect, authorize("admin", "agency", "lab"), createPdf);
 
 module.exports = router;

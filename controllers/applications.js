@@ -1,5 +1,7 @@
 const ErrorResponse = require("../utils/errorResponse");
 const asyncHandler = require("../middleware/async");
+const htmlPdf = require("html-pdf");
+const pdf = require("../utils/pdf");
 const moment = require("moment");
 
 //Import Models
@@ -154,4 +156,17 @@ exports.deleteApplication = asyncHandler(async (req, res, next) => {
     success: true,
     data: application,
   });
+});
+
+exports.createPdf = asyncHandler(async (req, res, next) => {
+  pdf
+    .create(pdf(req.body), {})
+    .toFile(`reports/receipt_${req.body.name}.pdf`, (err) => {
+      if (err) {
+        res.status(500).json({ success: false });
+      }
+      res.sendFile(
+        path.resolve(__dirname, `../reports/receipt_${req.body.name}.pdf`)
+      );
+    });
 });

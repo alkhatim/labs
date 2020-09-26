@@ -13,6 +13,7 @@ import Select from "@material-ui/core/Select";
 import Tooltip from "@material-ui/core/Tooltip";
 import TextField from "@material-ui/core/TextField";
 import SaveIcon from "@material-ui/icons/Save";
+import DownloadIcon from "@material-ui/icons/GetApp";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import Dialog from "@material-ui/core/Dialog";
@@ -24,6 +25,7 @@ import {
   getApplication,
   updateApplication,
   deleteApplication,
+  downloadReciept,
 } from "../../redux/actions/applications_actions";
 import {
   KeyboardDatePicker,
@@ -243,6 +245,11 @@ export default (props) => {
                 <SaveIcon style={{ color: "#3cb371" }} fontSize="large" />
               </Button>
             </Tooltip>
+            <Tooltip title="تحميل فاتورة">
+              <Button onClick={async () => await downloadReciept(application)}>
+                <DownloadIcon style={{ color: "#3cb371" }} fontSize="large" />
+              </Button>
+            </Tooltip>
             {(application.state === "registered" ||
               role === "lab" ||
               role === "admin" ||
@@ -336,6 +343,50 @@ export default (props) => {
                 label="الاسم الرابع"
                 onChange={handleChange}
                 value={application.name4}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                className={classes.texField}
+                name="ename1"
+                disabled={readOnly}
+                error={errors.ename1}
+                label="الاسم الانجليزي الاول"
+                onChange={handleChange}
+                value={application.ename1}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                className={classes.texField}
+                name="ename2"
+                disabled={readOnly}
+                error={errors.ename2}
+                label="الاسم الانجليزي التاني"
+                onChange={handleChange}
+                value={application.ename2}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                className={classes.texField}
+                name="ename3"
+                disabled={readOnly}
+                error={errors.ename3}
+                label="الاسم الانجليزي الثالث"
+                onChange={handleChange}
+                value={application.ename3}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                className={classes.texField}
+                name="ename4"
+                disabled={readOnly}
+                error={errors.ename4}
+                label="الاسم الانجليزي الرابع"
+                onChange={handleChange}
+                value={application.ename4}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
