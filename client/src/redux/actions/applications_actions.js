@@ -41,7 +41,7 @@ export const addApplication = async (application) => {
           `/api/v1/applications/${result._id}/download-receipt`
         );
         if (file) {
-          const pdfBlob = new Blob([file.data], { type: "application/pdf" });
+          const pdfBlob = new Blob([file], { type: "application/pdf" });
           saveAs(pdfBlob, `تفاصيل الفحص .pdf`);
         }
       } catch (error) {
