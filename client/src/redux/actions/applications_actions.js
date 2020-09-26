@@ -33,37 +33,47 @@ export const updateApplication = async (application) => {
 };
 
 export const addApplication = async (application) => {
-  let result;
   try {
-    result = await http.post(`/api/v1/applications`, application);
-    try {
-      const file = await http.post(`/api/v1/applications/createpdf`, {
-        name: application.name,
-        passport: application.passport,
-        country: application.destination,
-        travelDate: application.flightDate,
-        testDate: application.testDate,
-      });
-      const pdfBlob = new Blob([file.data], { type: "application/pdf" });
-      saveAs(pdfBlob, `فاتورة الحجز.pdf`);
-    } catch (error) {}
-  } catch (error) {}
-  return result.data.data;
+    const result = await http.post(`/api/v1/applications`, application);
+    if (result) {
+      try {
+        const file = await http.get(
+          `/api/v1/applications/${result._id}/download-receipt`
+        );
+        if (file) {
+          const pdfBlob = new Blob([file.data], { type: "application/pdf" });
+          saveAs(pdfBlob, `تفاصيل الفحص .pdf`);
+        }
+      } catch (error) {
+        messages.error(error);
+      }
+    }
+    return result.data.data;
+  } catch (error) {
+    messages.error(error);
+  }
 };
 
-export const downloadReciept = async (application) => {
+export const downloadReceipt = async (application) => {
   try {
-    const file = await http.post(`/api/v1/applications/createpdf`, {
-      name: application.name,
-      passport: application.passportNumber,
-      country: application.destination,
-      travelDate: application.flightDate,
-      testDate: application.testDate,
-    });
-    const pdfBlob = new Blob([file.data], { type: "application/pdf" });
-    saveAs(pdfBlob, `فاتورة الحجز.pdf`);
+    const result = await http.post(
+      `/api/v1/applications/${application._id}/download-receipt`
+    );
+    if (result) {
+      try {
+        const file = await http.get(
+          `/api/v1/applications/${application._id}/download-receipt`
+        );
+        if (file) {
+          const pdfBlob = new Blob([file.data], { type: "application/pdf" });
+          saveAs(pdfBlob, `تفاصيل الفحص .pdf`);
+        }
+      } catch (error) {
+        messages.error(error);
+      }
+    }
   } catch (error) {
-    // messages.error(error);
+    messages.error(error);
   }
 };
 

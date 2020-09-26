@@ -11,6 +11,8 @@ const {
   createPdf,
   getMyApplicationsCountAccordingToState,
   getApplicationsCountAccordingToState,
+  printApplicationReceipt,
+  downloadApplicationReceipt,
 } = require("../controllers/applications");
 
 // Load Application Model
@@ -41,6 +43,14 @@ router
     authorize("admin", "lab"),
     getApplicationsCountAccordingToState
   );
+
+router
+  .route("/:applicationId/download-receipt")
+  .get(authorize("admin", "agency", "lab"), downloadApplicationReceipt);
+
+router
+  .route("/:applicationId/print-application")
+  .post(authorize("admin", "agency", "lab"), printApplicationReceipt);
 
 router
   .route("/:id")

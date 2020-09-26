@@ -1,12 +1,14 @@
 const ErrorResponse = require("../utils/errorResponse");
 const asyncHandler = require("../middleware/async");
-const htmlPdf = require("html-pdf");
-const pdf = require("../utils/pdf");
+const pdfTemplate = require("../utils/pdf");
+const pdf = require("html-pdf");
+
 const moment = require("moment");
 const path = require("path");
 
 //Import Models
 const Application = require("../models/Application");
+const Agency = require("../models/Agency");
 
 exports.getApplications = asyncHandler(async (req, res, next) => {
   const applications = await Application.find();
@@ -116,9 +118,37 @@ exports.addApplication = asyncHandler(async (req, res, next) => {
 
   const application = new Application(req.body);
   await application.save();
+
+  pdf.create(pdfTemplate(application), {}).toFile("receipt.pdf", (err) => {
+    if (err) {
+      res.send(Promise.reject());
+    }
+    res.send(Promise.resolve());
+  });
+
   res.status(200).json({
     success: true,
     data: application,
+  });
+});
+
+exports.downloadApplicationReceipt = asyncHandler(async (req, res, next) => {
+  res.sendFile(path.resolve(__dirname, "../receipt.pdf"));
+});
+
+// @desc      Create client receipt
+// @route     POST /api/v1/clients/:clientId/createreceipt
+// @access    Private/Agency/Agent/Admin
+exports.printApplicationReceipt = asyncHandler(async (req, res, next) => {
+  const application = await Application.findById(req.params.applicationId);
+  if (!application) {
+    return next(new ErrorResponse(`لم يتم العثور على العميل`, 404));
+  }
+  pdf.create(pdfTemplate(application), {}).toFile("receipt.pdf", (err) => {
+    if (err) {
+      res.send(Promise.reject());
+    }
+    res.send(Promise.resolve());
   });
 });
 
@@ -157,17 +187,4 @@ exports.deleteApplication = asyncHandler(async (req, res, next) => {
     success: true,
     data: application,
   });
-});
-
-exports.createPdf = asyncHandler(async (req, res, next) => {
-  htmlPdf
-    .create(pdf(req.body), {})
-    .toFile(`reports/receipt_${req.body.name}.pdf`, (err) => {
-      if (err) {
-        res.status(500).json({ success: false });
-      }
-      res.sendFile(
-        path.resolve(__dirname, `../reports/receipt_${req.body.name}.pdf`)
-      );
-    });
 });

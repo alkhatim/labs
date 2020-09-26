@@ -25,7 +25,7 @@ import {
   getApplication,
   updateApplication,
   deleteApplication,
-  downloadReciept,
+  downloadReceipt,
 } from "../../redux/actions/applications_actions";
 import {
   KeyboardDatePicker,
@@ -98,6 +98,7 @@ export default (props) => {
   const role = useSelector((store) => store.authReducer.role);
 
   const [application, setApplication] = useState({
+    _id: "",
     name: "",
     name1: "",
     name2: "",
@@ -246,7 +247,7 @@ export default (props) => {
               </Button>
             </Tooltip>
             <Tooltip title="تحميل فاتورة">
-              <Button onClick={async () => await downloadReciept(application)}>
+              <Button onClick={async () => await downloadReceipt(application)}>
                 <DownloadIcon style={{ color: "#3cb371" }} fontSize="large" />
               </Button>
             </Tooltip>
