@@ -60,7 +60,7 @@ export const addApplication = async (application) => {
 export const downloadReceipt = async (application) => {
   try {
     const result = await http.post(
-      `/api/v1/applications/${application._id}/print-receipt`
+      `/api/v1/applications/${application._id}/print-application`
     );
     if (result) {
       try {
