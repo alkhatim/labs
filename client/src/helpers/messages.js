@@ -1,6 +1,7 @@
 import { toast } from "react-toastify";
 
 const error = (error) => {
+  console.log(error);
   // if (typeof error === "string")
   //   toast.error(error, {
   //     position: toast.POSITION.BOTTOM_RIGHT,
