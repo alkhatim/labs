@@ -38,10 +38,13 @@ export const addApplication = async (application) => {
     if (result) {
       try {
         const file = await http.get(
-          `/api/v1/applications/${result._id}/download-receipt`
+          `/api/v1/applications/${result._id}/download-receipt`,
+          {
+            responseType: "blob",
+          }
         );
         if (file) {
-          const pdfBlob = new Blob([file], { type: "application/pdf" });
+          const pdfBlob = new Blob([file.data], { type: "application/pdf" });
           saveAs(pdfBlob, `تفاصيل الفحص .pdf`);
         }
       } catch (error) {
@@ -62,7 +65,10 @@ export const downloadReceipt = async (application) => {
     if (result) {
       try {
         const file = await http.get(
-          `/api/v1/applications/${application._id}/download-receipt`
+          `/api/v1/applications/${application._id}/download-receipt`,
+          {
+            responseType: "blob",
+          }
         );
         if (file) {
           const pdfBlob = new Blob([file.data], { type: "application/pdf" });
