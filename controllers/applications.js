@@ -1,7 +1,7 @@
 const ErrorResponse = require("../utils/errorResponse");
 const asyncHandler = require("../middleware/async");
-const pdfTemplate = require("../utils/pdf");
-const pdf = require("html-pdf");
+const pdf = require("../utils/pdf");
+const htmlPdf = require("html-pdf");
 
 const moment = require("moment");
 const path = require("path");
@@ -118,7 +118,7 @@ exports.addApplication = asyncHandler(async (req, res, next) => {
   const application = new Application(req.body);
   await application.save();
 
-  pdf.create(pdfTemplate(application), {}).toFile("receipt.pdf", (err) => {
+  htmlPdf.create(pdf(application), {}).toFile("receipt.pdf", (err) => {
     if (err) {
       res.send(Promise.reject());
     }
@@ -143,7 +143,7 @@ exports.printApplicationReceipt = asyncHandler(async (req, res, next) => {
   if (!application) {
     return next(new ErrorResponse(`لم يتم العثور على العميل`, 404));
   }
-  pdf.create(pdfTemplate(application), {}).toFile("receipt.pdf", (err) => {
+  htmlPdf.create(pdf(application), {}).toFile("receipt.pdf", (err) => {
     if (err) {
       res.send(Promise.reject());
     }
