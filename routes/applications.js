@@ -15,9 +15,6 @@ const {
   downloadApplicationReceipt,
 } = require("../controllers/applications");
 
-// Load Application Model
-const Application = require("../models/Application");
-const advancedResults = require("../middleware/advancedResults");
 const { protect, authorize } = require("../middleware/auth");
 
 router
@@ -46,11 +43,15 @@ router
 
 router
   .route("/:applicationId/download-receipt")
-  .get(authorize("admin", "agency", "lab"), downloadApplicationReceipt);
+  .get(
+    protect,
+    authorize("admin", "agency", "lab"),
+    downloadApplicationReceipt
+  );
 
 router
   .route("/:applicationId/print-application")
-  .post(authorize("admin", "agency", "lab"), printApplicationReceipt);
+  .post(protect, authorize("admin", "agency", "lab"), printApplicationReceipt);
 
 router
   .route("/:id")
