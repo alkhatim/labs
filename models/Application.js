@@ -27,6 +27,26 @@ const ApplicationSchema = new Schema({
     type: String,
     required: true,
   },
+  ename: {
+    type: String,
+    required: true,
+  },
+  ename1: {
+    type: String,
+    required: true,
+  },
+  ename2: {
+    type: String,
+    required: true,
+  },
+  ename3: {
+    type: String,
+    required: true,
+  },
+  ename4: {
+    type: String,
+    required: true,
+  },
   phoneNumber: {
     type: String,
     required: true,

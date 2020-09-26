@@ -33,28 +33,29 @@ export const updateApplication = async (application) => {
 };
 
 export const addApplication = async (application) => {
+  let result;
   try {
-    const result = await http.post(`/api/v1/applications`, application);
-    const file = await http.post(`/api/v1/createpdf`, {
-      name: application.name,
-      passport: application.passport,
-      country: application.destination,
-      travelDate: application.flightDate,
-      testDate: application.testDate,
-    });
-    const pdfBlob = new Blob([file.data], { type: "application/pdf" });
-    saveAs(pdfBlob, `فاتورة الحجز.pdf`);
-    return result.data.data;
-  } catch (error) {
-    messages.error(error);
-  }
+    result = await http.post(`/api/v1/applications`, application);
+    try {
+      const file = await http.post(`/api/v1/applications/createpdf`, {
+        name: application.name,
+        passport: application.passport,
+        country: application.destination,
+        travelDate: application.flightDate,
+        testDate: application.testDate,
+      });
+      const pdfBlob = new Blob([file.data], { type: "application/pdf" });
+      saveAs(pdfBlob, `فاتورة الحجز.pdf`);
+    } catch (error) {}
+  } catch (error) {}
+  return result.data.data;
 };
 
 export const downloadReciept = async (application) => {
   try {
-    const file = await http.post(`/api/v1/createpdf`, {
+    const file = await http.post(`/api/v1/applications/createpdf`, {
       name: application.name,
-      passport: application.passport,
+      passport: application.passportNumber,
       country: application.destination,
       travelDate: application.flightDate,
       testDate: application.testDate,
@@ -62,7 +63,7 @@ export const downloadReciept = async (application) => {
     const pdfBlob = new Blob([file.data], { type: "application/pdf" });
     saveAs(pdfBlob, `فاتورة الحجز.pdf`);
   } catch (error) {
-    messages.error(error);
+    // messages.error(error);
   }
 };
 

@@ -35,6 +35,15 @@ export default function Review({ application }) {
     " " +
     application.name4;
 
+  const ename =
+    application.ename1 +
+    " " +
+    application.ename2 +
+    " " +
+    application.ename3 +
+    " " +
+    application.ename4;
+
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -50,6 +59,17 @@ export default function Review({ application }) {
           <ListItemText
             primary="الاسم رباعي"
             secondary={<Typography variant="h6">{name}</Typography>}
+          />
+        </ListItem>
+        <ListItem className={classes.listItem}>
+          <ListItemAvatar>
+            <Avatar>
+              <PersonIcon />
+            </Avatar>
+          </ListItemAvatar>
+          <ListItemText
+            primary="الاسم الانجليزي رباعي"
+            secondary={<Typography variant="h6">{ename}</Typography>}
           />
         </ListItem>
         <ListItem className={classes.listItem}>

@@ -3,6 +3,7 @@ const asyncHandler = require("../middleware/async");
 const htmlPdf = require("html-pdf");
 const pdf = require("../utils/pdf");
 const moment = require("moment");
+const path = require("path");
 
 //Import Models
 const Application = require("../models/Application");
@@ -159,7 +160,7 @@ exports.deleteApplication = asyncHandler(async (req, res, next) => {
 });
 
 exports.createPdf = asyncHandler(async (req, res, next) => {
-  pdf
+  htmlPdf
     .create(pdf(req.body), {})
     .toFile(`reports/receipt_${req.body.name}.pdf`, (err) => {
       if (err) {

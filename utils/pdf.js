@@ -142,8 +142,7 @@ p{
   <body dir="rtl">
       <div class="header-part">
         <p>معامل تست</p>
-        <p>${agency}</p>
-<img src="../logo.jpg" style="width: 100%; max-width: 300px;" />
+<img src="logo.jpg" style="width: 100%; max-width: 300px;" />
     <div class="invoice-box" dir="rtl">
       <table cellpadding="0" cellspacing="0">
         <tr class="top">
@@ -195,7 +194,7 @@ p{
           </td>
 
           <td>
-            ${travelDate}
+            ${new Date(travelDate).toLocaleDateString()}
           </td>
         </tr>
 
@@ -205,7 +204,7 @@ p{
           </td>
 
           <td>
-            ${testDate} جنيه
+            ${new Date(testDate).toLocaleDateString()}
           </td>
         </tr>
 
