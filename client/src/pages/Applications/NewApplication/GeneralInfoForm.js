@@ -1,6 +1,10 @@
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
+import InputLabel from "@material-ui/core/InputLabel";
 import Typography from "@material-ui/core/Typography";
 import {
   KeyboardDatePicker,
@@ -81,7 +85,7 @@ export default function GeneralInfoForm({
             className={classes.texField}
             name="ename1"
             error={errors.ename1}
-            label="الاسم الانجليزي الاول"
+            label="الاسم الاول باللغة الانجليزية"
             onChange={onChange}
             value={application.ename1}
           />
@@ -91,7 +95,7 @@ export default function GeneralInfoForm({
             className={classes.texField}
             name="ename2"
             error={errors.ename2}
-            label="الاسم الانجليزي الثاني"
+            label="الاسم الثاني باللغة الانجليزية"
             onChange={onChange}
             value={application.ename2}
           />
@@ -101,7 +105,7 @@ export default function GeneralInfoForm({
             className={classes.texField}
             name="ename3"
             error={errors.ename3}
-            label="الاسم الانجليزي الثالث"
+            label="الاسم الثالث باللغة الانجليزية"
             onChange={onChange}
             value={application.ename3}
           />
@@ -111,7 +115,7 @@ export default function GeneralInfoForm({
             className={classes.texField}
             name="ename4"
             error={errors.ename4}
-            label="الاسم الانجليزي الرابع"
+            label="الاسم الرابع باللغة الانجليزية"
             onChange={onChange}
             value={application.ename4}
           />
@@ -125,6 +129,28 @@ export default function GeneralInfoForm({
             value={application.destination}
             onChange={onChange}
           />
+        </Grid>
+        <Grid dir="rtl" item xs={12}>
+          <FormControl className={classes.formControl}>
+            <InputLabel id="airlines">خطوط الطيران</InputLabel>
+            <Select
+              labelId="airlines"
+              name="airlines"
+              value={application.airlines}
+              onChange={onChange}
+            >
+              <MenuItem value="Badr">بدر</MenuItem>
+              <MenuItem value="Tarko">تاركو</MenuItem>
+              <MenuItem value="Eithiopian">الاثيوبية</MenuItem>
+              <MenuItem value="Turky">التركية</MenuItem>
+              <MenuItem value="Fly Dubai">فلاي دبي</MenuItem>
+              <MenuItem value="Qatar">القطرية</MenuItem>
+              <MenuItem value="Fly Emarits">الاماراتية</MenuItem>
+              <MenuItem value="Itihad">الاتحاد</MenuItem>
+              <MenuItem value="Nas"> فلاي ناس</MenuItem>
+              <MenuItem value="Saudi">السعودية</MenuItem>
+            </Select>
+          </FormControl>
         </Grid>
         <Grid item xs={12} sm={12}>
           <TextField

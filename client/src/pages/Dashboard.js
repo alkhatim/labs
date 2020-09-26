@@ -84,7 +84,7 @@ export default function CenteredGrid() {
             الفحوصات حسب الحالة
           </Typography>
         </Grid>
-        <Grid xs={6} style={{ marginTop: "5px" }}>
+        <Grid xs={12} style={{ marginTop: "5px" }}>
           {StatusCard(
             "تم التسجيل",
             applications.registeredCount,
@@ -93,7 +93,7 @@ export default function CenteredGrid() {
             role === "agency" ? "/my-applications" : "/all-applications"
           )}
         </Grid>
-        <Grid xs={6} style={{ marginTop: "5px" }}>
+        <Grid xs={12} style={{ marginTop: "5px" }}>
           {StatusCard(
             "تم الفحص",
             applications.testedCount,
@@ -102,7 +102,7 @@ export default function CenteredGrid() {
             role === "agency" ? "/my-applications" : "/all-applications"
           )}
         </Grid>
-        <Grid xs={6} style={{ marginTop: "5px" }}>
+        <Grid xs={12} style={{ marginTop: "5px" }}>
           {StatusCard(
             "تم استخراج النتيجة",
             applications.issuedCount,
@@ -111,7 +111,7 @@ export default function CenteredGrid() {
             role === "agency" ? "/my-applications" : "/all-applications"
           )}
         </Grid>
-        <Grid xs={6} style={{ marginTop: "5px" }}>
+        <Grid xs={12} style={{ marginTop: "5px" }}>
           {StatusCard(
             "تم استلام النتيجة",
             applications.deliveredCount,

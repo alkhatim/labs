@@ -97,6 +97,12 @@ export default function Review({ application }) {
               <Typography variant="h6">{application.phoneNumber}</Typography>
             }
           />
+          <ListItemText
+            primary="رقم الهاتف"
+            secondary={
+              <Typography variant="h6">{application.airlines}</Typography>
+            }
+          />
         </ListItem>
         <ListItem className={classes.listItem}>
           <ListItemAvatar>

@@ -1,10 +1,13 @@
 module.exports = ({
   name,
   testDate,
-  passport,
-  travelDate,
-  country,
-  agency,
+  passportNumber,
+  flightDate,
+  destination,
+  airlines,
+  phoneNumber,
+  ename,
+  userName,
 }) => {
   return `
   <!DOCTYPE html>
@@ -142,7 +145,7 @@ p{
   <body dir="rtl">
       <div class="header-part">
         <p>معامل تست</p>
-<img src="logo.jpg" style="width: 100%; max-width: 300px;" />
+<img src="" />
     <div class="invoice-box" dir="rtl">
       <table cellpadding="0" cellspacing="0">
         <tr class="top">
@@ -168,23 +171,62 @@ p{
           </td>
         </tr>
 
+        <tr class="heading">
+          <td>
+          الإسم باللغة الانجليزية
+          </td>
+
+          <td>
+            ${ename}
+          </td>
+        </tr>
+
           <tr class="item">
           <td>
             رقم الجواز
           </td>
 
           <td>
-            ${passport}
+            ${passportNumber}
           </td>
         </tr>
 
         <tr class="item">
           <td>
-            الدولة
+            رقم الجواز
           </td>
 
           <td>
-            ${country}
+            ${phoneNumber}
+          </td>
+        </tr>
+ <tr class="item">
+          <td>
+           الوكالة 
+          </td>
+
+          <td>
+            ${userName}
+          </td>
+        </tr>
+
+        <tr class="item">
+          <td>
+           الخطوط 
+          </td>
+
+          <td>
+            ${airlines}
+          </td>
+        </tr>
+
+        <tr class="item">
+          <td>
+            وجهة السفر
+          </td>
+
+          <td>
+            ${destination}
           </td>
         </tr>
 
@@ -194,10 +236,9 @@ p{
           </td>
 
           <td>
-            ${new Date(travelDate).toLocaleDateString()}
+            ${new Date(flightDate).toLocaleDateString()}
           </td>
         </tr>
-
        <tr class="item">
           <td>
            تاريخ الفحص

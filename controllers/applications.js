@@ -110,14 +110,13 @@ exports.addApplication = asyncHandler(async (req, res, next) => {
     );
   }
   if (req.user) {
-    req.body.user = req.user.id;
+    req.body.user = req.user._id;
   }
   req.body.state = "registered";
   req.body.passportNumber = req.body.passportNumber.toUpperCase().trim();
 
   const application = new Application(req.body);
   await application.save();
-
   htmlPdf.create(pdf(application), {}).toFile("receipt.pdf", (err) => {
     if (err) {
       res.send(Promise.reject());
@@ -139,11 +138,12 @@ exports.downloadApplicationReceipt = asyncHandler(async (req, res, next) => {
 // @route     POST /api/v1/clients/:clientId/createreceipt
 // @access    Private/Agency/Agent/Admin
 exports.printApplicationReceipt = asyncHandler(async (req, res, next) => {
-  const application = await Application.findById(req.params.applicationId);
+  const application = await Application.findById(
+    req.params.applicationId
+  ).populate("user");
   if (!application) {
     return next(new ErrorResponse(`لم يتم العثور على العميل`, 404));
   }
-  console.log(application);
   htmlPdf.create(pdf(application), {}).toFile("receipt.pdf", (err) => {
     if (err) {
       res.send(Promise.reject());

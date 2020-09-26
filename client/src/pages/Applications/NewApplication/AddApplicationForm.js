@@ -69,6 +69,7 @@ export default function AddApplicationForm(props) {
     ename2: "",
     ename3: "",
     ename4: "",
+    airlines: "",
     destination: "",
     phoneNumber: "",
     passportNumber: "",
@@ -77,7 +78,6 @@ export default function AddApplicationForm(props) {
   });
 
   const [errors, setErrors] = useState({
-    name: false,
     name1: false,
     name2: false,
     name3: false,
@@ -86,6 +86,7 @@ export default function AddApplicationForm(props) {
     ename2: false,
     ename3: false,
     ename4: false,
+    airlines: false,
     destination: false,
     phoneNumber: false,
     passportNumber: false,
@@ -103,6 +104,7 @@ export default function AddApplicationForm(props) {
       ename2: Joi.string().min(3).required().label("EName2"),
       ename3: Joi.string().min(3).required().label("EName3"),
       ename4: Joi.string().min(3).required().label("EName4"),
+      airlines: Joi.string().required().label("Airlines"),
       destination: Joi.string().min(3).required().label("Destination"),
       passportNumber: Joi.string().min(6).required().label("PassportNumber"),
       flightDate: Joi.date().min(6).required().label("FlightDate"),
@@ -136,6 +138,7 @@ export default function AddApplicationForm(props) {
       ename2: false,
       ename3: false,
       ename4: false,
+      airlines: false,
       destination: false,
       passportNumber: false,
       flightDate: false,

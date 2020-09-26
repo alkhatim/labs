@@ -47,6 +47,21 @@ const ApplicationSchema = new Schema({
     type: String,
     required: true,
   },
+  airlines: {
+    type: String,
+    enum: [
+      "Badr",
+      "Tarko",
+      "Eithiopian",
+      "Turky",
+      "Fly Dubai",
+      "Qatar",
+      "Fly Emarits",
+      "Itihad",
+      "Nas",
+      "Saudi",
+    ],
+  },
   phoneNumber: {
     type: String,
     required: true,

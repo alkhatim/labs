@@ -104,6 +104,11 @@ export default (props) => {
     name2: "",
     name3: "",
     name4: "",
+    ename1: "",
+    ename2: "",
+    ename3: "",
+    ename4: "",
+    airlines: "",
     state: "",
     destination: "",
     phoneNumber: "",
@@ -113,11 +118,15 @@ export default (props) => {
   });
 
   const [errors, setErrors] = useState({
-    name: false,
     name1: false,
     name2: false,
     name3: false,
     name4: false,
+    ename1: false,
+    ename2: false,
+    ename3: false,
+    ename4: false,
+    airlines: false,
     state: false,
     destination: false,
     phoneNumber: false,
@@ -132,6 +141,11 @@ export default (props) => {
       name2: Joi.string().min(3).required().label("Name2"),
       name3: Joi.string().min(3).required().label("Name3"),
       name4: Joi.string().min(3).required().label("Name4"),
+      ename1: Joi.string().min(3).required().label("EName1"),
+      ename2: Joi.string().min(3).required().label("EName2"),
+      ename3: Joi.string().min(3).required().label("EName3"),
+      ename4: Joi.string().min(3).required().label("EName4"),
+      airlines: Joi.string().required().label("Airlines"),
       state: Joi.string().min(3).required().label("State"),
       destination: Joi.string().min(3).required().label("Destination"),
       passportNumber: Joi.string().min(6).required().label("PassportNumber"),
@@ -162,6 +176,7 @@ export default (props) => {
       name2: false,
       name3: false,
       name4: false,
+      airlines: false,
       state: false,
       destination: false,
       passportNumber: false,
@@ -352,7 +367,7 @@ export default (props) => {
                 name="ename1"
                 disabled={readOnly}
                 error={errors.ename1}
-                label="الاسم الانجليزي الاول"
+                label="الاسم الاول باللغة الانجليزية"
                 onChange={handleChange}
                 value={application.ename1}
               />
@@ -363,7 +378,7 @@ export default (props) => {
                 name="ename2"
                 disabled={readOnly}
                 error={errors.ename2}
-                label="الاسم الانجليزي التاني"
+                label="الاسم الثاني باللغة الانجليزية"
                 onChange={handleChange}
                 value={application.ename2}
               />
@@ -374,7 +389,7 @@ export default (props) => {
                 name="ename3"
                 disabled={readOnly}
                 error={errors.ename3}
-                label="الاسم الانجليزي الثالث"
+                label="الاسم الثالث باللغة الانجليزية"
                 onChange={handleChange}
                 value={application.ename3}
               />
@@ -385,7 +400,7 @@ export default (props) => {
                 name="ename4"
                 disabled={readOnly}
                 error={errors.ename4}
-                label="الاسم الانجليزي الرابع"
+                label="الاسم الرابع باللغة الانجليزية "
                 onChange={handleChange}
                 value={application.ename4}
               />
@@ -400,6 +415,29 @@ export default (props) => {
                 value={application.destination}
                 onChange={handleChange}
               />
+            </Grid>
+            <Grid dir="rtl" item xs={12}>
+              <FormControl className={classes.formControl}>
+                <InputLabel id="airlines">خطوط الطيران</InputLabel>
+                <Select
+                  labelId="airlines"
+                  name="airlines"
+                  disabled={readOnly}
+                  value={application.airlines}
+                  onChange={handleChange}
+                >
+                  <MenuItem value="Badr">بدر</MenuItem>
+                  <MenuItem value="Tarko">تاركو</MenuItem>
+                  <MenuItem value="Eithiopian">الاثيوبية</MenuItem>
+                  <MenuItem value="Turky">التركية</MenuItem>
+                  <MenuItem value="Fly Dubai">فلاي دبي</MenuItem>
+                  <MenuItem value="Qatar">القطرية</MenuItem>
+                  <MenuItem value="Fly Emarits">الاماراتية</MenuItem>
+                  <MenuItem value="Itihad">الاتحاد</MenuItem>
+                  <MenuItem value="Nas"> فلاي ناس</MenuItem>
+                  <MenuItem value="Saudi">السعودية</MenuItem>
+                </Select>
+              </FormControl>
             </Grid>
             <Grid item xs={12} sm={12}>
               <TextField
