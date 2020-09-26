@@ -143,6 +143,7 @@ exports.printApplicationReceipt = asyncHandler(async (req, res, next) => {
   if (!application) {
     return next(new ErrorResponse(`لم يتم العثور على العميل`, 404));
   }
+  console.log(application);
   htmlPdf.create(pdf(application), {}).toFile("receipt.pdf", (err) => {
     if (err) {
       res.send(Promise.reject());
