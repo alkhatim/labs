@@ -66,6 +66,9 @@ const ApplicationSchema = new Schema({
   otherAirlines: {
     type: String,
   },
+  QRCode: {
+    type: String,
+  },
   phoneNumber: {
     type: String,
     required: true,

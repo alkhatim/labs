@@ -2,7 +2,7 @@ const ErrorResponse = require("../utils/errorResponse");
 const asyncHandler = require("../middleware/async");
 const pdf = require("../utils/pdf");
 const htmlPdf = require("html-pdf");
-
+const QRCodeGenerator = require("qrcode");
 const moment = require("moment");
 const path = require("path");
 
@@ -99,7 +99,6 @@ exports.addApplication = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse(`تم اضافة الطلب مسبقا`, 400));
   }
 
-  const user = User.findById(req.user.id);
   //Check dates validity
   let startDate = moment(new Date(req.body.testDate));
   let endDate = moment(new Date(req.body.flightDate));
@@ -117,8 +116,17 @@ exports.addApplication = asyncHandler(async (req, res, next) => {
   req.body.state = "registered";
   req.body.passportNumber = req.body.passportNumber.toUpperCase().trim();
 
-  const application = new Application(req.body);
+  let application = new Application(req.body);
   await application.save();
+
+  const QRCode = await QRCodeGenerator.toDataURL(
+    `http://tsetlabs.twzeefsd.com/application/${application._id}`
+  );
+
+  application.QRCode = QRCode;
+  await application.save();
+
+  application.user = await User.findById(req.user._id);
 
   let airlines;
   switch (application.airlines) {
@@ -156,7 +164,7 @@ exports.addApplication = asyncHandler(async (req, res, next) => {
       break;
   }
 
-  const body = {
+  const app = {
     name: application.name,
     ename: application.ename,
     testDate: application.testDate,
@@ -164,20 +172,19 @@ exports.addApplication = asyncHandler(async (req, res, next) => {
     phoneNumber: application.phoneNumber,
     passportNumber: application.passportNumber,
     destination: application.destination,
+    QRCode: application.QRCode,
     airlines: airlines,
-    userName: user.name,
+    user: application.user,
   };
 
-  htmlPdf.create(pdf(body), {}).toFile("receipt.pdf", (err) => {
+  htmlPdf.create(pdf(app), {}).toFile("receipt.pdf", (err) => {
     if (err) {
       res.send(Promise.reject());
     }
-    res.send(Promise.resolve());
-  });
-
-  res.status(200).json({
-    success: true,
-    data: application,
+    res.status(200).json({
+      success: true,
+      data: application,
+    });
   });
 });
 
@@ -194,6 +201,44 @@ exports.printApplicationReceipt = asyncHandler(async (req, res, next) => {
   ).populate("user");
   if (!application) {
     return next(new ErrorResponse(`لم يتم العثور على العميل`, 404));
+  }
+  let airlines;
+  switch (application.airlines) {
+    case "Badr":
+      application.airlines = "بدر";
+      break;
+    case "Tarko":
+      application.airlines = "تاركو";
+      break;
+    case "Ethiopian":
+      application.airlines = "الاثيوبية";
+      break;
+    case "Fly Dubai":
+      application.airlines = "فلاي دبي";
+      break;
+    case "Qatar":
+      application.airlines = "القطرية";
+      break;
+    case "Fly Emarits":
+      application.airlines = "الاماراتية";
+      break;
+    case "Fly Emarits":
+      application.airlines = "الاماراتية";
+      break;
+    case "Itihad":
+      application.airlines = "الاتحاد";
+      break;
+    case "Nas":
+      application.airlines = "فلاي ناس";
+      break;
+    case "Saudi":
+      application.airlines = "السعودية";
+      break;
+    case "Turky":
+      application.airlines = "التركية";
+      break;
+    default:
+      break;
   }
   htmlPdf.create(pdf(application), {}).toFile("receipt.pdf", (err) => {
     if (err) {

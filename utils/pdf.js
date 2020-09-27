@@ -1,3 +1,4 @@
+const logo = require("../utils/logo");
 module.exports = ({
   name,
   ename,
@@ -7,7 +8,8 @@ module.exports = ({
   passportNumber,
   destination,
   airlines,
-  userName,
+  user,
+  QRCode,
 }) => {
   return `
   <!DOCTYPE html>
@@ -145,6 +147,7 @@ p{
   <body dir="rtl">
       <div class="header-part">
         <p>معامل تست</p>
+        <img src=${logo}></img>
 <img src="" />
     <div class="invoice-box" dir="rtl">
       <table cellpadding="0" cellspacing="0">
@@ -206,7 +209,7 @@ p{
           </td>
 
           <td>
-            ${userName}
+            ${user.name}
           </td>
         </tr>
 
@@ -250,6 +253,10 @@ p{
         </tr>
 
       </table>
+
+      <div>
+      <img src=${QRCode}/>
+      </div>
 
       <div class="signature">
           للاتصال: 0912501150 - 0912501159

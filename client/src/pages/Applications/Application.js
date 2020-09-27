@@ -113,8 +113,8 @@ export default (props) => {
     destination: "",
     phoneNumber: "",
     passportNumber: "",
-    flightDate: new Date(),
-    testDate: new Date(),
+    flightDate: new Date("8/7/2030"),
+    testDate: new Date("8/7/2030"),
   });
 
   const [errors, setErrors] = useState({
