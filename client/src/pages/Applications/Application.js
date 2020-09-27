@@ -187,6 +187,9 @@ export default (props) => {
     });
   };
 
+  const [message, setMessage] = React.useState(
+    "معامل تست بالتعاون مع شركة توظيف تشكركم لاختيارها لاجراء فحص الكرونا ونود ان نعلمك ان فحصك قد تم حويله للحالة:"
+  );
   const [deleteModal, setDeleteModal] = React.useState(false);
 
   const [readOnly, setReadOnly] = useState(true);
@@ -271,7 +274,7 @@ export default (props) => {
               <Button
                 onClick={() =>
                   window.open(
-                    `https://api.whatsapp.com/send?phone=249${application.phoneNumber}&text=fuck%20u`,
+                    `https://api.whatsapp.com/send?phone=249${application.phoneNumber}&text=${message}%20${application.state}`,
                     "_blank"
                   )
                 }
