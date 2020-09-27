@@ -23,8 +23,49 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
 export default function Review({ application }) {
   const classes = useStyles();
+
+  let airlines; 
+
+switch (application.airlines) {
+  case "Badr":
+    airlines = "بدر"
+    break;
+    case "Tarko":
+      airlines = "تاركو"
+      break;
+      case "Eithiopian":
+        airlines = "الاثيوبية"
+        break;
+        case "Turky":
+          airlines = "التركية"
+          break;
+          case "Fly Dubai":
+          airlines = "فلاي دبي"
+          break;
+          case "Qatar":
+          airlines = "القطرية"
+          break;
+          case "Fly Emarits":
+          airlines = "الاماراتية"
+          break;
+          case "Itihad":
+          airlines = "ألاتحاد"
+          break;
+          case "Nas":
+          airlines = "طيران ناس"
+          break;
+          case "Saudi":
+          airlines = "السعودية"
+          break;
+          case "other":
+            airlines = "اخرى"
+            break;
+  default:
+    break;
+}
 
   const name =
     application.name1 +
@@ -97,10 +138,17 @@ export default function Review({ application }) {
               <Typography variant="h6">{application.phoneNumber}</Typography>
             }
           />
+        </ListItem>
+        <ListItem className={classes.listItem}>
+          <ListItemAvatar>
+            <Avatar>
+              <PhoneIcon />
+            </Avatar>
+          </ListItemAvatar>
           <ListItemText
-            primary="رقم الهاتف"
+            primary="الخطوط"
             secondary={
-              <Typography variant="h6">{application.airlines}</Typography>
+              <Typography variant="h6">{airlines}</Typography>
             }
           />
         </ListItem>

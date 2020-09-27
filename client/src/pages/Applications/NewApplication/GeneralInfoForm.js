@@ -149,9 +149,21 @@ export default function GeneralInfoForm({
               <MenuItem value="Itihad">الاتحاد</MenuItem>
               <MenuItem value="Nas"> فلاي ناس</MenuItem>
               <MenuItem value="Saudi">السعودية</MenuItem>
+              <MenuItem value="other">اخرى</MenuItem>
             </Select>
           </FormControl>
         </Grid>
+        {application.airlines === "other" &&
+        (<Grid item xs={12} sm={12}>
+          <TextField
+            className={classes.texField}
+            name="otherAirlines"
+            error={errors.otherAirlines}
+            label="اسم الخطوط"
+            onChange={onChange}
+            value={application.otherAirlines}
+          />
+        </Grid>)}
         <Grid item xs={12} sm={12}>
           <TextField
             className={classes.texField}

@@ -1,0 +1,6 @@
+export NODE_ENV=development
+export PORT=5000
+export MONGO_URI=mongodb://u99sfungh4nc6eo6y5ud:6GsEOMFbnjBTGUQOgydK@b1hnei1uy55wu1h-mongodb.services.clever-cloud.com:27017/b1hnei1uy55wu1h
+export JWT_SECRET=thisisanamazingsecretperhapsishouldshareit
+export JWT_EXPIRE=30d
+export JWT_COOKIE_EXPIRE=100

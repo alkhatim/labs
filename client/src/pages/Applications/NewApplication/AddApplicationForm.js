@@ -70,6 +70,7 @@ export default function AddApplicationForm(props) {
     ename3: "",
     ename4: "",
     airlines: "",
+    otherAirlines:"",
     destination: "",
     phoneNumber: "",
     passportNumber: "",

@@ -60,7 +60,11 @@ const ApplicationSchema = new Schema({
       "Itihad",
       "Nas",
       "Saudi",
+      "other",
     ],
+  },
+  otherAirlines: {
+    type: String,
   },
   phoneNumber: {
     type: String,
