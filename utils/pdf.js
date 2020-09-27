@@ -37,7 +37,7 @@ p{
 
  img { position: absolute;
   left: 0px;
-  top: 0px;}
+  buttom: 0px;}
 
 .header-part{
     display: flex; 
@@ -146,23 +146,15 @@ p{
 
   <body dir="rtl">
       <div class="header-part">
+        <p>بسم الله الرحمن الرحيم</p>
+        <p> معامل تست للتحاليل الطبية</p>
         <p>معامل تست</p>
-        <img src=${logo}></img>
+        <img src=${logo} style="width: 100%; max-width: 200px; position: absolute;
+  left: 0px;
+  top: 0px;"></img>
 <img src="" />
     <div class="invoice-box" dir="rtl">
       <table cellpadding="0" cellspacing="0">
-        <tr class="top">
-          <td colspan="2">
-            <table>
-              <tr>
-                <td>
-                  بسم الله الرحمن الرحيم <br />
-                  فاتورة حجز
-                </td>
-              </tr>
-            </table>
-          </td>
-        </tr>
 
         <tr class="heading">
           <td>
@@ -255,7 +247,7 @@ p{
       </table>
 
       <div>
-      <img src=${QRCode}/>
+      <img src=${QRCode} style="width: 100%; max-width: 250px;"/>
       </div>
 
       <div class="signature">
