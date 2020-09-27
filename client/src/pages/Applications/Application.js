@@ -268,11 +268,16 @@ export default (props) => {
               </Button>
             </Tooltip>
             <Tooltip title="إرسال إشعار">
-              <a
-                href={`https://api.whatsapp.com/send?phone=${application.phoneNumber}&text=fuck%20u`}
+              <Button
+                onClick={() =>
+                  window.open(
+                    `https://api.whatsapp.com/send?phone=249${application.phoneNumber}&text=fuck%20u`,
+                    "_blank"
+                  )
+                }
               >
                 <WhatsAppIcon style={{ color: "#3cb371" }} fontSize="large" />
-              </a>
+              </Button>
             </Tooltip>
             {(application.state === "registered" ||
               role === "lab" ||

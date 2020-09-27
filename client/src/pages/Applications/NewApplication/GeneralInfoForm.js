@@ -153,17 +153,18 @@ export default function GeneralInfoForm({
             </Select>
           </FormControl>
         </Grid>
-        {application.airlines === "other" &&
-        (<Grid item xs={12} sm={12}>
-          <TextField
-            className={classes.texField}
-            name="otherAirlines"
-            error={errors.otherAirlines}
-            label="اسم الخطوط"
-            onChange={onChange}
-            value={application.otherAirlines}
-          />
-        </Grid>)}
+        {application.airlines === "other" && (
+          <Grid item xs={12} sm={12}>
+            <TextField
+              className={classes.texField}
+              name="otherAirlines"
+              error={errors.otherAirlines}
+              label="اسم الخطوط"
+              onChange={onChange}
+              value={application.otherAirlines}
+            />
+          </Grid>
+        )}
         <Grid item xs={12} sm={12}>
           <TextField
             className={classes.texField}
@@ -173,6 +174,7 @@ export default function GeneralInfoForm({
             onChange={onChange}
             value={application.phoneNumber}
           />
+          <small>أدخل رقم الهاتف بدون صفر البداية, مثال: 9123000000</small>
         </Grid>
         <Grid item xs={12} sm={12}>
           <TextField
