@@ -16,6 +16,7 @@ import SaveIcon from "@material-ui/icons/Save";
 import DownloadIcon from "@material-ui/icons/GetApp";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
+import WhatsAppIcon from "@material-ui/icons/WhatsApp";
 import Dialog from "@material-ui/core/Dialog";
 import { useSelector } from "react-redux";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -265,6 +266,13 @@ export default (props) => {
               <Button onClick={async () => await downloadReceipt(application)}>
                 <DownloadIcon style={{ color: "#3cb371" }} fontSize="large" />
               </Button>
+            </Tooltip>
+            <Tooltip title="إرسال إشعار">
+              <a
+                href={`https://api.whatsapp.com/send?phone=${application.phoneNumber}&text=fuck%20u`}
+              >
+                <WhatsAppIcon style={{ color: "#3cb371" }} fontSize="large" />
+              </a>
             </Tooltip>
             {(application.state === "registered" ||
               role === "lab" ||
