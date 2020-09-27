@@ -48,6 +48,19 @@ p{
         line-height: 24px;
         font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 }
+
+.titles {
+    display: flex; 
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;
+    font-size: 16px;
+    line-height: 24px;
+    margin-top: 120px;
+    margin-right: 400px;
+    font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+}
+
       .invoice-box table {
         width: 100%;
         line-height: inherit;
@@ -144,15 +157,21 @@ p{
     </style>
   </head>
 
-  <body dir="rtl">
       <div class="header-part">
-        <p>بسم الله الرحمن الرحيم</p>
-        <p> معامل تست للتحاليل الطبية</p>
-        <p>معامل تست</p>
         <img src=${logo} style="width: 100%; max-width: 200px; position: absolute;
   left: 0px;
   top: 0px;"></img>
-<img src="" />
+</div>
+  <body dir="rtl">
+  <div class="titles" >
+  <div style="font-size: 24px;">
+    <h1> معامل تست للتحاليل الطبية</h1>
+  </div>
+  <div style="margin-right: 65px;">
+  <h2>طلب فحص الكرونا COVID-19 </h2>
+  <h2>تاريخ الطباعة ${new Date().toLocaleDateString()}</h2>
+  </div>
+  </div>
     <div class="invoice-box" dir="rtl">
       <table cellpadding="0" cellspacing="0">
 
@@ -188,7 +207,7 @@ p{
 
         <tr class="item">
           <td>
-            رقم الجواز
+            رقم الهاتف
           </td>
 
           <td>
@@ -251,7 +270,9 @@ p{
       </div>
 
       <div class="signature">
-          للاتصال: 0912501150 - 0912501159
+         <h4>
+         للاتصال: 0912501150 - 0912501159         
+         </h4> 
       </div>
     </div>
   </body>
