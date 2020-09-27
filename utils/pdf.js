@@ -1,12 +1,12 @@
 module.exports = ({
   name,
+  ename,
   testDate,
-  passportNumber,
   flightDate,
+  phoneNumber,
+  passportNumber,
   destination,
   airlines,
-  phoneNumber,
-  ename,
   userName,
 }) => {
   return `

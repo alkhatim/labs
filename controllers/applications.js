@@ -8,6 +8,7 @@ const path = require("path");
 
 //Import Models
 const Application = require("../models/Application");
+const User = require("../models/User");
 
 exports.getApplications = asyncHandler(async (req, res, next) => {
   const applications = await Application.find();
@@ -98,6 +99,7 @@ exports.addApplication = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse(`تم اضافة الطلب مسبقا`, 400));
   }
 
+  const user = User.findById(req.user.id);
   //Check dates validity
   let startDate = moment(new Date(req.body.testDate));
   let endDate = moment(new Date(req.body.flightDate));
@@ -117,7 +119,56 @@ exports.addApplication = asyncHandler(async (req, res, next) => {
 
   const application = new Application(req.body);
   await application.save();
-  htmlPdf.create(pdf(application), {}).toFile("receipt.pdf", (err) => {
+
+  let airlines;
+  switch (application.airlines) {
+    case "Badr":
+      airlines = "بدر";
+      break;
+    case "Tarko":
+      airlines = "تاركو";
+      break;
+    case "Ethiopian":
+      airlines = "الاثيوبية";
+      break;
+    case "Fly Dubai":
+      airlines = "فلاي دبي";
+      break;
+    case "Qatar":
+      airlines = "القطرية";
+      break;
+    case "Fly Emarits":
+      airlines = "الاماراتية";
+      break;
+    case "Fly Emarits":
+      airlines = "الاماراتية";
+      break;
+    case "Itihad":
+      airlines = "الاتحاد";
+      break;
+    case "Nas":
+      airlines = "فلاي ناس";
+      break;
+    case "Saudi":
+      airlines = "السعودية";
+      break;
+    default:
+      break;
+  }
+
+  const body = {
+    name: application.name,
+    ename: application.ename,
+    testDate: application.testDate,
+    flightDate: application.flightDate,
+    phoneNumber: application.phoneNumber,
+    passportNumber: application.passportNumber,
+    destination: application.destination,
+    airlines: airlines,
+    userName: user.name,
+  };
+
+  htmlPdf.create(pdf(body), {}).toFile("receipt.pdf", (err) => {
     if (err) {
       res.send(Promise.reject());
     }
