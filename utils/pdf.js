@@ -56,8 +56,6 @@ p{
     align-items: center;
     font-size: 16px;
     line-height: 24px;
-    margin-top: 120px;
-    margin-right: 400px;
     font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 }
 
@@ -164,10 +162,10 @@ p{
 </div>
   <body dir="rtl">
   <div class="titles" >
-  <div style="font-size: 24px;">
+  <div style="font-size: 24px; text-align: center;">
     <h1> معامل تست للتحاليل الطبية</h1>
   </div>
-  <div style="margin-right: 65px;">
+  <div style="text-align: center;">
   <h2>طلب فحص الكرونا COVID-19 </h2>
   <h2>تاريخ الطباعة ${new Date().toLocaleDateString()}</h2>
   </div>
