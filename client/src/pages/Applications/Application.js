@@ -187,9 +187,6 @@ export default (props) => {
     });
   };
 
-  const [message, setMessage] = React.useState(
-    "معامل تست بالتعاون مع شركة توظيف تشكركم لاختيارها لاجراء فحص الكرونا ونود ان نعلمك ان فحصك قد تم حويله للحالة:"
-  );
   const [deleteModal, setDeleteModal] = React.useState(false);
 
   const [readOnly, setReadOnly] = useState(true);
@@ -210,6 +207,30 @@ export default (props) => {
   const handleFlightDateChange = (flightDate) => {
     setApplication({ ...application, flightDate });
   };
+
+  const [message, setMessage] = React.useState(`
+  معامل تست بالتعاون مع شركة توظيف تشكركم لاختيارها لاجراء فحص الكرونا ونود ان نعلمك ان فحصك قد تم حويله للحالة
+  `);
+
+  let state = "";
+
+  switch (application.state) {
+    case "registered":
+      state = "تم التسجيل";
+      break;
+    case "tested":
+      state = "تم الفحص";
+      break;
+    case "result issued":
+      state = "تم استخراج النتيجة";
+      break;
+    case "result delivered":
+      state = "تم استلام النتيجة";
+      break;
+
+    default:
+      break;
+  }
 
   const handleTestDateChange = (testDate) => {
     setApplication({ ...application, testDate });
@@ -274,7 +295,7 @@ export default (props) => {
               <Button
                 onClick={() =>
                   window.open(
-                    `https://api.whatsapp.com/send?phone=249${application.phoneNumber}&text=${message}%20${application.state}`,
+                    `https://api.whatsapp.com/send?phone=249${application.phoneNumber}&text=${message}%20${state}`,
                     "_blank"
                   )
                 }

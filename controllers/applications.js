@@ -19,7 +19,9 @@ exports.getApplications = asyncHandler(async (req, res, next) => {
 });
 
 exports.getMyApplications = asyncHandler(async (req, res, next) => {
-  const applications = await Application.find({ user: req.user.id });
+  const applications = await Application.find({ user: req.user.id }).populate(
+    "user"
+  );
   res.status(200).json({
     success: true,
     data: applications,
