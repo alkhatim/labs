@@ -102,22 +102,6 @@ export default function GeneralForm({ user, errors, onChange }) {
             value={user.email}
           />
         </Grid>
-        <Grid item xs={6}>
-          <FormControl className={classes.formControl}>
-            <InputLabel id="role">الصلاحية</InputLabel>
-            <Select
-              labelId="role"
-              name="role"
-              value={user.role}
-              onChange={onChange}
-            >
-              <MenuItem value="admin">ادمن</MenuItem>
-              <MenuItem value="agency">وكالة</MenuItem>
-              <MenuItem value="lab">موظف معمل</MenuItem>
-              <MenuItem value="user">عميل</MenuItem>
-            </Select>
-          </FormControl>
-        </Grid>
       </Grid>
     </React.Fragment>
   );
