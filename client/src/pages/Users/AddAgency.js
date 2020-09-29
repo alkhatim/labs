@@ -57,6 +57,13 @@ export default function AddUser(props) {
 
   const [activeStep, setActiveStep] = useState(0);
 
+  const isLoggedIn = useSelector((store) => store.authReducer.isLoggedIn);
+  const isLoading = useSelector((store) => store.authReducer.isLoading);
+
+  if (isLoggedIn && !isLoading) {
+    return <Redirect to="/dashboard" />;
+  }
+
   const [user, setUser] = useState({
     userName: "",
     password: "",
