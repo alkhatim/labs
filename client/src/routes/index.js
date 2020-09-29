@@ -10,17 +10,17 @@ import AllApplications from "../pages/Applications/AllApplications";
 import Application from "../pages/Applications/Application";
 import Users from "../pages/Users/Users";
 import User from "../pages/Users/User";
-import AddUser from "../pages/Users/AddUser";
+import AddUser from "../pages/Users/AddAgency";
 import UserProfile from "../pages/Users/UserProfile";
 
 export default function Routes() {
   return (
     <Switch>
-      <DefaultRoute path="/" exact component={LoginPage} />
+      <DefaultRoute path="/" exact component={AddUser} />
+      <Route path="/login" exact component={LoginPage} />
       <AppContainer>
         <Route path="/dashboard" exact component={DashboardPage} />
         <Route path="/all-users" exact component={Users} />
-        <Route path="/add-users" exact component={AddUser} />
         <Route path="/user/:id" exact component={User} />
         <Route path="/user-profile" exact component={UserProfile} />
         <Route path="/my-applications" exact component={Applications} />

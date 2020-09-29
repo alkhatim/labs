@@ -19,19 +19,22 @@ const router = express.Router({ mergeParams: true });
 const advancedResults = require("../middleware/advancedResults");
 const { protect, authorize } = require("../middleware/auth");
 
-router.use(protect);
-
-router
-  .route("/")
-  .get(advancedResults(User), authorize("admin"), getUsers)
-  .post(authorize("admin"), createUser);
+router.route("/").get(advancedResults(User), getUsers).post(createUser);
 
 router
   .route("/my-profile")
-  .get(authorize("admin", "agency", "lab", "user"), getMyUserProfile)
-  .put(authorize("admin", "agency", "lab", "user"), updateMyUserProfile);
-router.route("/update-my-password").put(authorize("admin"), updateMyPassword);
-router.route("/:id/update-password").post(authorize("admin"), updatePassword);
+  .get(protect, authorize("admin", "agency", "lab", "user"), getMyUserProfile)
+  .put(
+    protect,
+    authorize("admin", "agency", "lab", "user"),
+    updateMyUserProfile
+  );
+router
+  .route("/update-my-password")
+  .put(protect, authorize("admin"), updateMyPassword);
+router
+  .route("/:id/update-password")
+  .post(protect, authorize("admin"), updatePassword);
 
 router
   .route("/:id")

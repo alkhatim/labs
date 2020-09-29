@@ -25,24 +25,6 @@ const useStyles = makeStyles((theme) => ({
 export default function Review({ user }) {
   const classes = useStyles();
 
-  let role;
-  switch (user.role) {
-    case "agency":
-      role = "وكالة";
-      break;
-    case "lab":
-      role = "موظف معمل";
-      break;
-    case "admin":
-      role = "ادمن";
-      break;
-    case "user":
-      role = "عميل";
-      break;
-    default:
-      break;
-  }
-
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -67,7 +49,7 @@ export default function Review({ user }) {
             </Avatar>
           </ListItemAvatar>
           <ListItemText
-            primary="الإسم"
+            primary="اسم الوكالة"
             secondary={<Typography variant="h6">{user.name}</Typography>}
           />
         </ListItem>
@@ -91,17 +73,6 @@ export default function Review({ user }) {
           <ListItemText
             primary="الإيميل"
             secondary={<Typography variant="h6">{user.email}</Typography>}
-          />
-        </ListItem>
-        <ListItem className={classes.listItem}>
-          <ListItemAvatar>
-            <Avatar>
-              <ListIcon />
-            </Avatar>
-          </ListItemAvatar>
-          <ListItemText
-            primary="الصلاحية"
-            secondary={<Typography variant="h6">{role}</Typography>}
           />
         </ListItem>
       </List>

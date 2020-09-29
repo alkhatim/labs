@@ -45,7 +45,7 @@ export default function GeneralForm({ user, errors, onChange }) {
             className={classes.texField}
             name="name"
             error={errors.name}
-            label="اسم الوكالة\المعمل"
+            label="اسم الوكالة"
             onChange={onChange}
             value={user.name}
           />

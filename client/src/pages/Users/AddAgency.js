@@ -54,7 +54,6 @@ const steps = ["بيانات المستخدم", "مراجعة البيانات"]
 
 export default function AddUser(props) {
   const classes = useStyles();
-  const role = useSelector((store) => store.authReducer.role);
 
   const [activeStep, setActiveStep] = useState(0);
 
@@ -137,7 +136,7 @@ export default function AddUser(props) {
         try {
           const result = await addUser(user);
           messages.success("تم إضافة المستخدم");
-          if (result) props.history.push("/dashboard");
+          if (result) props.history.push("/login");
         } catch (error) {
           messages.error(error);
         }
@@ -165,7 +164,7 @@ export default function AddUser(props) {
     }
   }
 
-  return role === "admin" ? (
+  return (
     <React.Fragment>
       <CssBaseline />
       <main className={classes.layout}>
@@ -214,7 +213,5 @@ export default function AddUser(props) {
         </Paper>
       </main>
     </React.Fragment>
-  ) : (
-    <Redirect to="/dashboard" />
   );
 }
