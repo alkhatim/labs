@@ -20,6 +20,14 @@ const advancedResults = require("../middleware/advancedResults");
 const { protect, authorize } = require("../middleware/auth");
 
 router.route("/").get(advancedResults(User), getUsers).post(createUser);
+router
+  .route("/:id/update-password")
+  .post(protect, authorize("admin"), updatePassword);
+
+router
+  .route("/:id")
+  .get(protect, authorize("admin"), getUser)
+  .delete(protect, authorize("admin"), deleteUser);
 
 router
   .route("/my-profile")
@@ -32,14 +40,6 @@ router
 router
   .route("/update-my-password")
   .put(protect, authorize("admin"), updateMyPassword);
-router
-  .route("/:id/update-password")
-  .post(protect, authorize("admin"), updatePassword);
-
-router
-  .route("/:id")
-  .get(authorize("admin"), getUser)
-  .delete(authorize("admin"), deleteUser);
 
 router.route("/update").put(authorize("agency"), updateUser);
 module.exports = router;

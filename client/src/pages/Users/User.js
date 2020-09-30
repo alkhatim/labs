@@ -25,6 +25,7 @@ import {
   changePassword,
 } from "../../redux/actions/users_actions";
 import messages from "../../helpers/messages";
+import { id } from "date-fns/locale";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -111,7 +112,7 @@ export default (props) => {
     const fetchData = async () => {
       if (props.match.params.id) {
         const userData = await getUser(props.match.params.id);
-        setUser(userData);
+        if (userData) setUser(userData);
       }
     };
     fetchData();

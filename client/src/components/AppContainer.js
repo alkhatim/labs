@@ -10,6 +10,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -27,10 +28,13 @@ import MenuIcon from "@material-ui/icons/Menu";
 import AssignmentIndIcon from "@material-ui/icons/AssignmentInd";
 import GroupIcon from "@material-ui/icons/Group";
 import AssignmentTurnedInIcon from "@material-ui/icons/AssignmentTurnedIn";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import clsx from "clsx";
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { Link, Redirect } from "react-router-dom";
+import { logOutAction } from "../redux/actions/auth_actions";
+import http from "../helpers/http";
 
 const drawerWidth = 340;
 
@@ -114,6 +118,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AppContainer(props) {
   const role = useSelector((store) => store.authReducer.role);
+  const dispatch = useDispatch();
 
   const classes = useStyles();
   const theme = useTheme();
@@ -145,6 +150,16 @@ export default function AppContainer(props) {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const isLoggedIn = useSelector((store) => store.authReducer.isLoggedIn);
+
+  const handleLogOut = () => {
+    dispatch(logOutAction());
+    if (!isLoggedIn) {
+      http.defaultHeader();
+      return <Redirect to="/dashboard" />;
+    }
   };
 
   return (
@@ -195,7 +210,14 @@ export default function AppContainer(props) {
               }}
               open={openAnchor}
               onClose={handleClose}
-            ></Menu>
+            >
+              <MenuItem onClick={handleClose}>
+                <Link to="/user-profile">الملف الشخصي</Link>
+              </MenuItem>
+              <MenuItem onClick={handleLogOut}>
+                <Link>تسجيل الخروج</Link>
+              </MenuItem>
+            </Menu>
           </div>
         </Toolbar>
       </AppBar>
@@ -260,7 +282,7 @@ export default function AppContainer(props) {
                   <AssignmentIndIcon />
                 )}
                 {SidebarNestedItem(
-                  "/add-users",
+                  "/admin-user-registration",
                   "اضافة مستخدم",
                   <PersonAddIcon />
                 )}

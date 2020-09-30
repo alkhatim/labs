@@ -11,6 +11,7 @@ import Application from "../pages/Applications/Application";
 import Users from "../pages/Users/Users";
 import User from "../pages/Users/User";
 import AddUser from "../pages/Users/AddAgency";
+import AddUserByAdmin from "../pages/Users/AddUser";
 import UserProfile from "../pages/Users/UserProfile";
 
 export default function Routes() {
@@ -23,6 +24,11 @@ export default function Routes() {
         <Route path="/all-users" exact component={Users} />
         <Route path="/user/:id" exact component={User} />
         <Route path="/user-profile" exact component={UserProfile} />
+        <Route
+          path="/admin-user-registration"
+          exact
+          component={AddUserByAdmin}
+        />
         <Route path="/my-applications" exact component={Applications} />
         <Route path="/all-applications" exact component={AllApplications} />
         <Route path="/new-application" exact component={AddApplicationForm} />

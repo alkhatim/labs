@@ -59,8 +59,7 @@ export const loadUserAction = () => async (dispatch) => {
 };
 
 export const logOutAction = () => async (dispatch) => {
-  localStorage.removeItem("token");
-  localStorage.removeItem("tempToken");
+  localStorage.clear();
   dispatch({
     type: authConstants.LOGOUT,
   });

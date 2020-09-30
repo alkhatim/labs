@@ -70,7 +70,7 @@ export default function AddApplicationForm(props) {
     ename3: "",
     ename4: "",
     airlines: "",
-    otherAirlines:"",
+    otherAirlines: "",
     destination: "",
     phoneNumber: "",
     passportNumber: "",
@@ -188,10 +188,14 @@ export default function AddApplicationForm(props) {
               application.ename4.trim(),
           };
           const result = await addApplication(submit);
-          if (result && role === "agency")
+          if (result && role === "agency") {
+            messages.success("تم إضافة طلب الفحص");
             props.history.push(`/my-applications`);
-          if (result && (role === "lab" || role === "admin"))
+          }
+          if (result && (role === "lab" || role === "admin")) {
+            messages.success("تم إضافة طلب الفحص");
             props.history.push(`/all-applications`);
+          }
         } catch (error) {
           messages.error(error);
         }

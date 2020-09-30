@@ -13,8 +13,8 @@ import { useSelector } from "react-redux";
 
 import messages from "../../helpers/messages";
 import { addUser } from "../../redux/actions/users_actions";
-import GeneralForm from "./GeneralForm";
-import AgencyUserReview from "./UserReview";
+import GeneralForm from "./AdminGeneralForm";
+import UserReview from "./AdminUserReview";
 
 const useStyles = makeStyles((theme) => ({
   layout: {
@@ -136,8 +136,10 @@ export default function AddUser(props) {
       case 1:
         try {
           const result = await addUser(user);
-          messages.success("تم إضافة المستخدم");
-          if (result) props.history.push("/all-users");
+          if (result) {
+            messages.success("تم إضافة المستخدم");
+            props.history.push("/all-users");
+          }
         } catch (error) {
           messages.error(error);
         }
@@ -159,7 +161,7 @@ export default function AddUser(props) {
           <GeneralForm user={user} errors={errors} onChange={handleChange} />
         );
       case 1:
-        return <AgencyUserReview user={user} />;
+        return <UserReview user={user} />;
       default:
         throw new Error("Unknown step");
     }

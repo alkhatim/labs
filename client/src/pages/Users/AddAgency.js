@@ -142,8 +142,10 @@ export default function AddUser(props) {
       case 1:
         try {
           const result = await addUser(user);
-          messages.success("تم إضافة المستخدم");
-          if (result) props.history.push("/");
+          if (result) {
+            messages.success("تم إضافة المستخدم");
+            props.history.push("/");
+          }
         } catch (error) {
           messages.error(error);
         }
