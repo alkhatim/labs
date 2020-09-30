@@ -148,12 +148,13 @@ export default function Applications(props) {
         data={applications}
         columns={columns}
         options={{
-          exportButton: true,
-          grouping: true,
-          // selection: true,
           rowStyle: {
             backgroundColor: "#EEE",
           },
+          exportButton: true,
+          grouping: true,
+          pageSizeOptions: [5, 10, 20, 40, 100, 200, 500, 1000, 10000],
+          actionsColumnIndex: -1,
         }}
         localization={{
           toolbar: {
@@ -162,7 +163,6 @@ export default function Applications(props) {
             exportTitle: "تحميل التقرير",
             exportName: "تحميل التقرير",
             exportAriaLabel: "تحميل التقرير",
-            nRowsSelected: " لقد قمت باختيار {0} عميل",
           },
           pagination: {
             labelDisplayedRows: " {from} الى {to}  من اصل {count}",
@@ -176,16 +176,23 @@ export default function Applications(props) {
             actions: "",
           },
           body: {
-            emptyDataSourceMessage: "لا توجد بيانات",
+            emptyDataSourceMessage: "لا توجد بيانات لطلبات الفحص بعد",
             filterRow: {
               filterTooltip: "تصنيف",
             },
             deleteTooltip: "مسح",
             editTooltip: "تعديل",
+            addTooltip: "اضافة",
+            editRow: {
+              deleteText: "هل انت متاكد من مسح الطلب",
+              cancelTooltip: "الغاء المسح",
+              saveTooltip: "تاكيد المسح",
+            },
           },
           grouping: {
             placeholder:
-              "قم بسحب عنوان الصف والقاءه هنا لكي تقوم بالتصنيف بناء عليه",
+              "قم بسحب عنوان الصف والقاءه هنا لكي تقوم بالتصنيف بناء عليه (مثال قم بالضغط على نوع السند وجره الى هذا المستطيل)",
+            groupedBy: "التصنيف بناء على:",
           },
         }}
         actions={[

@@ -18,11 +18,17 @@ const router = express.Router({ mergeParams: true });
 //Import Middleware
 const advancedResults = require("../middleware/advancedResults");
 const { protect, authorize } = require("../middleware/auth");
+const { updateUserPassword } = require("../controllers/auth");
 
 router.route("/").get(advancedResults(User), getUsers).post(createUser);
+
 router
   .route("/:id/update-password")
   .post(protect, authorize("admin"), updatePassword);
+
+router
+  .route("/:id/update-user-password")
+  .post(protect, authorize("admin"), updateUserPassword);
 
 router
   .route("/:id")
@@ -39,7 +45,7 @@ router
   );
 router
   .route("/update-my-password")
-  .put(protect, authorize("admin"), updateMyPassword);
+  .put(protect, authorize("admin", "agency"), updateMyPassword);
 
 router.route("/update").put(authorize("agency"), updateUser);
 module.exports = router;

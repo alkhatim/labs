@@ -66,7 +66,7 @@ export const getUsers = async () => {
 
 export const changePassword = async (id, body) => {
   try {
-    await http.post(`/api/v1/users/${id}/update-password`, body);
+    await http.post(`/api/v1/users/${id}/update-user-password`, body);
   } catch (error) {
     messages.error(error);
   }

@@ -117,7 +117,6 @@ exports.addApplication = asyncHandler(async (req, res, next) => {
   }
   req.body.state = "registered";
   req.body.passportNumber = req.body.passportNumber.toUpperCase().trim();
-
   let application = new Application(req.body);
   await application.save();
 

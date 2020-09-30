@@ -8,7 +8,6 @@ const {
   addApplication,
   updateApplication,
   deleteApplication,
-  createPdf,
   getMyApplicationsCountAccordingToState,
   getApplicationsCountAccordingToState,
   printApplicationReceipt,

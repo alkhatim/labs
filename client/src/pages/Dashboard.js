@@ -102,7 +102,7 @@ export default function CenteredGrid() {
             role === "agency" ? "/my-applications" : "/all-applications"
           )}
         </Grid>
-        <Grid xs={12} style={{ marginTop: "5px" }}>
+        {/* <Grid xs={12} style={{ marginTop: "5px" }}>
           {StatusCard(
             "تم استخراج النتيجة",
             applications.issuedCount,
@@ -119,7 +119,7 @@ export default function CenteredGrid() {
             <ErrorOutlineIcon />,
             role === "agency" ? "/my-applications" : "/all-applications"
           )}
-        </Grid>
+        </Grid> */}
       </Grid>
     </div>
   );

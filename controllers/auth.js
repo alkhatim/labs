@@ -131,6 +131,16 @@ exports.updatePassword = asyncHandler(async (req, res, next) => {
   sendTokenResponse(user, 200, res);
 });
 
+// @desc      Update password
+// @route     PUT /api/v1/auth/updatepassword
+// @access    Private
+exports.updateUserPassword = asyncHandler(async (req, res, next) => {
+  const user = await User.findById(req.params.id).select("+password");
+  user.password = req.body.newPassword;
+  await user.save();
+  sendTokenResponse(user, 200, res);
+});
+
 // @desc      Forgot password
 // @route     POST /api/v1/auth/forgotpassword
 // @access    Public

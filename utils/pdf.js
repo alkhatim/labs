@@ -23,14 +23,14 @@ module.exports = ({
         max-width: 800px;
         margin: auto;
         padding: 30px;
-        font-size: 16px;
+        font-size: 12px;
         line-height: 24px;
         font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
         color: #555;
       }
 
 p{
-         font-size: 20px;
+         font-size: 12px;
         line-height: 24px;
 
 }
@@ -44,7 +44,7 @@ p{
     justify-content: space-between; 
     max-width: 800px ;
      margin: auto;
-        font-size: 16px;
+        font-size: 14px;
         line-height: 24px;
         font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 }
@@ -54,7 +54,7 @@ p{
     flex-direction: column;
     justify-content: center; 
     align-items: center;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 24px;
     font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 }
@@ -80,8 +80,8 @@ p{
       }
 
       .invoice-box table tr.top table td.title {
-        font-size: 45px;
-        line-height: 45px;
+        font-size: 24px;
+        line-height: 24px;
         color: #333;
       }
 
@@ -146,10 +146,9 @@ p{
           justify-content: center;
           align-items: center;
           align-items: center;
-          max-width: 800px ;
+          max-width: 400px ;
      margin-top: 100px;
-        font-size: 16px;
-        line-height: 24px;
+        font-size: 12px;
         font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
       }
     </style>
@@ -163,11 +162,11 @@ p{
   <body dir="rtl">
   <div class="titles" >
   <div style="font-size: 24px; text-align: center;">
-    <h1> معامل تست للتحاليل الطبية</h1>
+    <h2> معامل تست للتحاليل الطبية</h2>
   </div>
   <div style="text-align: center;">
-  <h2>طلب فحص الكرونا COVID-19 </h2>
-  <h2>تاريخ الطباعة ${new Date().toLocaleDateString()}</h2>
+  <h3>طلب فحص الكرونا COVID-19 </h3>
+  <h3>تاريخ الطباعة ${new Date().toLocaleDateString()}</h3>
   </div>
   </div>
     <div class="invoice-box" dir="rtl">
@@ -181,13 +180,10 @@ p{
           <td>
             ${name}
           </td>
-        </tr>
 
-        <tr class="heading">
           <td>
           الإسم باللغة الانجليزية
           </td>
-
           <td>
             ${ename}
           </td>
@@ -201,25 +197,15 @@ p{
           <td>
             ${passportNumber}
           </td>
-        </tr>
 
-        <tr class="item">
-          <td>
+           <td>
             رقم الهاتف
           </td>
 
           <td>
             ${phoneNumber}
           </td>
-        </tr>
- <tr class="item">
-          <td>
-           الوكالة 
-          </td>
 
-          <td>
-            ${user.name}
-          </td>
         </tr>
 
         <tr class="item">
@@ -230,28 +216,25 @@ p{
           <td>
             ${airlines}
           </td>
-        </tr>
 
-        <tr class="item">
-          <td>
+           <td>
             وجهة السفر
           </td>
 
           <td>
             ${destination}
           </td>
+
         </tr>
 
        <tr class="item">
-          <td>
+        <td>
            تاريخ السفر
           </td>
 
           <td>
             ${new Date(flightDate).toLocaleDateString()}
           </td>
-        </tr>
-       <tr class="item">
           <td>
            تاريخ الفحص
           </td>
@@ -261,16 +244,31 @@ p{
           </td>
         </tr>
 
+        <tr class="item" >
+         <td>
+           الوكالة 
+         </td>
+        <td>
+            ${user.name}
+        </td>
+        </tr>
       </table>
 
-      <div>
-      <img src=${QRCode} style="width: 100%; max-width: 250px;"/>
-      </div>
-
       <div class="signature">
-         <h4>
+      <div>
+       <h4>
          للاتصال: 0912501150 - 0912501159         
          </h4> 
+          <h4>
+        +للتواصل التقني والفني:  971569548956+ - 249999901321     
+         </h4> 
+          <h4>
+         البريد الاليكتروني: info@twzeefsd.com         
+         </h4> 
+      </div>
+      <div>
+      <img src=${QRCode} style="width: 100%; max-width: 200px;"/>
+      </div>
       </div>
     </div>
   </body>

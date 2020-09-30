@@ -99,7 +99,6 @@ export default (props) => {
   });
 
   const [newPassword, setNewPassword] = useState({
-    oldPassword: "",
     newPassword: "",
     confirmPassword: "",
   });
@@ -259,16 +258,6 @@ export default (props) => {
           >
             <DialogContent>
               <Grid container spacing={3}>
-                <Grid item xs={12}>
-                  <TextField
-                    className={classes.texField}
-                    name="oldPassword"
-                    type="password"
-                    label="كلمة المرور القديمة"
-                    onChange={handlePasswordChange}
-                    value={newPassword.oldPassword}
-                  />
-                </Grid>
                 <Grid item xs={6}>
                   <TextField
                     className={classes.texField}
