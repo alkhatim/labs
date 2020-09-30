@@ -57,13 +57,6 @@ export default function AddUser(props) {
 
   const [activeStep, setActiveStep] = useState(0);
 
-  const isLoggedIn = useSelector((store) => store.authReducer.isLoggedIn);
-  const isLoading = useSelector((store) => store.authReducer.isLoading);
-
-  if (isLoggedIn && !isLoading) {
-    return <Redirect to="/dashboard" />;
-  }
-
   const [user, setUser] = useState({
     userName: "",
     password: "",
@@ -86,6 +79,13 @@ export default function AddUser(props) {
     photo: false,
     role: false,
   });
+
+  const isLoggedIn = useSelector((store) => store.authReducer.isLoggedIn);
+  const isLoading = useSelector((store) => store.authReducer.isLoading);
+
+  if (isLoggedIn && !isLoading) {
+    return <Redirect to="/dashboard" />;
+  }
 
   const generalFormSchema = Joi.object()
     .keys({
@@ -143,7 +143,7 @@ export default function AddUser(props) {
         try {
           const result = await addUser(user);
           messages.success("تم إضافة المستخدم");
-          if (result) props.history.push("/login");
+          if (result) props.history.push("/");
         } catch (error) {
           messages.error(error);
         }

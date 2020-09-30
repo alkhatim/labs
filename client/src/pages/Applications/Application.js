@@ -208,9 +208,9 @@ export default (props) => {
     setApplication({ ...application, flightDate });
   };
 
-  const [message, setMessage] = React.useState(`
+  const message = `
   معامل تست بالتعاون مع شركة توظيف تشكركم لاختيارها لاجراء فحص الكرونا ونود ان نعلمك ان فحصك قد تم حويله للحالة
-  `);
+  `;
 
   let state = "";
 

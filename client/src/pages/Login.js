@@ -5,10 +5,9 @@ import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import Link from "@material-ui/core/Link";
+import { Link } from "react-router-dom";
 import http from "../helpers/http";
 import Box from "@material-ui/core/Box";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
@@ -16,14 +15,28 @@ import { loginAction } from "./../redux/actions/auth_actions";
 
 function Copyright() {
   return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="">
-        معامل تست بدعم من توظيف
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
+    <React.Fragment>
+      <Typography variant="body2" color="textSecondary" align="center">
+        {"Copyright © "}
+        <Link color="inherit" href="">
+          معامل تست بدعم من توظيف للخدمات والانظة المتعددة
+        </Link>{" "}
+        {new Date().getFullYear()}
+        {"."}
+      </Typography>
+      <Typography variant="body2" color="textSecondary" align="center">
+        للتواصل والاستفسار
+      </Typography>
+      <Typography variant="body2" color="textSecondary" align="center">
+        email: info@twzeefsd.com
+      </Typography>
+      <Typography variant="body2" color="textSecondary" align="center">
+        whatsapp only: +249999901321 - +249913711111
+      </Typography>
+      <Typography variant="body2" color="textSecondary" align="center">
+        calls only: +971569548956
+      </Typography>
+    </React.Fragment>
   );
 }
 
@@ -33,6 +46,11 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    // backgroundImage: `url(${image})`,
+    // height: "100%",
+    // backgroundPosition: "left",
+    // backgroundRepeat: "no - repeat",
+    // backgroundSize: "cover",
   },
   avatar: {
     margin: theme.spacing(1),
@@ -80,9 +98,10 @@ export default function SignIn(props) {
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
+        <Avatar
+          src="../assets/images/twzeef logo.jpg"
+          className={classes.avatar}
+        ></Avatar>
         <Typography component="h1" variant="h5">
           معامل تست
         </Typography>
@@ -93,7 +112,7 @@ export default function SignIn(props) {
             required
             fullWidth
             id="userName"
-            label="البريد الالكتروني"
+            label="اسم المستخدم"
             name="userName"
             autoComplete="userName"
             autoFocus
@@ -131,6 +150,9 @@ export default function SignIn(props) {
           </Button>
         </form>
       </div>
+      <Link color="inherit" to="/register">
+        تسجيل الوكالات ومكاتب الاستخدام
+      </Link>{" "}
       <Box mt={8}>
         <Copyright />
       </Box>

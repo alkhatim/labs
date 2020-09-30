@@ -142,7 +142,7 @@ export default function Applications(props) {
   }, []);
 
   return (
-    <div style={{ margin: "50px", width: "75vw" }}>
+    <div className={classes.layout} style={{ margin: "50px", width: "75vw" }}>
       <MaterialTable
         title="طلبات الفحص"
         data={applications}
