@@ -80,8 +80,8 @@ p{
       }
 
       .invoice-box table tr.top table td.title {
-        font-size: 24px;
-        line-height: 24px;
+        font-size: 12px;
+        line-height: 12px;
         color: #333;
       }
 
@@ -161,12 +161,12 @@ p{
 </div>
   <body dir="rtl">
   <div class="titles" >
-  <div style="font-size: 24px; text-align: center;">
-    <h2> معامل تست للتحاليل الطبية</h2>
+  <div style="font-size: 14px; text-align: center;">
+    <h4> معامل تست للتحاليل الطبية</h4>
   </div>
-  <div style="text-align: center;">
-  <h3>طلب فحص الكرونا COVID-19 </h3>
-  <h3>تاريخ الطباعة ${new Date().toLocaleDateString()}</h3>
+  <div style="text-align: center; font-size: 14px;">
+  <h6>طلب فحص الكرونا COVID-19 </h6>
+  <h6>تاريخ الطباعة ${new Date().toLocaleDateString()}</h6>
   </div>
   </div>
     <div class="invoice-box" dir="rtl">
@@ -267,7 +267,7 @@ p{
          </h4> 
       </div>
       <div>
-      <img src=${QRCode} style="width: 100%; max-width: 200px;"/>
+      <img src=${QRCode} style="width: 100%; max-width: 100px; height: 100%; max-height: 100px; "/>
       </div>
       </div>
     </div>
