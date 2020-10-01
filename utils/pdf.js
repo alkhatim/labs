@@ -169,10 +169,9 @@ p{
   <h6>تاريخ الطباعة ${new Date().toLocaleDateString()}</h6>
   </div>
   </div>
-    <div class="invoice-box" dir="rtl">
-      <table cellpadding="0" cellspacing="0">
-
-        <tr class="heading">
+  <div class="invoice-box" dir="rtl">
+  <table cellpadding="0" cellspacing="0">
+   <tr class="heading">
           <td>
             الإسم
           </td>
@@ -182,15 +181,12 @@ p{
           ${name}  
             </span>
           </td>
-          <td>
-            <span>
-            ${ename}
-            </span>
-          </td>
-          <td>
-          :Name
-          </td>
         </tr>
+  </table>
+
+  </div>
+    <div class="invoice-box" dir="rtl">
+      <table cellpadding="0" cellspacing="0">
           <tr class="item">
           <td>
             رقم الجواز
