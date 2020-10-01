@@ -103,7 +103,7 @@ export default function SignIn(props) {
           className={classes.avatar}
         ></Avatar>
         <Typography component="h4" variant="h5">
-          شركة توظيف للانظمة والخدمات المتعددة
+          شركة توظيف للانظمة المتعددة
         </Typography>
         <Typography component="h6" variant="h5">
           نظام فحص الكرونا

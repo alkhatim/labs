@@ -185,6 +185,22 @@ p{
   </table>
 
   </div>
+
+  <div class="invoice-box" dir="rtl">
+  <table cellpadding="0" cellspacing="0">
+   <tr class="heading">
+           <td>
+            <span>
+            ${ename}
+            </span>
+          </td>
+          <td>
+          :Name
+          </td>
+        </tr>
+  </table>
+
+  </div>
     <div class="invoice-box" dir="rtl">
       <table cellpadding="0" cellspacing="0">
           <tr class="item">
@@ -258,7 +274,7 @@ p{
          للاستفسار: 0912501150 - 0912501159         
          </h4> 
            <h4>
-          الموقع: السودان - الخرطوم - الخرطوم (2) شرق سوق نمرة 2
+          الموقع: الخرطوم - الخرطوم (2) شرق سوق نمرة 2
 مبني رقم (58) جوار مطعم بيتزا كورنر.           
          </h4>
           <h4>
