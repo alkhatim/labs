@@ -161,7 +161,7 @@ p{
 </div>
   <body dir="rtl">
   <div class="titles" >
-  <div style="font-size: 14px; text-align: center;">
+  <div style="font-size: 20px; text-align: center;">
     <h4> معامل تست للتحاليل الطبية</h4>
   </div>
   <div style="text-align: center; font-size: 14px;">
@@ -261,12 +261,13 @@ p{
        <h4>
          للاستفسار: 0912501150 - 0912501159         
          </h4> 
+           <h4>
+          الموقع: الخرطوم 2           
+         </h4>
           <h4>
-         +للتواصل التقني والفني:  971569548956+ 249999901321     
-         </h4> 
-          <h4>
-         البريد الاليكتروني: info@twzeefsd.com         
-         </h4> 
+          الموقع على خرائط قوقل: 
+          https://maps.app.goo.gl/sBjhNzs3b9gKDyri9           
+         </h4>
       </div>
       </div>
       <div>

@@ -184,7 +184,7 @@ export default function AppContainer(props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            Test Labs
+            معامل تست بدعم من توظيف للخدمات المتعددة Covid-19 فحص كرونا
           </Typography>
           <div>
             <IconButton

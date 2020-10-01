@@ -81,7 +81,7 @@ export default function CenteredGrid() {
           xs={12}
         >
           <Typography variant="h2" gutterBottom>
-            الفحوصات حسب الحالة
+            طلبات الفحص
           </Typography>
         </Grid>
         <Grid xs={12} style={{ marginTop: "5px" }}>
@@ -120,6 +120,17 @@ export default function CenteredGrid() {
             role === "agency" ? "/my-applications" : "/all-applications"
           )}
         </Grid> */}
+      </Grid>
+      <Grid container spacing={3} style={{ marginTop: "55px" }}>
+        <Grid xs={4} style={{ marginTop: "5px" }}>
+          <Typography>للاستفسار عن شؤون المعمل:</Typography>
+        </Grid>
+        <Grid xs={4} style={{ marginTop: "5px" }}>
+          <Typography>249912158581+</Typography>
+        </Grid>
+        <Grid xs={4} style={{ marginTop: "5px" }}>
+          <Typography>249912366134+</Typography>
+        </Grid>
       </Grid>
     </div>
   );

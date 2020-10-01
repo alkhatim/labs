@@ -31,7 +31,10 @@ exports.getUser = asyncHandler(async (req, res, next) => {
 // @route     GET /api/v1/auth/users/:id
 // @access    Private/Admin
 exports.getMyUserProfile = asyncHandler(async (req, res, next) => {
-  const user = await User.findById(req.user.id);
+  const user = await User.findById(req.user._id.toString());
+  if (!user) {
+    return next(new ErrorResponse("حدث خطأ في الخادم", 500));
+  }
   res.status(200).json({
     success: true,
     data: user,

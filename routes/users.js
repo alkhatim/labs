@@ -23,6 +23,15 @@ const { updateUserPassword } = require("../controllers/auth");
 router.route("/").get(advancedResults(User), getUsers).post(createUser);
 
 router
+  .route("/my-profile")
+  .get(protect, authorize("admin", "agency", "lab", "user"), getMyUserProfile)
+  .put(
+    protect,
+    authorize("admin", "agency", "lab", "user"),
+    updateMyUserProfile
+  );
+
+router
   .route("/:id/update-password")
   .post(protect, authorize("admin"), updatePassword);
 
@@ -35,14 +44,6 @@ router
   .get(protect, authorize("admin"), getUser)
   .delete(protect, authorize("admin"), deleteUser);
 
-router
-  .route("/my-profile")
-  .get(protect, authorize("admin", "agency", "lab", "user"), getMyUserProfile)
-  .put(
-    protect,
-    authorize("admin", "agency", "lab", "user"),
-    updateMyUserProfile
-  );
 router
   .route("/update-my-password")
   .put(protect, authorize("admin", "agency"), updateMyPassword);

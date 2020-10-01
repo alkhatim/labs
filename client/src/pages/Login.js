@@ -25,7 +25,7 @@ function Copyright() {
         {"."}
       </Typography>
       <Typography variant="body2" color="textSecondary" align="center">
-        للتواصل والاستفسار
+        للتواصل والاستفسار الفني او التقني
       </Typography>
       <Typography variant="body2" color="textSecondary" align="center">
         email: info@twzeefsd.com
@@ -151,7 +151,7 @@ export default function SignIn(props) {
         </form>
       </div>
       <Link color="inherit" to="/register">
-        تسجيل الوكالات ومكاتب الاستخدام
+        تسجيل كجهة جديدة
       </Link>{" "}
       <Box mt={8}>
         <Copyright />
