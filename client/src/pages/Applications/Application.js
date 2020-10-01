@@ -286,7 +286,7 @@ export default (props) => {
                 <SaveIcon style={{ color: "#3cb371" }} fontSize="large" />
               </Button>
             </Tooltip>
-            <Tooltip title="تحميل فاتورة">
+            <Tooltip title="طباعة بيانات الطلب">
               <Button onClick={async () => await downloadReceipt(application)}>
                 <DownloadIcon style={{ color: "#3cb371" }} fontSize="large" />
               </Button>
