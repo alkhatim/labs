@@ -178,14 +178,19 @@ p{
           </td>
 
           <td>
-            ${name}
+          <span>
+          ${name}  
+            </span>
+          </td>
+          <td>
+            <span>
+            ${ename}
+            </span>
           </td>
 
+          
           <td>
-          الإسم باللغة الانجليزية
-          </td>
-          <td>
-            ${ename}
+          Name:
           </td>
         </tr>
 
@@ -266,9 +271,11 @@ p{
          البريد الاليكتروني: info@twzeefsd.com         
          </h4> 
       </div>
-      <div>
-      <img src=${QRCode} style="width: 100%; max-width: 100px; height: 100%; max-height: 100px; "/>
       </div>
+      <div>
+      <img src=${QRCode} style="width: 100%; max-width: 100px; height: 100%; max-height: 100px; position: absolute;
+  left: 0px;
+  bottom: 0px; "/>
       </div>
     </div>
   </body>
