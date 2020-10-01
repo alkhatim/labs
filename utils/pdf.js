@@ -182,7 +182,10 @@ p{
           ${name}  
             </span>
           </td>
-          <td>
+        </tr>
+
+        <tr>
+        <td>
             <span>
             ${ename}
             </span>
@@ -191,7 +194,6 @@ p{
           :Name
           </td>
         </tr>
-
           <tr class="item">
           <td>
             رقم الجواز
