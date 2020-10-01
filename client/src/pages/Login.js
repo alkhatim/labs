@@ -19,7 +19,7 @@ function Copyright() {
       <Typography variant="body2" color="textSecondary" align="center">
         {"Copyright © "}
         <Link color="inherit" href="">
-          معامل تست بدعم من توظيف للخدمات والانظة المتعددة
+          شركة توظيف للخدمات والانظة المتعددة
         </Link>{" "}
         {new Date().getFullYear()}
         {"."}
@@ -103,10 +103,10 @@ export default function SignIn(props) {
           className={classes.avatar}
         ></Avatar>
         <Typography component="h4" variant="h5">
-          شركة توظيف للانظمة المتعددة
+          معامل تست للتحاليل الطبية
         </Typography>
         <Typography component="h6" variant="h5">
-          نظام فحص الكرونا
+          نظام تسجيل طلبات فحص الكرونا
         </Typography>
         <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <TextField
