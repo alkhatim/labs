@@ -185,7 +185,7 @@ p{
         </tr>
 
         <tr>
-        <td>
+        <td class="heading">
             <span>
             ${ename}
             </span>
