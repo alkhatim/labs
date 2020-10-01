@@ -102,10 +102,10 @@ export default function SignIn(props) {
           src="../assets/images/twzeef logo.ico"
           className={classes.avatar}
         ></Avatar>
-        <Typography component="h1" variant="h5">
+        <Typography component="h4" variant="h5">
           شركة توظيف للانظمة والخدمات المتعددة
         </Typography>
-        <Typography component="h1" variant="h5">
+        <Typography component="h6" variant="h5">
           نظام فحص الكرونا
         </Typography>
         <form className={classes.form} noValidate onSubmit={handleSubmit}>
