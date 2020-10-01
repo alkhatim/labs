@@ -16,11 +16,11 @@ module.exports = ({
   <html dir="rtl">
   <head>
     <meta charset="utf-8" />
-    <title>فاتورة حجز</title>
+    <title>طلب فحص كرونا</title>
 
     <style> 
       .invoice-box {
-        max-width: 800px;
+        max-width: 900px;
         margin: auto;
         padding: 30px;
         font-size: 12px;
@@ -42,7 +42,7 @@ p{
 .header-part{
     display: flex; 
     justify-content: space-between; 
-    max-width: 800px ;
+    max-width: 900px ;
      margin: auto;
         font-size: 14px;
         line-height: 24px;
@@ -147,7 +147,7 @@ p{
           align-items: center;
           align-items: center;
           max-width: 400px ;
-     margin-top: 100px;
+     margin-top: 20px;
         font-size: 12px;
         font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
       }

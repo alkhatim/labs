@@ -99,11 +99,14 @@ export default function SignIn(props) {
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar
-          src="../assets/images/twzeef logo.jpg"
+          src="../assets/images/twzeef logo.ico"
           className={classes.avatar}
         ></Avatar>
         <Typography component="h1" variant="h5">
-          معامل تست
+          شركة توظيف للانظمة والخدمات المتعددة
+        </Typography>
+        <Typography component="h1" variant="h5">
+          نظام فحص الكرونا
         </Typography>
         <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <TextField
@@ -151,7 +154,7 @@ export default function SignIn(props) {
         </form>
       </div>
       <Link color="inherit" to="/register">
-        تسجيل كجهة جديدة
+        تسجيل جديد
       </Link>{" "}
       <Box mt={8}>
         <Copyright />
