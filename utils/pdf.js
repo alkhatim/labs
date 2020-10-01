@@ -182,13 +182,7 @@ p{
             </span>
           </td>
         </tr>
-  </table>
-
-  </div>
-
-  <div class="invoice-box" dir="rtl">
-  <table cellpadding="0" cellspacing="0">
-   <tr class="heading">
+        <tr class="heading">
            <td>
             <span>
             ${ename}
