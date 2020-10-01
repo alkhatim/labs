@@ -155,7 +155,7 @@ p{
   </head>
 
       <div class="header-part">
-        <img src=${logo} style="width: 100%; max-width: 200px; position: absolute;
+        <img src=${logo} style="width: 100%; max-width: 100px; position: absolute;
   left: 0px;
   top: 0px;"></img>
 </div>
