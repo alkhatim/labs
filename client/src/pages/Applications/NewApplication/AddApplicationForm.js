@@ -117,11 +117,7 @@ export default function AddApplicationForm(props) {
       flightTime: Joi.string().required().label("FlightTime"),
       flightDate: Joi.date().min(6).required().label("FlightDate"),
       testDate: Joi.date().min(6).required().label("TestDate"),
-      phoneNumber: Joi.string()
-        .regex(/^[0-9]+$/)
-        .min(7)
-        .required()
-        .label("phoneNumber"),
+      phoneNumber: Joi.string().required().label("PhoneNumber"),
     })
     .unknown(true);
 
