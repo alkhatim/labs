@@ -137,7 +137,7 @@ exports.addApplication = asyncHandler(async (req, res, next) => {
     case "Tarko":
       airlines = "تاركو";
       break;
-    case "Ethiopian":
+    case "Eithiopian":
       airlines = "الاثيوبية";
       break;
     case "Fly Dubai":
@@ -203,7 +203,6 @@ exports.printApplicationReceipt = asyncHandler(async (req, res, next) => {
   if (!application) {
     return next(new ErrorResponse(`لم يتم العثور على العميل`, 404));
   }
-  let airlines;
   switch (application.airlines) {
     case "Badr":
       application.airlines = "بدر";
@@ -211,7 +210,7 @@ exports.printApplicationReceipt = asyncHandler(async (req, res, next) => {
     case "Tarko":
       application.airlines = "تاركو";
       break;
-    case "Ethiopian":
+    case "Eithiopian":
       application.airlines = "الاثيوبية";
       break;
     case "Fly Dubai":
@@ -259,7 +258,8 @@ exports.updateApplication = asyncHandler(async (req, res, next) => {
   }
   if (
     applicationStateCheck.state === "tested" &&
-    req.body.state === "registered"
+    req.body.state === "registered" &&
+    req.user.role !== "super admin"
   ) {
     return next(new ErrorResponse(`لا يمكن تحويل الحالة لحالة سابقة`, 400));
   }

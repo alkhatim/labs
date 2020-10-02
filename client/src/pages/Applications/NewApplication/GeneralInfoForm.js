@@ -176,7 +176,7 @@ export default function GeneralInfoForm({
             >
               <MenuItem value="Badr">بدر</MenuItem>
               <MenuItem value="Tarko">تاركو</MenuItem>
-              <MenuItem value="Ethiopian">الاثيوبية</MenuItem>
+              <MenuItem value="Eithiopian">الاثيوبية</MenuItem>
               <MenuItem value="Turkey">التركية</MenuItem>
               <MenuItem value="Fly Dubai">فلاي دبي</MenuItem>
               <MenuItem value="Qatar">القطرية</MenuItem>
