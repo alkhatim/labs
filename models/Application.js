@@ -53,7 +53,7 @@ const ApplicationSchema = new Schema({
       "Badr",
       "Tarko",
       "Eithiopian",
-      "Turky",
+      "Turkey",
       "Fly Dubai",
       "Qatar",
       "Fly Emarits",
@@ -66,7 +66,17 @@ const ApplicationSchema = new Schema({
   otherAirlines: {
     type: String,
   },
+  type: {
+    type: String,
+    enum: ["external", "internal"],
+  },
+  location: {
+    type: String,
+  },
   QRCode: {
+    type: String,
+  },
+  flightTime: {
     type: String,
   },
   phoneNumber: {

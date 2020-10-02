@@ -92,6 +92,11 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "white",
     height: "5px",
   },
+  textTimeField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    width: 200,
+  },
 }));
 
 export default (props) => {
@@ -111,9 +116,12 @@ export default (props) => {
     ename4: "",
     airlines: "",
     state: "",
+    type: "",
+    location: "",
     destination: "",
     phoneNumber: "",
     passportNumber: "",
+    flightTime: "",
     flightDate: new Date("8/7/2030"),
     testDate: new Date("8/7/2030"),
   });
@@ -130,6 +138,8 @@ export default (props) => {
     airlines: false,
     state: false,
     destination: false,
+    flightTime: false,
+    type: false,
     phoneNumber: false,
     passportNumber: false,
     flightDate: false,
@@ -147,7 +157,9 @@ export default (props) => {
       ename3: Joi.string().min(3).required().label("EName3"),
       ename4: Joi.string().min(3).required().label("EName4"),
       airlines: Joi.string().required().label("Airlines"),
+      type: Joi.string().required().label("Type"),
       state: Joi.string().min(3).required().label("State"),
+      flightTime: Joi.string().min(3).required().label("FlightTime"),
       destination: Joi.string().min(3).required().label("Destination"),
       passportNumber: Joi.string().min(6).required().label("PassportNumber"),
       flightDate: Joi.date().min(6).required().label("FlightDate"),
@@ -180,8 +192,10 @@ export default (props) => {
       airlines: false,
       state: false,
       destination: false,
+      type: false,
       passportNumber: false,
       flightDate: false,
+      flightTime: false,
       testDate: false,
       phoneNumber: false,
     });
@@ -442,6 +456,34 @@ export default (props) => {
                 value={application.ename4}
               />
             </Grid>
+            <Grid dir="rtl" item xs={12}>
+              <FormControl className={classes.formControl}>
+                <InputLabel id="type">نوع الفحص</InputLabel>
+                <Select
+                  labelId="type"
+                  name="type"
+                  disabled
+                  error={errors.type}
+                  value={application.type}
+                  onChange={handleChange}
+                >
+                  <MenuItem value="internal">في المعمل</MenuItem>
+                  <MenuItem value="external">فحص خارجي</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+            {application.type === "external" && (
+              <Grid item xs={12}>
+                <TextField
+                  className={classes.texField}
+                  name="location"
+                  disabled
+                  label="مكان اخذ العينة"
+                  onChange={handleChange}
+                  value={application.location}
+                />
+              </Grid>
+            )}
             <Grid item xs={12} sm={6}>
               <TextField
                 className={classes.texField}
@@ -466,7 +508,7 @@ export default (props) => {
                   <MenuItem value="Badr">بدر</MenuItem>
                   <MenuItem value="Tarko">تاركو</MenuItem>
                   <MenuItem value="Eithiopian">الاثيوبية</MenuItem>
-                  <MenuItem value="Turky">التركية</MenuItem>
+                  <MenuItem value="Turkey">التركية</MenuItem>
                   <MenuItem value="Fly Dubai">فلاي دبي</MenuItem>
                   <MenuItem value="Qatar">القطرية</MenuItem>
                   <MenuItem value="Fly Emarits">الاماراتية</MenuItem>
@@ -499,6 +541,28 @@ export default (props) => {
               />
             </Grid>
 
+            <Grid>
+              <form className={classes.container} noValidate>
+                <TextField
+                  id="time"
+                  name="flightTime"
+                  label="زمن الحضور للمطار"
+                  type="time"
+                  defaultValue="12:00"
+                  disabled={readOnly}
+                  className={classes.textTimeField}
+                  onChange={handleChange}
+                  error={errors.flightTime}
+                  value={application.flightTime}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  inputProps={{
+                    step: 300, // 5 min
+                  }}
+                />
+              </form>
+            </Grid>
             <Grid item xs={12}>
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <div

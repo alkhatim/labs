@@ -235,7 +235,7 @@ exports.printApplicationReceipt = asyncHandler(async (req, res, next) => {
     case "Saudi":
       application.airlines = "السعودية";
       break;
-    case "Turky":
+    case "Turkey":
       application.airlines = "التركية";
       break;
     default:
@@ -253,6 +253,16 @@ exports.printApplicationReceipt = asyncHandler(async (req, res, next) => {
 // @route     POST /api/v1/agencies/:agencyId/visas
 // @access    Private
 exports.updateApplication = asyncHandler(async (req, res, next) => {
+  const applicationStateCheck = await Application.findById(req.params.id);
+  if (!applicationStateCheck) {
+    return next(new ErrorResponse(`لم يتم العثور على الطلب`, 404));
+  }
+  if (
+    applicationStateCheck.state === "tested" &&
+    req.body.state === "registered"
+  ) {
+    return next(new ErrorResponse(`لا يمكن تحويل الحالة لحالة سابقة`, 400));
+  }
   const newApplication = await Application.findByIdAndUpdate(
     req.params.id,
     req.body,

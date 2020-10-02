@@ -19,7 +19,7 @@ function Copyright() {
       <Typography variant="body2" color="textSecondary" align="center">
         {"Copyright © "}
         <Link color="inherit" href="">
-          شركة توظيف للخدمات والانظة المتعددة
+          شركة توظيف للانشطة المتعددة والمحدودة
         </Link>{" "}
         {new Date().getFullYear()}
         {"."}

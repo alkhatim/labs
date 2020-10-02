@@ -16,6 +16,7 @@ const helmet = require("helmet");
 const xss = require("xss-clean");
 const hpp = require("hpp");
 const rateLimit = require("express-rate-limit");
+const postResponse = require("./middleware/postResponse");
 
 const passport = require("passport");
 const cors = require("cors");
@@ -73,6 +74,14 @@ app.use(trimReqBody);
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
+
+//intercept
+app.use((req, res, next) => {
+  res.on("finish", async () => {
+    await postResponse(req, res);
+  });
+  next();
+});
 
 // Passport middleware
 app.use(passport.initialize());

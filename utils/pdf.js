@@ -173,27 +173,19 @@ p{
   <table cellpadding="0" cellspacing="0">
    <tr class="heading">
           <td>
-            الإسم
-          </td>
-
-          <td>
-          <span>
-          ${name}  
-            </span>
+             الإسم:     <span>
+                     ${name}  
+                     </span>
           </td>
         </tr>
-        <tr class="heading">
-           <td>
-            <span>
-            ${ename}
-            </span>
-          </td>
+        <tr class="heading" style="text-align: left;">
           <td>
-          :Name
+             Name:      <span>
+                     ${ename}
+                     </span>
           </td>
         </tr>
   </table>
-
   </div>
     <div class="invoice-box" dir="rtl">
       <table cellpadding="0" cellspacing="0">

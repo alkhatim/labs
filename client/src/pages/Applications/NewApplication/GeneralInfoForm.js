@@ -15,7 +15,7 @@ import React from "react";
 
 const useStyles = makeStyles((theme) => ({
   texField: {
-    width: "50%",
+    width: "65%",
   },
   formControl: {
     margin: theme.spacing(1),
@@ -23,6 +23,15 @@ const useStyles = makeStyles((theme) => ({
   },
   selectEmpty: {
     marginTop: theme.spacing(2),
+  },
+  container: {
+    display: "flex",
+    flexWrap: "wrap",
+  },
+  textTimeField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    width: 200,
   },
 }));
 
@@ -120,6 +129,32 @@ export default function GeneralInfoForm({
             value={application.ename4}
           />
         </Grid>
+        <Grid dir="rtl" item xs={12}>
+          <FormControl className={classes.formControl}>
+            <InputLabel id="type">نوع الفحص</InputLabel>
+            <Select
+              labelId="type"
+              name="type"
+              error={errors.type}
+              value={application.type}
+              onChange={onChange}
+            >
+              <MenuItem value="internal">في المعمل</MenuItem>
+              <MenuItem value="external">فحص خارجي</MenuItem>
+            </Select>
+          </FormControl>
+        </Grid>
+        {application.type === "external" && (
+          <Grid item xs={12}>
+            <TextField
+              className={classes.texField}
+              name="location"
+              label="مكان اخذ العينة"
+              onChange={onChange}
+              value={application.location}
+            />
+          </Grid>
+        )}
         <Grid item xs={12} sm={6}>
           <TextField
             className={classes.texField}
@@ -141,8 +176,8 @@ export default function GeneralInfoForm({
             >
               <MenuItem value="Badr">بدر</MenuItem>
               <MenuItem value="Tarko">تاركو</MenuItem>
-              <MenuItem value="Eithiopian">الاثيوبية</MenuItem>
-              <MenuItem value="Turky">التركية</MenuItem>
+              <MenuItem value="Ethiopian">الاثيوبية</MenuItem>
+              <MenuItem value="Turkey">التركية</MenuItem>
               <MenuItem value="Fly Dubai">فلاي دبي</MenuItem>
               <MenuItem value="Qatar">القطرية</MenuItem>
               <MenuItem value="Fly Emarits">الاماراتية</MenuItem>
@@ -165,6 +200,27 @@ export default function GeneralInfoForm({
             />
           </Grid>
         )}
+        <Grid>
+          <form className={classes.container} noValidate>
+            <TextField
+              id="time"
+              name="flightTime"
+              label="زمن الحضور للمطار"
+              type="time"
+              defaultValue="12:00"
+              className={classes.textTimeField}
+              onChange={onChange}
+              error={errors.flightTime}
+              value={application.flightTime}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              inputProps={{
+                step: 300, // 5 min
+              }}
+            />
+          </form>
+        </Grid>
         <Grid item xs={12} sm={12}>
           <TextField
             className={classes.texField}
