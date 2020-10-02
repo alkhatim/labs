@@ -159,7 +159,7 @@ export default (props) => {
       airlines: Joi.string().required().label("Airlines"),
       type: Joi.string().required().label("Type"),
       state: Joi.string().min(3).required().label("State"),
-      flightTime: Joi.string().min(3).required().label("FlightTime"),
+      flightTime: Joi.string().required().label("FlightTime"),
       destination: Joi.string().min(3).required().label("Destination"),
       passportNumber: Joi.string().min(6).required().label("PassportNumber"),
       flightDate: Joi.date().min(6).required().label("FlightDate"),

@@ -4,6 +4,7 @@ module.exports = ({
   ename,
   testDate,
   flightDate,
+  flightTime,
   phoneNumber,
   passportNumber,
   destination,
@@ -245,6 +246,13 @@ p{
         </tr>
 
         <tr class="item" >
+        <td>
+            زمن الحضور
+          </td>
+
+          <td>
+            ${flightTime}
+          </td>
          <td>
            الوكالة 
          </td>

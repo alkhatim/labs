@@ -200,27 +200,6 @@ export default function GeneralInfoForm({
             />
           </Grid>
         )}
-        <Grid>
-          <form className={classes.container} noValidate>
-            <TextField
-              id="time"
-              name="flightTime"
-              label="زمن الحضور للمطار"
-              type="time"
-              defaultValue="12:00"
-              className={classes.textTimeField}
-              onChange={onChange}
-              error={errors.flightTime}
-              value={application.flightTime}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              inputProps={{
-                step: 300, // 5 min
-              }}
-            />
-          </form>
-        </Grid>
         <Grid item xs={12} sm={12}>
           <TextField
             className={classes.texField}
@@ -277,7 +256,27 @@ export default function GeneralInfoForm({
             </div>
           </MuiPickersUtilsProvider>
         </Grid>
-
+        <Grid>
+          <form className={classes.container} noValidate>
+            <TextField
+              id="time"
+              name="flightTime"
+              label="زمن الحضور للمطار"
+              type="time"
+              defaultValue="12:00"
+              className={classes.textTimeField}
+              onChange={onChange}
+              error={errors.flightTime}
+              value={application.flightTime}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              inputProps={{
+                step: 300, // 5 min
+              }}
+            />
+          </form>
+        </Grid>
         <Grid item xs={12}>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <div

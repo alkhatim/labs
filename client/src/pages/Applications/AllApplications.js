@@ -77,6 +77,10 @@ const columns = [
     field: "state",
   },
   {
+    title: "نوع الفحص",
+    field: "type",
+  },
+  {
     title: "رقم الهاتف",
     field: "phoneNumber",
   },
