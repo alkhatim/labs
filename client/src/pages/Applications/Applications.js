@@ -132,6 +132,18 @@ export default function Applications(props) {
             default:
               break;
           }
+
+          switch (application.type) {
+            case "internal":
+              application.type = "في المعمل";
+              break;
+
+            case "external":
+              application.type = "عينة خارجية";
+              break;
+            default:
+              break;
+          }
         });
         setApplications(
           result.map((app) => ({
