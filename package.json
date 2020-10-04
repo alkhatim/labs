@@ -4,7 +4,8 @@
   "description": "test labs",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "server": "nodemon index.js"
   },
   "author": "Mohammed Osman m.moneim.a@gmail.com",
   "license": "",

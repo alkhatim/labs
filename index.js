@@ -27,6 +27,7 @@ const exphbs = require("express-handlebars");
 const users = require("./routes/users");
 const auth = require("./routes/auth");
 const applications = require("./routes/applications");
+const credits = require("./routes/credits");
 
 //Connect to database
 connectDB();
@@ -93,6 +94,7 @@ app.use(express.static("client/build"));
 app.use("/api/v1/users", users);
 app.use("/api/v1/auth", auth);
 app.use("/api/v1/applications", applications);
+app.use("/api/v1/credits", credits);
 app.use(function (req, res) {
   res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });

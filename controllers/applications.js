@@ -9,6 +9,7 @@ const path = require("path");
 //Import Models
 const Application = require("../models/Application");
 const User = require("../models/User");
+const Credit = require("../models/Credit");
 
 exports.getApplications = asyncHandler(async (req, res, next) => {
   const applications = await Application.find();
@@ -19,9 +20,53 @@ exports.getApplications = asyncHandler(async (req, res, next) => {
 });
 
 exports.getMyApplications = asyncHandler(async (req, res, next) => {
-  const applications = await Application.find({ user: req.user.id }).populate(
-    "user"
-  );
+  const applications = await Application.find({
+    user: req.user.id,
+  }).populate("user");
+  res.status(200).json({
+    success: true,
+    data: applications,
+  });
+});
+
+exports.getMyApplicationsNotPaid = asyncHandler(async (req, res, next) => {
+  const applications = await Application.find({
+    user: req.user.id,
+    agencyPaymentStatus: "not paid",
+  }).populate("user");
+  res.status(200).json({
+    success: true,
+    data: applications,
+  });
+});
+
+exports.getAgenciesApplicationsNotPaid = asyncHandler(
+  async (req, res, next) => {
+    const applications = await Application.find({
+      agencyPaymentStatus: "not paid",
+    }).populate("user");
+    res.status(200).json({
+      success: true,
+      data: applications,
+    });
+  }
+);
+
+exports.getMyApplicationsPaid = asyncHandler(async (req, res, next) => {
+  const applications = await Application.find({
+    user: req.user.id,
+    agencyPaymentStatus: "paid",
+  }).populate("user");
+  res.status(200).json({
+    success: true,
+    data: applications,
+  });
+});
+
+exports.getAgenciesApplicationsPaid = asyncHandler(async (req, res, next) => {
+  const applications = await Application.find({
+    agencyPaymentStatus: "paid",
+  }).populate("user");
   res.status(200).json({
     success: true,
     data: applications,
@@ -38,21 +83,21 @@ exports.getMyApplicationsCountAccordingToState = asyncHandler(
       user: req.user.id,
       state: "tested",
     });
-    const resultIssuedApplications = await Application.find({
+    const paidApplications = await Application.find({
       user: req.user.id,
-      state: "result issued",
+      agencyPaymentStatus: "paid",
     });
-    const resultDeliveredApplications = await Application.find({
+    const notPaidApplications = await Application.find({
       user: req.user.id,
-      state: "result delivered",
+      agencyPaymentStatus: "not paid",
     });
 
     res.status(200).json({
       success: true,
       registeredCount: registeredApplications.length,
       testedCount: testedApplications.length,
-      issuedCount: resultIssuedApplications.length,
-      deliveredCount: resultDeliveredApplications.length,
+      paidApplications: paidApplications.length,
+      notPaidApplications: notPaidApplications.length,
     });
   }
 );
@@ -65,19 +110,19 @@ exports.getApplicationsCountAccordingToState = asyncHandler(
     const testedApplications = await Application.find({
       state: "tested",
     });
-    const resultIssuedApplications = await Application.find({
-      state: "result issued",
+    const paidApplications = await Application.find({
+      agencyPaymentStatus: "paid",
     });
-    const resultDeliveredApplications = await Application.find({
-      state: "result delivered",
+    const notPaidApplications = await Application.find({
+      agencyPaymentStatus: "not paid",
     });
 
     res.status(200).json({
       success: true,
       registeredCount: registeredApplications.length,
       testedCount: testedApplications.length,
-      issuedCount: resultIssuedApplications.length,
-      deliveredCount: resultDeliveredApplications.length,
+      paidApplications: paidApplications.length,
+      notPaidApplications: notPaidApplications.length,
     });
   }
 );
@@ -116,7 +161,26 @@ exports.addApplication = asyncHandler(async (req, res, next) => {
     req.body.user = req.user._id;
   }
   req.body.state = "registered";
+  req.body.paymentStatus = "not paid";
+  req.body.agencyPaymentStatus = "not paid";
+  req.body.labPaymentStatus = "not paid";
   req.body.passportNumber = req.body.passportNumber.toUpperCase().trim();
+
+  //Calculating Order:
+  var start = new Date(req.body.testDate);
+  start.setHours(0, 0, 0, 0);
+  var end = new Date(req.body.testDate);
+  end.setHours(23, 59, 59, 999);
+  const applications = await Application.find({
+    testDate: { $gte: start, $lt: end },
+  });
+  if (applications.length !== 0) {
+    const latestApplication = applications[applications.length - 1];
+    req.body.order = latestApplication.order + 1;
+  } else {
+    req.body.order = 1;
+  }
+
   let application = new Application(req.body);
   await application.save();
 
@@ -165,6 +229,18 @@ exports.addApplication = asyncHandler(async (req, res, next) => {
       break;
   }
 
+  let paymentStatus;
+  switch (application.paymentStatus) {
+    case "paid":
+      paymentStatus = "خالص";
+      break;
+    case "not paid":
+      paymentStatus = "غير خالص";
+      break;
+    default:
+      break;
+  }
+
   const app = {
     name: application.name,
     ename: application.ename,
@@ -174,7 +250,9 @@ exports.addApplication = asyncHandler(async (req, res, next) => {
     passportNumber: application.passportNumber,
     destination: application.destination,
     QRCode: application.QRCode,
+    order: application.order,
     airlines: airlines,
+    paymentStatus: paymentStatus,
     user: application.user,
   };
 
@@ -240,6 +318,17 @@ exports.printApplicationReceipt = asyncHandler(async (req, res, next) => {
     default:
       break;
   }
+  switch (application.paymentStatus) {
+    case "paid":
+      application.paymentStatus = "خالص";
+      break;
+    case "not paid":
+      application.paymentStatus = "غير خالص";
+      break;
+    default:
+      break;
+  }
+
   htmlPdf.create(pdf(application), {}).toFile("receipt.pdf", (err) => {
     if (err) {
       res.send(Promise.reject());
@@ -252,7 +341,9 @@ exports.printApplicationReceipt = asyncHandler(async (req, res, next) => {
 // @route     POST /api/v1/agencies/:agencyId/visas
 // @access    Private
 exports.updateApplication = asyncHandler(async (req, res, next) => {
-  const applicationStateCheck = await Application.findById(req.params.id);
+  const applicationStateCheck = await Application.findById(
+    req.params.id
+  ).populate("user");
   if (!applicationStateCheck) {
     return next(new ErrorResponse(`لم يتم العثور على الطلب`, 404));
   }
@@ -263,6 +354,14 @@ exports.updateApplication = asyncHandler(async (req, res, next) => {
   ) {
     return next(new ErrorResponse(`لا يمكن تحويل الحالة لحالة سابقة`, 400));
   }
+  if (
+    applicationStateCheck.paymentStatus === "paid" &&
+    req.body.paymentStatus === "not paid" &&
+    req.user.role !== "super admin"
+  ) {
+    return next(new ErrorResponse(`لا يمكن تحويل الحالة لحالة سابقة`, 400));
+  }
+
   const newApplication = await Application.findByIdAndUpdate(
     req.params.id,
     req.body,
@@ -274,6 +373,38 @@ exports.updateApplication = asyncHandler(async (req, res, next) => {
     }
   );
 
+  if (
+    req.body.paymentStatus === "paid" &&
+    applicationStateCheck.paymentStatus === "not paid"
+  ) {
+    const credit = {};
+    if (
+      applicationStateCheck.type === "internal" &&
+      (applicationStateCheck.user.type === "agency" ||
+        applicationStateCheck.user.type === "recruitment office")
+    ) {
+      const credit = Credit({
+        application: req.params.id,
+        paymentDate: new Date(),
+        agency: applicationStateCheck.user,
+        lab: 12500,
+        mazin: 125,
+        moniem: 125,
+      });
+      await credit.save();
+    } else {
+      const credit = Credit({
+        application: req.params.id,
+        paymentDate: new Date(),
+        agency: applicationStateCheck.user,
+        lab: 15000,
+        mazin: 250,
+        moniem: 250,
+      });
+      await credit.save();
+    }
+  }
+
   const application = await Application.findById(req.params.id);
   if (!application) {
     return next(new ErrorResponse(`No visa found`, 404));
@@ -282,6 +413,82 @@ exports.updateApplication = asyncHandler(async (req, res, next) => {
     success: true,
     data: application,
   });
+});
+
+exports.payAgencyApplication = asyncHandler(async (req, res, next) => {
+  const application = await Application.findById(req.params.id);
+  if (!application) {
+    return next(new ErrorResponse(`هذا الفحص لم يعد موجودا`, 404));
+  }
+  application.agencyPaymentStatus = "paid";
+  await application.save();
+  res.status(200).json({
+    success: true,
+    data: application,
+  });
+});
+
+exports.labPaidForApplications = asyncHandler(async (req, res, next) => {
+  req.body.forEach(async (app) => {
+    const application = await Application.findById(app._id);
+    if (!application) {
+      return next(new ErrorResponse(`هذا الفحص لم يعد موجودا`, 404));
+    }
+    console.log(application.labPaymentStatus);
+    application.labPaymentStatus = "paid";
+    console.log(application.labPaymentStatus);
+    await application.save();
+  });
+
+  res.status(200).json({
+    success: true,
+  });
+});
+
+exports.getApplicationsByDates = asyncHandler(async (req, res, next) => {
+  var start = new Date(req.body.startDate);
+  start.setHours(0, 0, 0, 0);
+  var end = new Date(req.body.endDate);
+  end.setHours(23, 59, 59, 999);
+  console.log(start);
+  console.log(end);
+  const datedApplications = await Application.find({
+    labPaymentStatus: "not paid",
+    paymentStatus: "paid",
+    agencyPaymentStatus: "not paid",
+    testDate: {
+      $gte: start,
+      $lt: end,
+    },
+  });
+  let lab = 0;
+  let moniem = 0;
+  let mazin = 0;
+  let counter = 0;
+
+  datedApplications.forEach(async (application) => {
+    const credit = await Credit.findOne({ application: application._id });
+    if (!credit) {
+      return next(new ErrorResponse(`هذا الفحص لم  يسدد`, 400));
+    } else {
+      lab += credit.lab;
+      moniem += credit.moniem;
+      mazin += credit.mazin;
+      counter = counter + 1;
+    }
+  });
+
+  if (counter == datedApplications.length) {
+    res.status(200).json({
+      success: true,
+      count: datedApplications.length,
+      data: datedApplications,
+      lab: lab,
+      moniem: moniem,
+      mazin: mazin,
+      labDebit: mazin + moniem,
+    });
+  }
 });
 
 exports.deleteApplication = asyncHandler(async (req, res, next) => {

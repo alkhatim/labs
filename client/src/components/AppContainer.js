@@ -13,6 +13,7 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
+import EventAvailableIcon from "@material-ui/icons/EventAvailable";
 import Typography from "@material-ui/core/Typography";
 
 //  Icons  //
@@ -23,10 +24,12 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import ExpandLess from "@material-ui/icons/ExpandLess";
+import InfoIcon from "@material-ui/icons/Info";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import MenuIcon from "@material-ui/icons/Menu";
 import AssignmentIndIcon from "@material-ui/icons/AssignmentInd";
 import GroupIcon from "@material-ui/icons/Group";
+import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
 import AssignmentTurnedInIcon from "@material-ui/icons/AssignmentTurnedIn";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import clsx from "clsx";
@@ -118,6 +121,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AppContainer(props) {
   const role = useSelector((store) => store.authReducer.role);
+  const user = useSelector((store) => store.authReducer.user);
   const dispatch = useDispatch();
 
   const classes = useStyles();
@@ -259,11 +263,48 @@ export default function AppContainer(props) {
                   "جميع فحوصات العملاء",
                   <AssignmentIndIcon />
                 )}
-              {(role === "lab" || role === "admin") &&
+              {role === "agency" &&
+                (user.type === "agency" ||
+                  user.type === "recruitment office") &&
+                SidebarNestedItem(
+                  "/my-applications/paid",
+                  "الطلبات المسددة",
+                  <AssignmentIndIcon />
+                )}
+              {role === "agency" &&
+                (user.type === "agency" ||
+                  user.type === "recruitment office") &&
+                SidebarNestedItem(
+                  "/my-applications/not-paid",
+                  "الطلبات الغير المسددة",
+                  <AssignmentIndIcon />
+                )}
+              {(role === "lab" ||
+                role === "admin" ||
+                role === "office coordinator" ||
+                role === "super admin") &&
                 SidebarNestedItem(
                   "/all-applications",
                   "جميع فحوصات العملاء",
                   <GroupIcon />
+                )}
+              {(role === "admin" || role === "super admin") &&
+                SidebarNestedItem(
+                  "/all-applications/paid",
+                  "الطلبات المسددة",
+                  <GroupIcon />
+                )}
+              {(role === "admin" || role === "super admin") &&
+                SidebarNestedItem(
+                  "/all-applications/not-paid",
+                  "الطلبات الغير مسددة",
+                  <GroupIcon />
+                )}
+              {(role === "admin" || role === "super admin") &&
+                SidebarNestedItem(
+                  "/lab-date-report",
+                  "تقرير المعمل الدوري",
+                  <EventAvailableIcon />
                 )}
               {role !== "lab" &&
                 SidebarNestedItem("/new-application", "اضافة طلب فحص", <Add />)}
@@ -278,7 +319,7 @@ export default function AppContainer(props) {
               <List component="div" disablePadding>
                 {SidebarNestedItem(
                   "/all-users",
-                  "جميع المستخدمسن",
+                  "جميع المستخدمين",
                   <AssignmentIndIcon />
                 )}
                 {SidebarNestedItem(
@@ -290,6 +331,13 @@ export default function AppContainer(props) {
             )}
           <Divider />
           {SidebarItem("الملف الشخصي", "/user-profile", <AccountCircle />)}
+          {SidebarItem("ارشادات الفحص", "/covid-info", <InfoIcon />)}
+          {(role === "admin" || role === "super-admin") &&
+            SidebarItem(
+              "حسابات العمولة",
+              "/credit-summary",
+              <AccountBalanceIcon />
+            )}
         </List>
       </Drawer>
 

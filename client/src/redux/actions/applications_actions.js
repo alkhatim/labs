@@ -118,3 +118,66 @@ export const getAllApplications = async () => {
     messages.error(error);
   }
 };
+
+export const getAllPaidApplications = async () => {
+  try {
+    const result = await http.get(`/api/v1/applications/my-applications/paid`);
+    return result.data.data;
+  } catch (error) {
+    messages.error(error);
+  }
+};
+
+export const getAgenciesApplicationsPaid = async () => {
+  try {
+    const result = await http.get(`/api/v1/applications/paid`);
+    return result.data.data;
+  } catch (error) {
+    messages.error(error);
+  }
+};
+
+export const getAllNotPaidApplications = async () => {
+  try {
+    const result = await http.get(
+      `/api/v1/applications/my-applications/not-paid`
+    );
+    return result.data.data;
+  } catch (error) {
+    messages.error(error);
+  }
+};
+
+export const getAllAgenciesNotPaidApplications = async () => {
+  try {
+    const result = await http.get(`/api/v1/applications/not-paid`);
+    return result.data.data;
+  } catch (error) {
+    messages.error(error);
+  }
+};
+
+export const applicationsByDates = async (dates) => {
+  try {
+    const result = await http.post(
+      `http://localhost:5000/api/v1/applications/lab/not-paid`,
+      dates
+    );
+    return result.data;
+    console.log(result);
+  } catch (error) {
+    messages.error(error);
+  }
+};
+
+export const labPaid = async (applications) => {
+  try {
+    const result = await http.post(
+      `http://localhost:5000/api/v1/applications/lab/paying`,
+      applications
+    );
+    return result.data.success;
+  } catch (error) {
+    messages.error(error);
+  }
+};

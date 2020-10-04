@@ -117,6 +117,8 @@ export default (props) => {
     airlines: "",
     state: "",
     type: "",
+    paymentStatus: "",
+    order: "",
     location: "",
     destination: "",
     phoneNumber: "",
@@ -253,9 +255,11 @@ export default (props) => {
   const handleSave = async () => {
     if (!validateGeneralForm()) {
       try {
-        await updateApplication(application);
-        messages.success("تمت العملية بنجاح");
-        setReadOnly(true);
+        const result = await updateApplication(application);
+        if (result) {
+          messages.success("تمت العملية بنجاح");
+          setReadOnly(true);
+        }
       } catch (error) {
         messages.error(error);
       }
@@ -320,6 +324,7 @@ export default (props) => {
             {(application.state === "registered" ||
               role === "lab" ||
               role === "admin" ||
+              role === "office coordinator" ||
               role === "user") && (
               <Tooltip title="مسح">
                 <Button onClick={handleDeleteAttempt}>
@@ -362,6 +367,25 @@ export default (props) => {
                     <MenuItem value="result delivered">
                       تم تسليم النتيجة
                     </MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
+            </Grid>
+          )}
+          {(role === "office coordinator" || role === "admin") && (
+            <Grid container spacing={3} style={{ margin: 10 }}>
+              <Grid item xs={6} sm={6}>
+                <FormControl className={classes.formControl}>
+                  <InputLabel id="paymentStatus">حالة السداد</InputLabel>
+                  <Select
+                    labelId="paymentStatus"
+                    name="paymentStatus"
+                    disabled={readOnly}
+                    value={application.paymentStatus}
+                    onChange={handleChange}
+                  >
+                    <MenuItem value="paid">تم السداد</MenuItem>
+                    <MenuItem value="not paid">لم يتم السداد</MenuItem>
                   </Select>
                 </FormControl>
               </Grid>

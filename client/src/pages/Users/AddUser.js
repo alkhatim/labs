@@ -66,6 +66,7 @@ export default function AddUser(props) {
     name: "",
     ownerName: "",
     phoneNumber: "",
+    type: "",
     role: "",
   });
 
@@ -76,6 +77,7 @@ export default function AddUser(props) {
     name: false,
     ownerName: false,
     phoneNumber: false,
+    type: false,
     email: false,
     photo: false,
     role: false,
@@ -88,6 +90,7 @@ export default function AddUser(props) {
       password2: Joi.equal(Joi.ref("password")).required().label("Password"),
       name: Joi.string().required().label("Name"),
       ownerName: Joi.string().required().label("Owner Name"),
+      type: Joi.string().required().label("Type"),
       phoneNumber: Joi.string().min(9).max(14).required().label("Phone Number"),
       email: Joi.string().required().label("Email"),
       role: Joi.string()
@@ -116,6 +119,7 @@ export default function AddUser(props) {
         name: false,
         ownerName: false,
         phoneNumber: false,
+        type: false,
         email: false,
         photo: false,
         role: false,

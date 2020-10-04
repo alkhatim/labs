@@ -2,6 +2,10 @@ import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
 import React from "react";
 
 const useStyles = makeStyles((theme) => ({
@@ -97,6 +101,24 @@ export default function GeneralForm({ user, errors, onChange }) {
             onChange={onChange}
             value={user.email}
           />
+        </Grid>
+        <Grid item xs={6}>
+          <FormControl className={classes.formControl}>
+            <InputLabel id="type">نوع الجهة</InputLabel>
+            <Select
+              labelId="type"
+              name="type"
+              value={user.type}
+              onChange={onChange}
+            >
+              <MenuItem value="agency">وكالة سفر</MenuItem>
+              <MenuItem value="recruitment office">مكتب استخدام خارجي</MenuItem>
+              <MenuItem value="corporate">شركة</MenuItem>
+              <MenuItem value="organization">منظمة</MenuItem>
+              <MenuItem value="medical services">خدمات طبية</MenuItem>
+              <MenuItem value="other">اخرى</MenuItem>
+            </Select>
+          </FormControl>
         </Grid>
       </Grid>
     </React.Fragment>

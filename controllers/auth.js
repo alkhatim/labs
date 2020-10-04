@@ -239,5 +239,6 @@ const sendTokenResponse = (user, statusCode, res) => {
     userName: user.userName,
     name: user.name,
     role: user.role,
+    type: user.type,
   });
 };

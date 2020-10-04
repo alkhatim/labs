@@ -47,6 +47,10 @@ const ApplicationSchema = new Schema({
     type: String,
     required: true,
   },
+  order: {
+    type: Number,
+    required: true,
+  },
   airlines: {
     type: String,
     enum: [
@@ -62,6 +66,18 @@ const ApplicationSchema = new Schema({
       "Saudi",
       "other",
     ],
+  },
+  paymentStatus: {
+    type: String,
+    enum: ["paid", "not paid"],
+  },
+  agencyPaymentStatus: {
+    type: String,
+    enum: ["paid", "not paid"],
+  },
+  labPaymentStatus: {
+    type: String,
+    enum: ["paid", "not paid"],
   },
   otherAirlines: {
     type: String,
@@ -82,7 +98,6 @@ const ApplicationSchema = new Schema({
   phoneNumber: {
     type: String,
     required: true,
-    unique: [true, "تم التسجيل باستعمال رقم الهاتف مسبقا"],
     match: [/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/],
   },
   destination: {
@@ -119,6 +134,10 @@ const ApplicationSchema = new Schema({
     default: false,
   },
   resultWasDelivered: {
+    type: Boolean,
+    default: false,
+  },
+  isDeadCase: {
     type: Boolean,
     default: false,
   },

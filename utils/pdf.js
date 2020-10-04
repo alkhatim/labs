@@ -11,6 +11,8 @@ module.exports = ({
   airlines,
   user,
   QRCode,
+  paymentStatus,
+  order,
 }) => {
   return `
   <!DOCTYPE html>
@@ -148,7 +150,7 @@ p{
           align-items: center;
           align-items: center;
           max-width: 400px ;
-     margin-top: 20px;
+     margin-top: 10px;
         font-size: 12px;
         font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
       }
@@ -274,6 +276,14 @@ p{
           <h4>
           الموقع على خرائط قوقل: 
           https://maps.app.goo.gl/sBjhNzs3b9gKDyri9           
+         </h4>
+         <h4>
+           حالة السداد: 
+         ${paymentStatus}           
+         </h4>
+<h4>
+            الرقم التسلسلي: 
+         ${order}           
          </h4>
       </div>
       </div>

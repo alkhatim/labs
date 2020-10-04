@@ -102,24 +102,28 @@ export default function CenteredGrid() {
             role === "agency" ? "/my-applications" : "/all-applications"
           )}
         </Grid>
-        {/* <Grid xs={12} style={{ marginTop: "5px" }}>
+        <Grid xs={12} style={{ marginTop: "5px" }}>
           {StatusCard(
-            "تم استخراج النتيجة",
-            applications.issuedCount,
+            "تم السداد",
+            applications.paidApplications,
             "green",
             <ErrorOutlineIcon />,
-            role === "agency" ? "/my-applications" : "/all-applications"
+            role === "agency"
+              ? "/my-applications/paid"
+              : "/all-applications/paid"
           )}
         </Grid>
         <Grid xs={12} style={{ marginTop: "5px" }}>
           {StatusCard(
-            "تم استلام النتيجة",
-            applications.deliveredCount,
+            "مطالبات",
+            applications.notPaidApplications,
             "green",
             <ErrorOutlineIcon />,
-            role === "agency" ? "/my-applications" : "/all-applications"
+            role === "agency"
+              ? "/my-applications/not-paid"
+              : "/all-applications/not-paid"
           )}
-        </Grid> */}
+        </Grid>
       </Grid>
       <Grid container spacing={3} style={{ marginTop: "55px" }}>
         <Grid xs={4} style={{ marginTop: "5px" }}>
