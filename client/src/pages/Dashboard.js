@@ -118,9 +118,9 @@ export default function CenteredGrid() {
               )}
             </Grid>
           ))}
-        {(role === "agency" &&
+        {((role === "agency" &&
           (user.type === "recruitment office" || user.type === "agency")) ||
-          ((role === "admin" || role === "super admin") && (
+          (role === "admin" || role === "super admin") && (
             <Grid xs={12} style={{ marginTop: "5px" }}>
               {StatusCard(
                 "مطالبات",
