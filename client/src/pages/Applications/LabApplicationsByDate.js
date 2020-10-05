@@ -49,10 +49,6 @@ export default function WalletTransactionsDate(props) {
         mazin: result.mazin,
         labDebit: result.labDebit,
       });
-      setDates({
-        startDate: new Date(),
-        endDate: new Date(),
-      });
       result.data.forEach((application) => {
         switch (application.state) {
           case "registered":
@@ -261,7 +257,7 @@ export default function WalletTransactionsDate(props) {
             alignItems="center"
             spacing={3}
           >
-            <Grid item xs={6}>
+            {/* <Grid item xs={6}>
               <Typography variant="h6" gutterBottom align="center">
                 جملة الايرادات للمعمل:{" "}
                 {paymentsDetails.lab ? paymentsDetails.lab : ""}
@@ -287,7 +283,7 @@ export default function WalletTransactionsDate(props) {
                 جملة مطالبات مازن :{" "}
                 {paymentsDetails.mazin ? paymentsDetails.mazin : ""}
               </Typography>
-            </Grid>
+            </Grid> */}
           </Grid>
           <Grid xs={12}>
             <div style={{ margin: "50px" }}>

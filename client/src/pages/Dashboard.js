@@ -54,6 +54,7 @@ const useStyles = makeStyles((theme) => ({
 export default function CenteredGrid() {
   const classes = useStyles();
   const role = useSelector((store) => store.authReducer.role);
+  const user = useSelector((store) => store.authReducer.user);
 
   const [applications, setApplications] = useState({});
   const dispatch = useDispatch();
@@ -102,28 +103,36 @@ export default function CenteredGrid() {
             role === "agency" ? "/my-applications" : "/all-applications"
           )}
         </Grid>
-        <Grid xs={12} style={{ marginTop: "5px" }}>
-          {StatusCard(
-            "تم السداد",
-            applications.paidApplications,
-            "green",
-            <ErrorOutlineIcon />,
-            role === "agency"
-              ? "/my-applications/paid"
-              : "/all-applications/paid"
-          )}
-        </Grid>
-        <Grid xs={12} style={{ marginTop: "5px" }}>
-          {StatusCard(
-            "مطالبات",
-            applications.notPaidApplications,
-            "green",
-            <ErrorOutlineIcon />,
-            role === "agency"
-              ? "/my-applications/not-paid"
-              : "/all-applications/not-paid"
-          )}
-        </Grid>
+        {(role === "agency" &&
+          (user.type === "recruitment office" || user.type === "agency")) ||
+          ((role === "admin" || role === "super admin") && (
+            <Grid xs={12} style={{ marginTop: "5px" }}>
+              {StatusCard(
+                "تم السداد",
+                applications.paidApplications,
+                "green",
+                <ErrorOutlineIcon />,
+                role === "agency"
+                  ? "/my-applications/paid"
+                  : "/all-applications/paid"
+              )}
+            </Grid>
+          ))}
+        {(role === "agency" &&
+          (user.type === "recruitment office" || user.type === "agency")) ||
+          ((role === "admin" || role === "super admin") && (
+            <Grid xs={12} style={{ marginTop: "5px" }}>
+              {StatusCard(
+                "مطالبات",
+                applications.notPaidApplications,
+                "green",
+                <ErrorOutlineIcon />,
+                role === "agency"
+                  ? "/my-applications/not-paid"
+                  : "/all-applications/not-paid"
+              )}
+            </Grid>
+          ))}
       </Grid>
       <Grid container spacing={3} style={{ marginTop: "55px" }}>
         <Grid xs={4} style={{ marginTop: "5px" }}>

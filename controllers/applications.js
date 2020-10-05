@@ -450,8 +450,6 @@ exports.getApplicationsByDates = asyncHandler(async (req, res, next) => {
   start.setHours(0, 0, 0, 0);
   var end = new Date(req.body.endDate);
   end.setHours(23, 59, 59, 999);
-  console.log(start);
-  console.log(end);
   const datedApplications = await Application.find({
     labPaymentStatus: "not paid",
     paymentStatus: "paid",
@@ -460,35 +458,12 @@ exports.getApplicationsByDates = asyncHandler(async (req, res, next) => {
       $gte: start,
       $lt: end,
     },
+  }).populate("user");
+  res.status(200).json({
+    success: true,
+    count: datedApplications.length,
+    data: datedApplications,
   });
-  let lab = 0;
-  let moniem = 0;
-  let mazin = 0;
-  let counter = 0;
-
-  datedApplications.forEach(async (application) => {
-    const credit = await Credit.findOne({ application: application._id });
-    if (!credit) {
-      return next(new ErrorResponse(`هذا الفحص لم  يسدد`, 400));
-    } else {
-      lab += credit.lab;
-      moniem += credit.moniem;
-      mazin += credit.mazin;
-      counter = counter + 1;
-    }
-  });
-
-  if (counter == datedApplications.length) {
-    res.status(200).json({
-      success: true,
-      count: datedApplications.length,
-      data: datedApplications,
-      lab: lab,
-      moniem: moniem,
-      mazin: mazin,
-      labDebit: mazin + moniem,
-    });
-  }
 });
 
 exports.deleteApplication = asyncHandler(async (req, res, next) => {

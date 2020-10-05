@@ -48,7 +48,7 @@ p{
     max-width: 900px ;
      margin: auto;
         font-size: 14px;
-        line-height: 24px;
+        line-height: 10px;
         font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 }
 
@@ -57,14 +57,14 @@ p{
     flex-direction: column;
     justify-content: center; 
     align-items: center;
-    font-size: 14px;
-    line-height: 24px;
+    font-size: 12px;
+    line-height: 10px;
     font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 }
 
       .invoice-box table {
         width: 100%;
-        line-height: inherit;
+        line-height: 10px;
         text-align: left;
       }
 
@@ -84,12 +84,12 @@ p{
 
       .invoice-box table tr.top table td.title {
         font-size: 12px;
-        line-height: 12px;
+        line-height: 10px;
         color: #333;
       }
 
       .invoice-box table tr.information table td {
-        padding-bottom: 40px;
+        padding-bottom: 20px;
       }
 
       .invoice-box table tr.heading td {
@@ -150,7 +150,7 @@ p{
           align-items: center;
           align-items: center;
           max-width: 400px ;
-     margin-top: 10px;
+     margin-top: 5px;
         font-size: 12px;
         font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
       }
