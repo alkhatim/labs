@@ -42,13 +42,7 @@ export default function WalletTransactionsDate(props) {
   const handleDateChange = async () => {
     const result = await applicationsByDates(dates);
     if (result) {
-      console.log(result);
-      setPaymentsDetails({
-        lab: result.lab,
-        moniem: result.moniem,
-        mazin: result.mazin,
-        labDebit: result.labDebit,
-      });
+      let agencyIntAppsCounter = 0;
       result.data.forEach((application) => {
         switch (application.state) {
           case "registered":
@@ -73,6 +67,10 @@ export default function WalletTransactionsDate(props) {
         switch (application.type) {
           case "internal":
             application.type = "في المعمل";
+            if(application.user.type === "agency" || application.user.type === "recruitment office"){
+              agencyIntAppsCounter += 1;
+              console.log(agencyIntAppsCounter);
+            }
             break;
 
           case "external":

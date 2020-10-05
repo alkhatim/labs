@@ -131,11 +131,13 @@ export default function Users(props) {
           {
             icon: "delete",
             tooltip: "حذف المستخدم",
+            disabled: role === "admin",
             onClick: async (event, data) => {
+              if(role === "super admin") {
               await deleteUser(data._id).catch(() => {
                 return;
               });
-              setUsers(users.filter((user) => user._id !== data._id));
+              setUsers(users.filter((user) => user._id !== data._id));}
             },
           },
         ]}
