@@ -66,7 +66,7 @@ export default function AddUser(props) {
     name: "",
     ownerName: "",
     phoneNumber: "",
-    type: "",
+    type: "agency",
     role: "",
   });
 
@@ -132,7 +132,7 @@ export default function AddUser(props) {
   const handleNext = async () => {
     switch (activeStep) {
       case 0:
-        // if (validateGeneralForm()) break;
+        if (validateGeneralForm()) break;
         setActiveStep(1);
         break;
 
