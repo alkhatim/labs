@@ -63,7 +63,7 @@ export default function Users(props) {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (role === "admin") {
+      if (role === "admin" || role === "super admin") {
         const result = await getUsers();
         const users = result.map((user) => ({
           ...user,
@@ -75,7 +75,7 @@ export default function Users(props) {
     fetchData();
   }, [role]);
 
-  return role === "admin" ? (
+  return role === "admin" || role === "super admin" ? (
     <div style={{ margin: "50px", width: "75vw" }}>
       <MaterialTable
         title="المستخدمين"

@@ -102,22 +102,26 @@ export default function AddApplicationForm(props) {
 
   const generalFormSchema = Joi.object()
     .keys({
-      name1: Joi.string().min(3).required().label("Name1"),
-      name2: Joi.string().min(3).required().label("Name2"),
-      name3: Joi.string().min(3).required().label("Name3"),
-      name4: Joi.string().min(3).required().label("Name4"),
-      ename1: Joi.string().min(3).required().label("EName1"),
-      ename2: Joi.string().min(3).required().label("EName2"),
-      ename3: Joi.string().min(3).required().label("EName3"),
-      ename4: Joi.string().min(3).required().label("EName4"),
+      name1: Joi.string().min(3).max(15).required().label("Name1"),
+      name2: Joi.string().min(3).max(15).required().label("Name2"),
+      name3: Joi.string().min(3).max(15).required().label("Name3"),
+      name4: Joi.string().min(3).max(15).required().label("Name4"),
+      ename1: Joi.string().min(3).max(15).required().label("EName1"),
+      ename2: Joi.string().min(3).max(15).required().label("EName2"),
+      ename3: Joi.string().min(3).max(15).required().label("EName3"),
+      ename4: Joi.string().min(3).max(15).required().label("EName4"),
       airlines: Joi.string().required().label("Airlines"),
-      destination: Joi.string().min(3).required().label("Destination"),
+      destination: Joi.string().min(3).max(15).required().label("Destination"),
       type: Joi.string().min(3).required().label("Type"),
-      passportNumber: Joi.string().min(6).required().label("PassportNumber"),
+      passportNumber: Joi.string()
+        .min(6)
+        .max(12)
+        .required()
+        .label("PassportNumber"),
       flightTime: Joi.string().required().label("FlightTime"),
       flightDate: Joi.date().min(6).required().label("FlightDate"),
       testDate: Joi.date().min(6).required().label("TestDate"),
-      phoneNumber: Joi.string().required().label("PhoneNumber"),
+      phoneNumber: Joi.string().max(9).required().label("PhoneNumber"),
     })
     .unknown(true);
 

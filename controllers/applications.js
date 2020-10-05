@@ -232,10 +232,10 @@ exports.addApplication = asyncHandler(async (req, res, next) => {
   let paymentStatus;
   switch (application.paymentStatus) {
     case "paid":
-      paymentStatus = "خالص";
+      paymentStatus = "مسدد";
       break;
     case "not paid":
-      paymentStatus = "غير خالص";
+      paymentStatus = "غير مسدد";
       break;
     default:
       break;
@@ -320,10 +320,10 @@ exports.printApplicationReceipt = asyncHandler(async (req, res, next) => {
   }
   switch (application.paymentStatus) {
     case "paid":
-      application.paymentStatus = "خالص";
+      application.paymentStatus = "مسدد";
       break;
     case "not paid":
-      application.paymentStatus = "غير خالص";
+      application.paymentStatus = "غير مسدد";
       break;
     default:
       break;

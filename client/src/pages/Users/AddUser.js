@@ -91,7 +91,7 @@ export default function AddUser(props) {
       name: Joi.string().required().label("Name"),
       ownerName: Joi.string().required().label("Owner Name"),
       type: Joi.string().required().label("Type"),
-      phoneNumber: Joi.string().min(9).max(14).required().label("Phone Number"),
+      phoneNumber: Joi.string().max(9).required().label("Phone Number"),
       email: Joi.string().required().label("Email"),
       role: Joi.string()
         .valid(["lab", "admin", "agency", "user"])
@@ -171,7 +171,7 @@ export default function AddUser(props) {
     }
   }
 
-  return role === "admin" ? (
+  return role === "admin" || role === "super admin" ? (
     <React.Fragment>
       <CssBaseline />
       <main className={classes.layout}>

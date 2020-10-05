@@ -59,7 +59,7 @@ const UserSchema = new Schema({
       "agency",
       "corporate",
       "organization",
-      "medical services",
+      "diplomatic committee",
       "recruitment office",
       "other",
     ],

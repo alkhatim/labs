@@ -153,7 +153,7 @@ export default (props) => {
     setPasswordModal(false);
   };
 
-  return role === "admin" ? (
+  return role === "admin" || role === "super admin" ? (
     <React.Fragment>
       <CssBaseline />
       <main className={classes.layout}>
