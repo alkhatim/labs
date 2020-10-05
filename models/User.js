@@ -63,6 +63,7 @@ const UserSchema = new Schema({
       "recruitment office",
       "other",
     ],
+    default: "other",
   },
   photo: {
     type: String,

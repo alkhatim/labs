@@ -246,6 +246,7 @@ exports.addApplication = asyncHandler(async (req, res, next) => {
     ename: application.ename,
     testDate: application.testDate,
     flightDate: application.flightDate,
+    flightTime: application.flightTime,
     phoneNumber: application.phoneNumber,
     passportNumber: application.passportNumber,
     destination: application.destination,
