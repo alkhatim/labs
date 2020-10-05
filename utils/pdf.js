@@ -39,7 +39,7 @@ p{
 }
 
  img { position: absolute;
-  left: 150px;
+  right: 150px;
   buttom: 100px;}
 
 .header-part{
