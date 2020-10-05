@@ -39,8 +39,8 @@ p{
 }
 
  img { position: absolute;
-  left: 20px;
-  buttom: 20px;}
+  left: 150px;
+  buttom: 100px;}
 
 .header-part{
     display: flex; 
