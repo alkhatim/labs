@@ -24,29 +24,33 @@ router.route("/").get(advancedResults(User), getUsers).post(createUser);
 
 router
   .route("/my-profile")
-  .get(protect, authorize("admin", "agency", "lab", "user"), getMyUserProfile)
+  .get(
+    protect,
+    authorize("admin", "agency", "lab", "user", "super admin"),
+    getMyUserProfile
+  )
   .put(
     protect,
-    authorize("admin", "agency", "lab", "user"),
+    authorize("admin", "agency", "lab", "user", "super admin"),
     updateMyUserProfile
   );
 
 router
   .route("/:id/update-password")
-  .post(protect, authorize("admin"), updatePassword);
+  .post(protect, authorize("admin", "super admin"), updatePassword);
 
 router
   .route("/:id/update-user-password")
-  .post(protect, authorize("admin"), updateUserPassword);
+  .post(protect, authorize("admin", "super admin"), updateUserPassword);
 
 router
   .route("/:id")
-  .get(protect, authorize("admin"), getUser)
-  .delete(protect, authorize("admin"), deleteUser);
+  .get(protect, authorize("admin", "super admin"), getUser)
+  .delete(protect, authorize("admin", "super admin"), deleteUser);
 
 router
   .route("/update-my-password")
-  .put(protect, authorize("admin", "agency"), updateMyPassword);
+  .put(protect, authorize("admin", "agency", "super admin"), updateMyPassword);
 
-router.route("/update").put(authorize("agency"), updateUser);
+router.route("/update").put(authorize("agency", "super admin"), updateUser);
 module.exports = router;

@@ -250,6 +250,7 @@ export default function AppContainer(props) {
         </div>
         <Divider />
         <List>
+          {SidebarItem("ارشادات الفحص", "/covid-info", <InfoIcon />)}
           {SidebarItem("الاستعلامات", "/dashboard", <DashboardIcon />)}
           {SidebarNestedItemsParent(
             "الفحوصات",
@@ -331,7 +332,6 @@ export default function AppContainer(props) {
             )}
           <Divider />
           {SidebarItem("الملف الشخصي", "/user-profile", <AccountCircle />)}
-          {SidebarItem("ارشادات الفحص", "/covid-info", <InfoIcon />)}
           {(role === "admin" || role === "super-admin") &&
             SidebarItem(
               "حسابات العمولة",

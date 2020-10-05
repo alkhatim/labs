@@ -27,34 +27,61 @@ router
   .route("/")
   .get(
     protect,
-    authorize("admin", "lab", "office coordinator"),
+    authorize("admin", "lab", "office coordinator", "super admin"),
     getApplications
   )
   .post(
     protect,
-    authorize("admin", "agency", "user", "lab", "office coordinator"),
+    authorize(
+      "admin",
+      "agency",
+      "user",
+      "lab",
+      "office coordinator",
+      "super admin"
+    ),
     addApplication
   );
 
 router
   .route("/lab/not-paid")
-  .post(protect, authorize("admin", "super admin"), getApplicationsByDates);
+  .post(
+    protect,
+    authorize("admin", "super admin", "super admin"),
+    getApplicationsByDates
+  );
 
 router
   .route("/lab/paying")
-  .post(protect, authorize("admin", "super admin"), labPaidForApplications);
+  .post(
+    protect,
+    authorize("admin", "super admin", "super admin"),
+    labPaidForApplications
+  );
 
 router
   .route("/my-applications/not-paid")
-  .get(protect, authorize("admin", "agency"), getMyApplicationsNotPaid);
+  .get(
+    protect,
+    authorize("admin", "agency", "super admin"),
+    getMyApplicationsNotPaid
+  );
 
 router
   .route("/my-applications/paid")
-  .get(protect, authorize("admin", "agency"), getMyApplicationsPaid);
+  .get(
+    protect,
+    authorize("admin", "agency", "super admin"),
+    getMyApplicationsPaid
+  );
 
 router
   .route("/my-applications")
-  .get(protect, authorize("admin", "lab", "agency"), getMyApplications);
+  .get(
+    protect,
+    authorize("admin", "lab", "agency", "super admin"),
+    getMyApplications
+  );
 
 router
   .route("/not-paid")
@@ -76,7 +103,7 @@ router
   .route("/statistics")
   .get(
     protect,
-    authorize("admin", "lab", "agency"),
+    authorize("admin", "lab", "agency", "super admin"),
     getMyApplicationsCountAccordingToState
   );
 
@@ -84,7 +111,7 @@ router
   .route("/all-statistics")
   .get(
     protect,
-    authorize("admin", "lab", "office coordinator"),
+    authorize("admin", "lab", "office coordinator", "super admin"),
     getApplicationsCountAccordingToState
   );
 
@@ -92,7 +119,7 @@ router
   .route("/:applicationId/download-receipt")
   .get(
     protect,
-    authorize("admin", "agency", "lab", "office coordinator"),
+    authorize("admin", "agency", "lab", "office coordinator", "super admin"),
     downloadApplicationReceipt
   );
 
@@ -100,7 +127,7 @@ router
   .route("/:applicationId/print-application")
   .post(
     protect,
-    authorize("admin", "agency", "lab", "office coordinator"),
+    authorize("admin", "agency", "lab", "office coordinator", "super admin"),
     printApplicationReceipt
   );
 
@@ -109,9 +136,13 @@ router
   .get(getApplication)
   .put(
     protect,
-    authorize("admin", "agency", "lab", "office coordinator"),
+    authorize("admin", "agency", "lab", "office coordinator", "super admin"),
     updateApplication
   )
-  .delete(protect, authorize("admin", "agency", "lab"), deleteApplication);
+  .delete(
+    protect,
+    authorize("admin", "agency", "lab", "super admin"),
+    deleteApplication
+  );
 
 module.exports = router;
