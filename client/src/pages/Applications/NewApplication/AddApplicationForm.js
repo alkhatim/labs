@@ -233,7 +233,7 @@ export default function AddApplicationForm(props) {
     }
   }
 
-  return role === "admin" || role === "agency" ? (
+  return role === "admin" || role === "agency" || role === "super admin" ? (
     <React.Fragment>
       <CssBaseline />
       <main className={classes.layout}>

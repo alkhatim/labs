@@ -311,28 +311,29 @@ export default function AppContainer(props) {
                 SidebarNestedItem("/new-application", "اضافة طلب فحص", <Add />)}
             </List>
           )}
-          {role === "admin" &&
-            SidebarNestedItemsParent(
-              "المستخدمين",
-              handleUsersNestedMenu,
-              <AssignmentTurnedInIcon />,
-              menuUsers,
-              <List component="div" disablePadding>
-                {SidebarNestedItem(
-                  "/all-users",
-                  "جميع المستخدمين",
-                  <AssignmentIndIcon />
-                )}
-                {SidebarNestedItem(
-                  "/admin-user-registration",
-                  "اضافة مستخدم",
-                  <PersonAddIcon />
-                )}
-              </List>
-            )}
+          {role === "admin" ||
+            (role === "super admin" &&
+              SidebarNestedItemsParent(
+                "المستخدمين",
+                handleUsersNestedMenu,
+                <AssignmentTurnedInIcon />,
+                menuUsers,
+                <List component="div" disablePadding>
+                  {SidebarNestedItem(
+                    "/all-users",
+                    "جميع المستخدمين",
+                    <AssignmentIndIcon />
+                  )}
+                  {SidebarNestedItem(
+                    "/admin-user-registration",
+                    "اضافة مستخدم",
+                    <PersonAddIcon />
+                  )}
+                </List>
+              ))}
           <Divider />
           {SidebarItem("الملف الشخصي", "/user-profile", <AccountCircle />)}
-          {(role === "admin" || role === "super-admin") &&
+          {(role === "admin" || role === "super admin") &&
             SidebarItem(
               "حسابات العمولة",
               "/credit-summary",
