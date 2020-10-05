@@ -289,7 +289,7 @@ p{
       </div>
       <div>
       <img src=${QRCode} style="width: 100%; max-width: 100px; height: 100%; max-height: 100px; position: absolute;
-  right: 20px;
+  left: 20px;
   bottom: 0px; "/>
       </div>
     </div>
