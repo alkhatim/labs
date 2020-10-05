@@ -118,7 +118,7 @@ export default function AddApplicationForm(props) {
         .max(12)
         .required()
         .label("PassportNumber"),
-      flightTime: Joi.string().required().label("FlightTime"),
+      flightTime: Joi.string().min(2).required().label("FlightTime"),
       flightDate: Joi.date().min(6).required().label("FlightDate"),
       testDate: Joi.date().min(6).required().label("TestDate"),
       phoneNumber: Joi.string().max(9).required().label("PhoneNumber"),
