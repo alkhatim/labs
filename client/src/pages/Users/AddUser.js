@@ -79,7 +79,6 @@ export default function AddUser(props) {
     phoneNumber: false,
     type: false,
     email: false,
-    photo: false,
     role: false,
   });
 
@@ -94,7 +93,7 @@ export default function AddUser(props) {
       phoneNumber: Joi.string().max(9).required().label("Phone Number"),
       email: Joi.string().required().label("Email"),
       role: Joi.string()
-        .valid(["lab", "admin", "agency", "user"])
+        .valid(["lab", "admin", "agency", "user", "office coordinator"])
         .required()
         .label("Role"),
     })
@@ -109,6 +108,7 @@ export default function AddUser(props) {
       for (let item of error.details) {
         errors[item.path[0]] = item.message;
       }
+      console.log(errors);
       setErrors(errors);
       return error;
     } else
@@ -121,7 +121,6 @@ export default function AddUser(props) {
         phoneNumber: false,
         type: false,
         email: false,
-        photo: false,
         role: false,
       });
   };
