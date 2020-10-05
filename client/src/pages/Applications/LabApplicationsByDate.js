@@ -15,6 +15,7 @@ import {
   labPaid,
   applicationsByDates,
 } from "../../redux/actions/applications_actions";
+import {postHaggana} from "../../redux/actions/credits_actions";
 
 export default function WalletTransactionsDate(props) {
   const role = useSelector((store) => store.authReducer.role);
@@ -42,7 +43,12 @@ export default function WalletTransactionsDate(props) {
   const handleDateChange = async () => {
     const result = await applicationsByDates(dates);
     if (result) {
-      let agencyIntAppsCounter = 0;
+      setPaymentsDetails({
+        lab: result.lab,
+        moniem: result.moniem,
+        mazin: result.mazin,
+        labDebit: result.labDebit,
+      });
       result.data.forEach((application) => {
         switch (application.state) {
           case "registered":
@@ -67,10 +73,6 @@ export default function WalletTransactionsDate(props) {
         switch (application.type) {
           case "internal":
             application.type = "في المعمل";
-            if(application.user.type === "agency" || application.user.type === "recruitment office"){
-              agencyIntAppsCounter += 1;
-              console.log(agencyIntAppsCounter);
-            }
             break;
 
           case "external":
@@ -131,6 +133,10 @@ export default function WalletTransactionsDate(props) {
     onClick: async (event, data) => {
       if (role === "admin" || role === "super admin") {
         const paymentsSucceeded = await labPaid(data);
+        if (paymentsSucceeded) {
+          const haggana = {...paymentsDetails, date: new Date(), done: false};
+          const result = await postHaggana(haggana);
+        }
         setApplications([]);
         if (paymentsSucceeded) messages.success("تم تسجيل الدفعيات من المعمل");
       }
@@ -255,7 +261,7 @@ export default function WalletTransactionsDate(props) {
             alignItems="center"
             spacing={3}
           >
-            {/* <Grid item xs={6}>
+            <Grid item xs={6}>
               <Typography variant="h6" gutterBottom align="center">
                 جملة الايرادات للمعمل:{" "}
                 {paymentsDetails.lab ? paymentsDetails.lab : ""}
@@ -281,7 +287,7 @@ export default function WalletTransactionsDate(props) {
                 جملة مطالبات مازن :{" "}
                 {paymentsDetails.mazin ? paymentsDetails.mazin : ""}
               </Typography>
-            </Grid> */}
+            </Grid>
           </Grid>
           <Grid xs={12}>
             <div style={{ margin: "50px" }}>

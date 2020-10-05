@@ -348,6 +348,15 @@ exports.updateApplication = asyncHandler(async (req, res, next) => {
   if (!applicationStateCheck) {
     return next(new ErrorResponse(`لم يتم العثور على الطلب`, 404));
   }
+   if (
+     applicationStateCheck.user._id.toString() !== req.user.id ||
+     !(req.user.role === "admin" ||
+     req.user.role === "super admin" ||
+     req.user.role === "lab" ||
+     req.user.role === "office coordinator")
+   ) {
+     return next(new ErrorResponse(`غير مصرح باتمام العملية`, 403));
+   }
   if (
     applicationStateCheck.state === "tested" &&
     req.body.state === "registered" &&
@@ -435,12 +444,9 @@ exports.labPaidForApplications = asyncHandler(async (req, res, next) => {
     if (!application) {
       return next(new ErrorResponse(`هذا الفحص لم يعد موجودا`, 404));
     }
-    console.log(application.labPaymentStatus);
     application.labPaymentStatus = "paid";
-    console.log(application.labPaymentStatus);
     await application.save();
   });
-
   res.status(200).json({
     success: true,
   });
@@ -460,10 +466,25 @@ exports.getApplicationsByDates = asyncHandler(async (req, res, next) => {
       $lt: end,
     },
   }).populate("user");
+
+  const credits = await Credit.find({application: {
+    $in: datedApplications.map(app => app._id)
+  }});
+  let lab =0, moniem =0, mazin=0;
+  credits.forEach(credit => {
+    lab += credit.lab;
+    moniem += credit.moniem;
+    mazin += credit.mazin;
+  });
+
   res.status(200).json({
     success: true,
     count: datedApplications.length,
     data: datedApplications,
+    lab, 
+    moniem,
+    mazin, 
+    labDebit: moniem + mazin
   });
 });
 

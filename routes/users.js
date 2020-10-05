@@ -26,12 +26,26 @@ router
   .route("/my-profile")
   .get(
     protect,
-    authorize("admin", "agency", "lab", "user", "super admin"),
+    authorize(
+      "admin",
+      "agency",
+      "lab",
+      "user",
+      "super admin",
+      "office coordinator"
+    ),
     getMyUserProfile
   )
   .put(
     protect,
-    authorize("admin", "agency", "lab", "user", "super admin"),
+    authorize(
+      "admin",
+      "agency",
+      "lab",
+      "user",
+      "super admin",
+      "office coordinator"
+    ),
     updateMyUserProfile
   );
 
@@ -50,7 +64,7 @@ router
 
 router
   .route("/update-my-password")
-  .put(protect, authorize("admin", "agency", "super admin"), updateMyPassword);
+  .put(protect, authorize("admin", "agency", "super admin", "lab","office coordinator",), updateMyPassword);
 
 router.route("/update").put(authorize("agency", "super admin"), updateUser);
 module.exports = router;

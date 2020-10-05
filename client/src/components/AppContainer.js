@@ -331,12 +331,19 @@ export default function AppContainer(props) {
                   )}
                 </List>
               ))}
+
           <Divider />
           {SidebarItem("الملف الشخصي", "/user-profile", <AccountCircle />)}
           {(role === "admin" || role === "super admin") &&
             SidebarItem(
               "حسابات العمولة",
               "/credit-summary",
+              <AccountBalanceIcon />
+            )}
+          {(role === "admin" || role === "super admin") &&
+            SidebarItem(
+              "الحسابات",
+              "/hagganas",
               <AccountBalanceIcon />
             )}
         </List>

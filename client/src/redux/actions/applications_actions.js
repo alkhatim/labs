@@ -160,7 +160,7 @@ export const getAllAgenciesNotPaidApplications = async () => {
 export const applicationsByDates = async (dates) => {
   try {
     const result = await http.post(
-      `http://localhost:5000/api/v1/applications/lab/not-paid`,
+      `/api/v1/applications/lab/not-paid`,
       dates
     );
     return result.data;
@@ -173,7 +173,7 @@ export const applicationsByDates = async (dates) => {
 export const labPaid = async (applications) => {
   try {
     const result = await http.post(
-      `http://localhost:5000/api/v1/applications/lab/paying`,
+      `/api/v1/applications/lab/paying`,
       applications
     );
     return result.data.success;

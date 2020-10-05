@@ -28,6 +28,7 @@ const users = require("./routes/users");
 const auth = require("./routes/auth");
 const applications = require("./routes/applications");
 const credits = require("./routes/credits");
+const hagganas = require("./routes/hagganas");
 
 //Connect to database
 connectDB();
@@ -95,6 +96,7 @@ app.use("/api/v1/users", users);
 app.use("/api/v1/auth", auth);
 app.use("/api/v1/applications", applications);
 app.use("/api/v1/credits", credits);
+app.use("/api/v1/haggana", hagganas);
 app.use(function (req, res) {
   res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });

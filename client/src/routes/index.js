@@ -16,6 +16,7 @@ import AllApplications from "../pages/Applications/AllApplications";
 import Application from "../pages/Applications/Application";
 import Users from "../pages/Users/Users";
 import User from "../pages/Users/User";
+import Hagganas from "../pages/Credits/Hagganas";
 import AddUser from "../pages/Users/AddAgency";
 import AddUserByAdmin from "../pages/Users/AddUser";
 import UserProfile from "../pages/Users/UserProfile";
@@ -46,6 +47,11 @@ export default function Routes() {
           path="/all-applications/paid"
           exact
           component={AllPaidApplications}
+        />
+        <Route
+          path="/hagganas"
+          exact
+          component={Hagganas}
         />
         <Route
           path="/my-applications/not-paid"
