@@ -39,8 +39,8 @@ p{
 }
 
  img { position: absolute;
-  right: 150px;
-  buttom: 100px;}
+  left: 0px;
+  buttom: 0px;}
 
 .header-part{
     display: flex; 
@@ -289,7 +289,7 @@ p{
       </div>
       <div>
       <img src=${QRCode} style="width: 100%; max-width: 100px; height: 100%; max-height: 100px; position: absolute;
-  left: 0px;
+  right: 20px;
   bottom: 0px; "/>
       </div>
     </div>
