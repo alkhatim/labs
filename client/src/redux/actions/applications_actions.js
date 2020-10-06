@@ -103,7 +103,7 @@ export const getApplicationsStats = async () => {
 
 export const getAllStats = async () => {
   try {
-    const result = await http.get(`/api/v1/applications/all-statistics`);
+    const result = await http.get(`/api/v1/applications/statistics/all`);
     return result.data;
   } catch (error) {
     messages.error(error);
@@ -164,7 +164,6 @@ export const applicationsByDates = async (dates) => {
       dates
     );
     return result.data;
-    console.log(result);
   } catch (error) {
     messages.error(error);
   }

@@ -107,14 +107,14 @@ router
     getMyApplicationsCountAccordingToState
   );
 
-router
-  .route("/all-statistics")
-  .get(
-    protect,
-    authorize("admin", "lab", "office coordinator", "super admin"),
-    getApplicationsCountAccordingToState
-  );
-
+  router
+    .route("/statistics/all")
+    .get(
+      protect,
+      authorize("admin", "lab", "office coordinator", "super admin"),
+      getApplicationsCountAccordingToState
+    ); 
+    
 router
   .route("/:applicationId/download-receipt")
   .get(

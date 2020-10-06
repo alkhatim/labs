@@ -31,7 +31,6 @@ import AssignmentIndIcon from "@material-ui/icons/AssignmentInd";
 import GroupIcon from "@material-ui/icons/Group";
 import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
 import AssignmentTurnedInIcon from "@material-ui/icons/AssignmentTurnedIn";
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import clsx from "clsx";
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -333,13 +332,6 @@ export default function AppContainer(props) {
               ))}
 
           <Divider />
-          {SidebarItem("الملف الشخصي", "/user-profile", <AccountCircle />)}
-          {(role === "admin" || role === "super admin") &&
-            SidebarItem(
-              "حسابات العمولة",
-              "/credit-summary",
-              <AccountBalanceIcon />
-            )}
           {(role === "admin" || role === "super admin") &&
             SidebarItem(
               "الحسابات",

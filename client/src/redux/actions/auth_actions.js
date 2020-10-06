@@ -18,7 +18,7 @@ export const loginAction = (auth) => async (dispatch) => {
 
     dispatch({
       type: authConstants.LOGIN_SUCCESS,
-      payload: { user: auth.userName, token, role: result.data.role },
+      payload: { user: auth.userName, token, role: result.data.role, type: result.data.type},
     });
   } catch (error) {
     messages.error(error);

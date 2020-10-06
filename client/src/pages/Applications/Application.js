@@ -294,16 +294,26 @@ export default (props) => {
             تفاصيل الفحص
           </Typography>
           <Grid container spacing={3} style={{ margin: 10 }}>
-            <Tooltip title="تعديل">
-              <Button onClick={() => setReadOnly(!readOnly)}>
-                <EditIcon style={{ color: "#0066cc" }} fontSize="large" />
-              </Button>
-            </Tooltip>
-            <Tooltip title="حفظ">
-              <Button onClick={handleSave}>
-                <SaveIcon style={{ color: "#3cb371" }} fontSize="large" />
-              </Button>
-            </Tooltip>
+            {(application.state === "tested" ||
+              role === "lab" ||
+              role === "admin" ||
+              role === "super admin" ||
+              role === "office coordinator" ) && (
+                <React.Fragment>
+                  <Tooltip title="تعديل">
+                    <Button onClick={() => setReadOnly(!readOnly)}>
+                      <EditIcon style={{ color: "#0066cc" }} fontSize="large" />
+                    </Button>
+                  </Tooltip>
+
+                  <Tooltip title="حفظ">
+                    <Button onClick={handleSave}>
+                      <SaveIcon style={{ color: "#3cb371" }} fontSize="large" />
+                    </Button>
+                  </Tooltip>
+                </React.Fragment>
+              )}
+
             <Tooltip title="طباعة بيانات الطلب">
               <Button onClick={async () => await downloadReceipt(application)}>
                 <DownloadIcon style={{ color: "#3cb371" }} fontSize="large" />
@@ -324,8 +334,9 @@ export default (props) => {
             {(application.state === "registered" ||
               role === "lab" ||
               role === "admin" ||
-              role === "office coordinator" ||
-              role === "user") && (
+              role === "super admin" ||
+              role === "office coordinator") 
+              && (
               <Tooltip title="مسح">
                 <Button onClick={handleDeleteAttempt}>
                   <DeleteIcon color="secondary" fontSize="large" />
@@ -396,7 +407,7 @@ export default (props) => {
               <TextField
                 className={classes.texField}
                 name="name1"
-                disabled={readOnly}
+                disabled={readOnly || application.state === "tested"}
                 error={errors.name1}
                 label="الاسم الاول"
                 onChange={handleChange}
@@ -407,7 +418,7 @@ export default (props) => {
               <TextField
                 className={classes.texField}
                 name="name2"
-                disabled={readOnly}
+                disabled={readOnly || application.state === "tested"}
                 error={errors.name2}
                 label="الاسم الثاني"
                 onChange={handleChange}
@@ -419,7 +430,7 @@ export default (props) => {
                 className={classes.texField}
                 name="name3"
                 error={errors.name3}
-                disabled={readOnly}
+                disabled={readOnly || application.state === "tested"}
                 label="الاسم الثالث"
                 onChange={handleChange}
                 value={application.name3}
@@ -429,7 +440,7 @@ export default (props) => {
               <TextField
                 className={classes.texField}
                 name="name4"
-                disabled={readOnly}
+                disabled={readOnly || application.state === "tested"}
                 error={errors.name4}
                 label="الاسم الرابع"
                 onChange={handleChange}
@@ -440,7 +451,7 @@ export default (props) => {
               <TextField
                 className={classes.texField}
                 name="ename1"
-                disabled={readOnly}
+                disabled={readOnly || application.state === "tested"}
                 error={errors.ename1}
                 label="الاسم الاول باللغة الانجليزية"
                 onChange={handleChange}
@@ -451,7 +462,7 @@ export default (props) => {
               <TextField
                 className={classes.texField}
                 name="ename2"
-                disabled={readOnly}
+                disabled={readOnly || application.state === "tested"}
                 error={errors.ename2}
                 label="الاسم الثاني باللغة الانجليزية"
                 onChange={handleChange}
@@ -462,7 +473,7 @@ export default (props) => {
               <TextField
                 className={classes.texField}
                 name="ename3"
-                disabled={readOnly}
+                disabled={readOnly || application.state === "tested"}
                 error={errors.ename3}
                 label="الاسم الثالث باللغة الانجليزية"
                 onChange={handleChange}
@@ -473,7 +484,7 @@ export default (props) => {
               <TextField
                 className={classes.texField}
                 name="ename4"
-                disabled={readOnly}
+                disabled={readOnly || application.state === "tested"}
                 error={errors.ename4}
                 label="الاسم الرابع باللغة الانجليزية "
                 onChange={handleChange}
@@ -512,7 +523,7 @@ export default (props) => {
               <TextField
                 className={classes.texField}
                 name="destination"
-                disabled={readOnly}
+                disabled={readOnly || application.state === "tested"}
                 error={errors.destination}
                 label="وجهة السفر"
                 value={application.destination}
@@ -525,7 +536,7 @@ export default (props) => {
                 <Select
                   labelId="airlines"
                   name="airlines"
-                  disabled={readOnly}
+                  disabled={readOnly || application.state === "tested"}
                   value={application.airlines}
                   onChange={handleChange}
                 >
@@ -546,7 +557,7 @@ export default (props) => {
               <TextField
                 className={classes.texField}
                 name="phoneNumber"
-                disabled={readOnly}
+                disabled={readOnly || application.state === "tested"}
                 error={errors.phoneNumber}
                 label="رقم الهاتف"
                 onChange={handleChange}
@@ -557,7 +568,7 @@ export default (props) => {
               <TextField
                 className={classes.texField}
                 name="passportNumber"
-                disabled={readOnly}
+                disabled={readOnly || application.state === "tested"}
                 error={errors.passportNumber}
                 label="رقم الجواز"
                 onChange={handleChange}
@@ -573,7 +584,7 @@ export default (props) => {
                   label="زمن الحضور للمطار"
                   type="time"
                   defaultValue="12:00"
-                  disabled={readOnly}
+                  disabled={readOnly || application.state === "tested"}
                   className={classes.textTimeField}
                   onChange={handleChange}
                   error={errors.flightTime}
@@ -599,7 +610,7 @@ export default (props) => {
                     variant="inline"
                     format="dd/MM/yyyy"
                     margin="normal"
-                    disabled={readOnly}
+                    disabled={readOnly || application.state === "tested"}
                     id="date-picker-inline"
                     disablePast
                     label="تاريخ السفر"
@@ -635,7 +646,7 @@ export default (props) => {
                     variant="inline"
                     format="dd/MM/yyyy"
                     margin="normal"
-                    disabled={readOnly}
+                    disabled={readOnly || application.state === "tested"}
                     id="date-picker-inline"
                     disablePast
                     label="تاريخ الفحص"

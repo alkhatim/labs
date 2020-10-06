@@ -349,11 +349,11 @@ exports.updateApplication = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse(`لم يتم العثور على الطلب`, 404));
   }
    if (
-     applicationStateCheck.user._id.toString() !== req.user.id ||
-     !(req.user.role === "admin" ||
-     req.user.role === "super admin" ||
-     req.user.role === "lab" ||
-     req.user.role === "office coordinator")
+     applicationStateCheck.user._id.toString() !== req.user.id &&
+     (req.user.role !== "admin" &&
+     req.user.role !== "super admin" &&
+     req.user.role !== "lab" &&
+     req.user.role !== "office coordinator")
    ) {
      return next(new ErrorResponse(`غير مصرح باتمام العملية`, 403));
    }

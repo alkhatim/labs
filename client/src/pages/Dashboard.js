@@ -69,8 +69,8 @@ export default function CenteredGrid() {
         if (result) setApplications(result);
       }
     };
-    fetch();
-  }, [dispatch, role]);
+  if(role && user)  fetch();
+  }, [dispatch, role, user]);
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
@@ -103,36 +103,40 @@ export default function CenteredGrid() {
             role === "agency" ? "/my-applications" : "/all-applications"
           )}
         </Grid>
-        {(role === "agency" &&
-          (user.type === "recruitment office" || user.type === "agency")) ||
-          ((role === "admin" || role === "super admin") && (
-            <Grid xs={12} style={{ marginTop: "5px" }}>
-              {StatusCard(
-                "تم السداد",
-                applications.paidApplications,
-                "green",
-                <ErrorOutlineIcon />,
-                role === "agency"
-                  ? "/my-applications/paid"
-                  : "/all-applications/paid"
-              )}
-            </Grid>
-          ))}
-        {((role === "agency" &&
-          (user.type === "recruitment office" || user.type === "agency")) ||
-          (role === "admin" || role === "super admin") && (
-            <Grid xs={12} style={{ marginTop: "5px" }}>
-              {StatusCard(
-                "مطالبات",
-                applications.notPaidApplications,
-                "green",
-                <ErrorOutlineIcon />,
-                role === "agency"
-                  ? "/my-applications/not-paid"
-                  : "/all-applications/not-paid"
-              )}
-            </Grid>
-          ))}
+        {role === "admin" ||
+          role === "super admin" ||
+          (role === "agency" &&
+            (user.user.type === "agency" ||
+              user.user.type === "recruitment office") && (
+              <Grid xs={12} style={{ marginTop: "5px" }}>
+                {StatusCard(
+                  "تم السداد",
+                  applications.paidApplications,
+                  "green",
+                  <ErrorOutlineIcon />,
+                  role === "agency"
+                    ? "/my-applications/paid"
+                    : "/all-applications/paid"
+                )}
+              </Grid>
+            ))}
+        {role === "admin" ||
+          role === "super admin" ||
+          (role === "agency" &&
+            (user.user.type === "agency" ||
+              user.user.type === "recruitment office") && (
+              <Grid xs={12} style={{ marginTop: "5px" }}>
+                {StatusCard(
+                  "مطالبات",
+                  applications.notPaidApplications,
+                  "green",
+                  <ErrorOutlineIcon />,
+                  role === "agency"
+                    ? "/my-applications/not-paid"
+                    : "/all-applications/not-paid"
+                )}
+              </Grid>
+            ))}
       </Grid>
       <Grid container spacing={3} style={{ marginTop: "55px" }}>
         <Grid xs={4} style={{ marginTop: "5px" }}>

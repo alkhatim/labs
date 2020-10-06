@@ -2,10 +2,10 @@ import OpenIcon from "@material-ui/icons/Launch";
 import MaterialTable from "material-table";
 import { makeStyles } from "@material-ui/core/styles";
 import React, { useEffect, useState } from "react";
-import { Redirect, useHistory } from "react-router-dom";
-import { getHagganas, getHagganasNotDone, doneHaggana } from "../../redux/actions/credits_actions";
+import { Redirect } from "react-router-dom";
+import { getHagganas, doneHaggana } from "../../redux/actions/credits_actions";
 import messages from "../../helpers/messages";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -95,7 +95,6 @@ const columns = [
 
 export default function Applications(props) {
   const classes = useStyles();
-  const history = useHistory();
   const role = useSelector((store) => store.authReducer.role);
 
   const [hagganas, setHagganas] = useState([]);

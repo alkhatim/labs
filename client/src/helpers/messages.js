@@ -1,18 +1,18 @@
 import { toast } from "react-toastify";
 
 const error = (error) => {
-  console.log(error);
-  if (typeof error === "string")
-    toast.error(error, {
-      position: toast.POSITION.BOTTOM_RIGHT,
-      autoClose: 5000,
-    });
-  else if (error.message)
-    toast.error(error.message, {
-      position: toast.POSITION.BOTTOM_RIGHT,
-      autoClose: 5000,
-    });
-  else
+  // console.log(error);
+  // if (typeof error === "string")
+  //   toast.error(error, {
+  //     position: toast.POSITION.BOTTOM_RIGHT,
+  //     autoClose: 5000,
+  //   });
+  // else if (error.message)
+  //   toast.error(error.message, {
+  //     position: toast.POSITION.BOTTOM_RIGHT,
+  //     autoClose: 5000,
+  //   });
+  // else
   if (error.response && error.response.status < 500)
     toast.error(error.response.data.error, {
       position: toast.POSITION.BOTTOM_RIGHT,

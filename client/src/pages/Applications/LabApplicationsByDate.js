@@ -6,7 +6,7 @@ import {
   MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
 import MaterialTable from "material-table";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import PaymentIcon from "@material-ui/icons/Payment";
@@ -136,9 +136,10 @@ export default function WalletTransactionsDate(props) {
         if (paymentsSucceeded) {
           const haggana = {...paymentsDetails, date: new Date(), done: false};
           const result = await postHaggana(haggana);
+          if (result)
+          { messages.success("تم تسجيل الدفعيات من المعمل");
+          setApplications([]);}
         }
-        setApplications([]);
-        if (paymentsSucceeded) messages.success("تم تسجيل الدفعيات من المعمل");
       }
     },
   };

@@ -4,7 +4,7 @@ export default function CovidInfoPage() {
   return (
     <div>
       <div>
-        <h2>اشرادات عامة للفحص</h2>
+        <h2>ارشادات عامة للفحص</h2>
       </div>
       <div>
         <p>هذه الارشادات بعضها عام والاخر يخص السفر الى بلدان محددة.</p>

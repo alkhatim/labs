@@ -12,8 +12,8 @@ import { Redirect } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet";
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, {  useState } from "react";
+import {  useSelector } from "react-redux";
 import { getCredits } from "../../redux/actions/credits_actions";
 
 const useStyles = makeStyles((theme) => ({

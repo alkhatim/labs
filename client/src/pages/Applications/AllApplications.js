@@ -73,8 +73,16 @@ const columns = [
     field: "name",
   },
   {
+    title: "الجهة",
+    field: "user.name",
+  },
+   {
     title: "الحالة",
     field: "state",
+  },
+   {
+    title: "حالة السداد",
+    field: "paymentStatus",
   },
   {
     title: "نوع الفحص",
@@ -144,6 +152,19 @@ export default function Applications(props) {
             default:
               break;
           }
+
+          switch (application.paymentStatus) {
+            case "paid":
+              application.paymentStatus = "تم السداد";
+              break;
+
+            case "not paid":
+              application.paymentStatus = "غير مسدد";
+              break;
+            default:
+              break;
+          }
+
         });
         setApplications(
           result.map((app) => ({
