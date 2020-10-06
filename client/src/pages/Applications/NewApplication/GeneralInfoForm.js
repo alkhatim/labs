@@ -180,7 +180,7 @@ export default function GeneralInfoForm({
               <MenuItem value="Turkey">التركية</MenuItem>
               <MenuItem value="Fly Dubai">فلاي دبي</MenuItem>
               <MenuItem value="Qatar">القطرية</MenuItem>
-              <MenuItem value="Fly Emarits">الاماراتية</MenuItem>
+              {/* <MenuItem value="Fly Emarits">الاماراتية</MenuItem> */}
               <MenuItem value="Itihad">الاتحاد</MenuItem>
               <MenuItem value="Nas"> فلاي ناس</MenuItem>
               <MenuItem value="Saudi">السعودية</MenuItem>
