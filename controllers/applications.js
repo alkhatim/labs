@@ -12,7 +12,7 @@ const User = require("../models/User");
 const Credit = require("../models/Credit");
 
 exports.getApplications = asyncHandler(async (req, res, next) => {
-  const applications = await Application.find();
+  const applications = await Application.find().populate("user");
   res.status(200).json({
     success: true,
     data: applications,
