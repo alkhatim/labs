@@ -187,7 +187,7 @@ export default function AppContainer(props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            معامل تست برنامج تسجيل طلبات فحص الكرونا الاليكتروني
+               تسجيل طلبات فحص الكرونا 
           </Typography>
           <div>
             <IconButton
