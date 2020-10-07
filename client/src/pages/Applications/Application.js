@@ -556,10 +556,7 @@ export default (props) => {
                 </FormControl>
               </Grid>
               <Grid dir="rtl" item xs={6}>
-                <small
-                >
-                  فحص في المعمل - خدمة منزلية
-                </small>
+                <small>فحص في المعمل - خدمة منزلية</small>
               </Grid>
             </Grid>
             {application.type === "external" && (
@@ -595,6 +592,7 @@ export default (props) => {
                   value={application.airlines}
                   onChange={handleChange}
                 >
+                  <MenuItem value="Sudanair">سودان اير</MenuItem>
                   <MenuItem value="Badr">بدر</MenuItem>
                   <MenuItem value="Tarko">تاركو</MenuItem>
                   <MenuItem value="Eithiopian">الاثيوبية</MenuItem>

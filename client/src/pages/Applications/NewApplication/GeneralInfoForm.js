@@ -179,6 +179,7 @@ export default function GeneralInfoForm({
               value={application.airlines}
               onChange={onChange}
             >
+              <MenuItem value="Sudanair">سودان اير</MenuItem>
               <MenuItem value="Badr">بدر</MenuItem>
               <MenuItem value="Tarko">تاركو</MenuItem>
               <MenuItem value="Eithiopian">الاثيوبية</MenuItem>
@@ -306,9 +307,7 @@ export default function GeneralInfoForm({
             </MuiPickersUtilsProvider>
           </Grid>
           <Grid>
-            <small
-           
-            >
+            <small>
               يجب تحديد تاريخ الفحص بدقة في فترة اقلها 24 ساعة قبل حضور المطار
             </small>
           </Grid>

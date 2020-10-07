@@ -195,6 +195,9 @@ exports.addApplication = asyncHandler(async (req, res, next) => {
 
   let airlines;
   switch (application.airlines) {
+    case "Sudanair":
+      airlines = "سودان اير";
+      break;
     case "Badr":
       airlines = "بدر";
       break;
@@ -283,6 +286,9 @@ exports.printApplicationReceipt = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse(`لم يتم العثور على العميل`, 404));
   }
   switch (application.airlines) {
+    case "Sudanair":
+      airlines = "سودان اير";
+      break;
     case "Badr":
       application.airlines = "بدر";
       break;

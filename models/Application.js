@@ -54,6 +54,7 @@ const ApplicationSchema = new Schema({
   airlines: {
     type: String,
     enum: [
+      "Sudanair",
       "Badr",
       "Tarko",
       "Eithiopian",
