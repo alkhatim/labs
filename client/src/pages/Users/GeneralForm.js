@@ -116,6 +116,7 @@ export default function GeneralForm({ user, errors, onChange }) {
               <MenuItem value="corporate">شركة</MenuItem>
               <MenuItem value="organization">منظمة</MenuItem>
               <MenuItem value="diplomatic committee">بعثة دبلوماسية</MenuItem>
+              <MenuItem value="individuals">افراد</MenuItem>
               <MenuItem value="other">اخرى</MenuItem>
             </Select>
           </FormControl>

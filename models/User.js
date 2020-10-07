@@ -61,6 +61,7 @@ const UserSchema = new Schema({
       "organization",
       "diplomatic committee",
       "recruitment office",
+      "individuals",
       "other",
     ],
     default: "other",

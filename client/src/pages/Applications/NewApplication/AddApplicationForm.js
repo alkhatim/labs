@@ -111,11 +111,11 @@ export default function AddApplicationForm(props) {
       ename3: Joi.string().min(3).max(15).required().label("EName3"),
       ename4: Joi.string().min(3).max(15).required().label("EName4"),
       airlines: Joi.string().required().label("Airlines"),
-      destination: Joi.string().min(3).max(15).required().label("Destination"),
+      destination: Joi.string().min(3).max(25).required().label("Destination"),
       type: Joi.string().min(3).required().label("Type"),
       passportNumber: Joi.string()
         .min(6)
-        .max(12)
+        .max(15)
         .required()
         .label("PassportNumber"),
       flightTime: Joi.string().min(2).required().label("FlightTime"),

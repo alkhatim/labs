@@ -89,7 +89,7 @@ export default function AddUser(props) {
 
   const generalFormSchema = Joi.object()
     .keys({
-      userName: Joi.string().min(3).max(20).required().label("Username"),
+      userName: Joi.string().min(3).max(30).required().label("Username"),
       password: Joi.string().min(6).max(20).label("Password"),
       password2: Joi.equal(Joi.ref("password")).required().label("Password"),
       name: Joi.string().required().label("Name"),
