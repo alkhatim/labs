@@ -287,7 +287,7 @@ exports.printApplicationReceipt = asyncHandler(async (req, res, next) => {
   }
   switch (application.airlines) {
     case "Sudanair":
-      airlines = "سودان اير";
+      application.airlines = "سودان اير";
       break;
     case "Badr":
       application.airlines = "بدر";

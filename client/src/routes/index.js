@@ -20,7 +20,9 @@ import Hagganas from "../pages/Credits/Hagganas";
 import AddUser from "../pages/Users/AddAgency";
 import AddUserByAdmin from "../pages/Users/AddUser";
 import UserProfile from "../pages/Users/UserProfile";
+import Audits from "../pages/Audits/Audits";
 import CreditSummary from "../pages/Credits/CreditSummary";
+
 
 export default function Routes() {
   return (
@@ -48,11 +50,8 @@ export default function Routes() {
           exact
           component={AllPaidApplications}
         />
-        <Route
-          path="/hagganas"
-          exact
-          component={Hagganas}
-        />
+        <Route path="/hagganas" exact component={Hagganas} />
+        <Route path="/audits" exact component={Audits} />
         <Route
           path="/my-applications/not-paid"
           exact
