@@ -109,8 +109,7 @@ export default function Applications(props) {
     fetchData();
   }, []);
 
-  return (
-    role === "admin" || role === "super admin" ?
+  return role === "admin" || role === "super admin" ? (
     <div className={classes.layout} style={{ margin: "50px", width: "75vw" }}>
       <MaterialTable
         title="الحقوق"
@@ -120,7 +119,7 @@ export default function Applications(props) {
           rowStyle: {
             backgroundColor: "#EEE",
           },
-          exportButton: true,
+          exportButton: { csv: true },
           grouping: true,
           pageSizeOptions: [5, 10, 20, 40, 100, 200, 500, 1000, 10000],
           actionsColumnIndex: -1,
@@ -169,19 +168,25 @@ export default function Applications(props) {
             icon: () => <OpenIcon />,
             tooltip: "تخليص",
             onClick: async (event, data) => {
-              if(role === "super admin"){
-               const result = await doneHaggana(data._id);
+              if (role === "super admin") {
+                const result = await doneHaggana(data._id);
                 if (result) {
-                  setHagganas(hagganas.map(hagg => hagg._id === data._id ? ({...hagg, done: "خالص"}) : {...hagg, done: "غير خالص"}))
+                  setHagganas(
+                    hagganas.map((hagg) =>
+                      hagg._id === data._id
+                        ? { ...hagg, done: "خالص" }
+                        : { ...hagg, done: "غير خالص" }
+                    )
+                  );
                   messages.success("تمت العملية بنجاح");
-                } 
-              }
-              else
-              messages.error("غير مسموح بالعملية")
+                }
+              } else messages.error("غير مسموح بالعملية");
             },
           },
         ]}
       />
-    </div> : <Redirect to="/dashboard"/>
+    </div>
+  ) : (
+    <Redirect to="/dashboard" />
   );
 }

@@ -269,12 +269,12 @@ export default function WalletTransactionsDate(props) {
               </Typography>
             </Grid>
 
-            <Grid item xs={6}>
+            {/* <Grid item xs={6}>
               <Typography variant="h6" gutterBottom align="center">
                 جملة مطالباتنا من المعمل:{" "}
                 {paymentsDetails.labDebit ? paymentsDetails.labDebit : ""}
               </Typography>
-            </Grid>
+            </Grid> */}
 
             <Grid item xs={6}>
               <Typography variant="h6" gutterBottom align="center">
@@ -283,12 +283,12 @@ export default function WalletTransactionsDate(props) {
               </Typography>
             </Grid>
 
-            <Grid item xs={6}>
+            {/* <Grid item xs={6}>
               <Typography variant="h6" gutterBottom align="center">
                 جملة مطالبات مازن :{" "}
                 {paymentsDetails.mazin ? paymentsDetails.mazin : ""}
               </Typography>
-            </Grid>
+            </Grid> */}
           </Grid>
           <Grid xs={12}>
             <div style={{ margin: "50px" }}>
@@ -300,7 +300,7 @@ export default function WalletTransactionsDate(props) {
                   rowStyle: {
                     backgroundColor: "#EEE",
                   },
-                  exportButton: true,
+                  exportButton: { csv: true },
                   grouping: true,
                   selection: true,
                   pageSizeOptions: [5, 10, 20, 40, 100, 200, 500, 1000, 10000],

@@ -128,7 +128,7 @@ exports.getApplicationsCountAccordingToState = asyncHandler(
 );
 
 exports.getApplication = asyncHandler(async (req, res, next) => {
-  const application = await Application.findById(req.params.id);
+  const application = await Application.findById(req.params.id).populate("user");
   if (!application) {
     return next(new ErrorResponse(`هذا الفحص لم يعد موجودا`, 404));
   }
@@ -365,26 +365,39 @@ exports.updateApplication = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse(`لا يمكن تحويل الحالة لحالة سابقة`, 400));
   }
   if (
-    applicationStateCheck.paymentStatus === "paid" &&
+    (applicationStateCheck.paymentStatus === "paid" ||
+    applicationStateCheck.paymentStatus === "paid without commission" ||
+    applicationStateCheck.paymentStatus === "paid with commission")
+    &&
     req.body.paymentStatus === "not paid" &&
     req.user.role !== "super admin"
   ) {
     return next(new ErrorResponse(`لا يمكن تحويل الحالة لحالة سابقة`, 400));
   }
 
-  const newApplication = await Application.findByIdAndUpdate(
-    req.params.id,
-    req.body,
-    {
-      upsert: true,
-      runValidators: true,
-      setDefaultsOnInsert: true,
-      context: "query",
-    }
-  );
+  if (
+    req.body.paymentStatus === "paid" ||
+    req.body.paymentStatus === "paid without commission"
+  )
+  {
+req.body.agencyPaymentStatus === "paid"
+  }
+
+    const newApplication = await Application.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      {
+        upsert: true,
+        runValidators: true,
+        setDefaultsOnInsert: true,
+        context: "query",
+      }
+    );
 
   if (
-    req.body.paymentStatus === "paid" &&
+    (req.body.paymentStatus === "paid" ||
+     req.body.paymentStatus === "paid without commission" || 
+     req.body.paymentStatus === "paid with commission" ) &&
     applicationStateCheck.paymentStatus === "not paid"
   ) {
     const credit = {};
@@ -397,9 +410,23 @@ exports.updateApplication = asyncHandler(async (req, res, next) => {
         application: req.params.id,
         paymentDate: new Date(),
         agency: applicationStateCheck.user,
-        lab: 12500,
+        lab: 11500,
         mazin: 125,
         moniem: 125,
+      });
+      await credit.save();
+    } else if (
+      applicationStateCheck.type === "internal" &&
+      (applicationStateCheck.user.type !== "agency" ||
+        applicationStateCheck.user.type !== "recruitment office")
+    ) {
+      const credit = Credit({
+        application: req.params.id,
+        paymentDate: new Date(),
+        agency: applicationStateCheck.user,
+        lab: 11500,
+        mazin: 250,
+        moniem: 250,
       });
       await credit.save();
     } else {
@@ -407,7 +434,7 @@ exports.updateApplication = asyncHandler(async (req, res, next) => {
         application: req.params.id,
         paymentDate: new Date(),
         agency: applicationStateCheck.user,
-        lab: 15000,
+        lab: 14000,
         mazin: 250,
         moniem: 250,
       });
@@ -458,13 +485,38 @@ exports.getApplicationsByDates = asyncHandler(async (req, res, next) => {
   var end = new Date(req.body.endDate);
   end.setHours(23, 59, 59, 999);
   const datedApplications = await Application.find({
-    labPaymentStatus: "not paid",
-    paymentStatus: "paid",
-    agencyPaymentStatus: "not paid",
-    testDate: {
-      $gte: start,
-      $lt: end,
-    },
+    $or: [
+      {
+        labPaymentStatus: "not paid",
+        state: "tested",
+        paymentStatus: "paid",
+        agencyPaymentStatus: "paid",
+        testDate: {
+          $gte: start,
+          $lt: end,
+        },
+      },
+      {
+        labPaymentStatus: "not paid",
+        state: "tested",
+        paymentStatus: "paid with commission",
+        agencyPaymentStatus: "not paid",
+        testDate: {
+          $gte: start,
+          $lt: end,
+        },
+      },
+      {
+        labPaymentStatus: "not paid",
+        state: "tested",
+        paymentStatus: "paid without commission",
+        agencyPaymentStatus: "paid",
+        testDate: {
+          $gte: start,
+          $lt: end,
+        },
+      },
+    ],
   }).populate("user");
 
   const credits = await Credit.find({application: {
@@ -493,9 +545,11 @@ exports.deleteApplication = asyncHandler(async (req, res, next) => {
   if (!application) {
     return next(new ErrorResponse(`هذا الفحص لم يعد موجودا`, 404));
   }
+  if (application.state !== "registered" && (req.user.role !== "admin" || req.user.role !== "super admin")) {
+    return next(new ErrorResponse(`لا يمكن مسح الطلب`, 401));
+  }
   await Application.findByIdAndDelete(req.params.id);
   res.status(200).json({
     success: true,
-    data: application,
   });
 });

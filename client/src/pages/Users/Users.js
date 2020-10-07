@@ -82,7 +82,7 @@ export default function Users(props) {
         data={users}
         columns={columns}
         options={{
-          exportButton: true,
+          exportButton: { csv: true },
           grouping: true,
           // selection: true,
           rowStyle: {
@@ -133,11 +133,12 @@ export default function Users(props) {
             tooltip: "حذف المستخدم",
             disabled: role === "admin",
             onClick: async (event, data) => {
-              if(role === "super admin") {
-              await deleteUser(data._id).catch(() => {
-                return;
-              });
-              setUsers(users.filter((user) => user._id !== data._id));}
+              if (role === "super admin") {
+                await deleteUser(data._id).catch(() => {
+                  return;
+                });
+                setUsers(users.filter((user) => user._id !== data._id));
+              }
             },
           },
         ]}

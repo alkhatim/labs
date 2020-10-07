@@ -188,7 +188,7 @@ export default function Applications(props) {
           rowStyle: {
             backgroundColor: "#EEE",
           },
-          exportButton: true,
+          exportButton: {csv: true},
           grouping: true,
           pageSizeOptions: [5, 10, 20, 40, 100, 200, 500, 1000, 10000],
           actionsColumnIndex: -1,

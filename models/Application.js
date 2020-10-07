@@ -69,7 +69,19 @@ const ApplicationSchema = new Schema({
   },
   paymentStatus: {
     type: String,
-    enum: ["paid", "not paid"],
+    enum: [
+      "paid with commission",
+      "not paid",
+      "paid without commission",
+      "paid",
+    ],
+  },
+  paymentMethod: {
+    type: String,
+    enum: ["cash", "transfer"],
+  },
+  receiptNumber: {
+    type: String,
   },
   agencyPaymentStatus: {
     type: String,

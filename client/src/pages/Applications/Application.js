@@ -124,6 +124,12 @@ export default (props) => {
     phoneNumber: "",
     passportNumber: "",
     flightTime: "",
+    paymentMethod: "",
+    receiptNumber: "",
+    user: {
+      type: "",
+      role: "",
+    },
     flightDate: new Date("8/7/2030"),
     testDate: new Date("8/7/2030"),
   });
@@ -294,25 +300,25 @@ export default (props) => {
             تفاصيل الفحص
           </Typography>
           <Grid container spacing={3} style={{ margin: 10 }}>
-            {(application.state === "tested" ||
+            {(application.state === "registerd" ||
               role === "lab" ||
               role === "admin" ||
               role === "super admin" ||
-              role === "office coordinator" ) && (
-                <React.Fragment>
-                  <Tooltip title="تعديل">
-                    <Button onClick={() => setReadOnly(!readOnly)}>
-                      <EditIcon style={{ color: "#0066cc" }} fontSize="large" />
-                    </Button>
-                  </Tooltip>
+              role === "office coordinator") && (
+              <React.Fragment>
+                <Tooltip title="تعديل">
+                  <Button onClick={() => setReadOnly(!readOnly)}>
+                    <EditIcon style={{ color: "#0066cc" }} fontSize="large" />
+                  </Button>
+                </Tooltip>
 
-                  <Tooltip title="حفظ">
-                    <Button onClick={handleSave}>
-                      <SaveIcon style={{ color: "#3cb371" }} fontSize="large" />
-                    </Button>
-                  </Tooltip>
-                </React.Fragment>
-              )}
+                <Tooltip title="حفظ">
+                  <Button onClick={handleSave}>
+                    <SaveIcon style={{ color: "#3cb371" }} fontSize="large" />
+                  </Button>
+                </Tooltip>
+              </React.Fragment>
+            )}
 
             <Tooltip title="طباعة بيانات الطلب">
               <Button onClick={async () => await downloadReceipt(application)}>
@@ -332,11 +338,8 @@ export default (props) => {
               </Button>
             </Tooltip>
             {(application.state === "registered" ||
-              role === "lab" ||
               role === "admin" ||
-              role === "super admin" ||
-              role === "office coordinator") 
-              && (
+              role === "super admin") && (
               <Tooltip title="مسح">
                 <Button onClick={handleDeleteAttempt}>
                   <DeleteIcon color="secondary" fontSize="large" />
@@ -383,7 +386,9 @@ export default (props) => {
               </Grid>
             </Grid>
           )}
-          {(role === "office coordinator" || role === "admin") && (
+          {(role === "office coordinator" ||
+            role === "admin" ||
+            role === "super admin") && (
             <Grid container spacing={3} style={{ margin: 10 }}>
               <Grid item xs={6} sm={6}>
                 <FormControl className={classes.formControl}>
@@ -395,11 +400,52 @@ export default (props) => {
                     value={application.paymentStatus}
                     onChange={handleChange}
                   >
-                    <MenuItem value="paid">تم السداد</MenuItem>
+                    {application.user.type !== "agency" && (
+                      <MenuItem value="paid">تم السداد</MenuItem>
+                    )}
+                    {(application.user.type === "agency" ||
+                      application.user.type === "recruitment office") && (
+                      <MenuItem value="paid with commission">
+                        تم السداد مع العمولة
+                      </MenuItem>
+                    )}
+                    {(application.user.type === "agency" ||
+                      application.user.type === "recruitment office") && (
+                      <MenuItem value="paid without commission">
+                        تم السداد وخصم العمولة
+                      </MenuItem>
+                    )}
                     <MenuItem value="not paid">لم يتم السداد</MenuItem>
                   </Select>
                 </FormControl>
               </Grid>
+              <Grid dir="rtl" item xs={12}>
+                <FormControl className={classes.formControl}>
+                  <InputLabel id="paymentMethod">طريقة الدفع</InputLabel>
+                  <Select
+                    labelId="paymentMethod"
+                    name="paymentMethod"
+                    disabled={readOnly}
+                    value={application.paymentMethod}
+                    onChange={handleChange}
+                  >
+                    <MenuItem value="cash">كاش</MenuItem>
+                    <MenuItem value="transfer">تحويل بنكي</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
+              {application.paymentMethod === "transfer" && (
+                <Grid item xs={12}>
+                  <TextField
+                    className={classes.texField}
+                    name="receiptNumber"
+                    disabled={readOnly}
+                    label="رقم العملية"
+                    onChange={handleChange}
+                    value={application.receiptNumber}
+                  />
+                </Grid>
+              )}
             </Grid>
           )}
           <Grid container spacing={3}>
