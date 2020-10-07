@@ -300,9 +300,9 @@ export default (props) => {
             تفاصيل الفحص
           </Typography>
           <Grid container spacing={3} style={{ margin: 10 }}>
-            {(application.state === "registerd" ||
-              role === "lab" ||
+            {(application.state === "registered" ||
               role === "admin" ||
+              role === "super admin" ||
               role === "super admin" ||
               role === "office coordinator") && (
               <React.Fragment>
