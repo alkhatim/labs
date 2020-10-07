@@ -96,7 +96,7 @@ export default function Applications(props) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await getAudits();
+   if(role === "super admin")   {const result = await getAudits();
       if (result) {
         setAudits(
           result.map((audit) => ({
@@ -104,66 +104,70 @@ export default function Applications(props) {
             date: new Date(audit.date).toLocaleDateString(),
           }))
         );
-      }
+      }}
     };
     fetchData();
   }, []);
 
-  return (
-  role === "super admin" ?  <div className={classes.layout} style={{ margin: "50px", width: "75vw" }}>
-      <MaterialTable
-        title="التعديلات"
-        data={audits}
-        columns={columns}
-        options={{
-          rowStyle: {
-            backgroundColor: "#EEE",
-          },
-          exportButton: {csv: true},
-          grouping: true,
-          pageSizeOptions: [5, 10, 20, 40, 100, 200, 500, 1000, 10000],
-          actionsColumnIndex: -1,
-        }}
-        localization={{
-          toolbar: {
-            searchPlaceholder: "بحث",
-            searchTooltip: "بحث",
-            exportTitle: "تحميل التقرير",
-            exportName: "تحميل التقرير",
-            exportAriaLabel: "تحميل التقرير",
-          },
-          pagination: {
-            labelDisplayedRows: " {from} الى {to}  من اصل {count}",
-            lastTooltip: "النهاية",
-            firstTooltip: "البداية",
-            previousTooltip: "السابق",
-            nextTooltip: "التالي",
-            labelRowsSelect: "صفوف",
-          },
-          header: {
-            actions: "",
-          },
-          body: {
-            emptyDataSourceMessage: "لا توجد بيانات لطلبات الفحص بعد",
-            filterRow: {
-              filterTooltip: "تصنيف",
+  return role === "super admin" ? (
+    <React.Fragment>
+      <div className={classes.layout} style={{ margin: "50px", width: "75vw" }}>
+        <MaterialTable
+          title="التعديلات"
+          data={audits}
+          columns={columns}
+          options={{
+            rowStyle: {
+              backgroundColor: "#EEE",
             },
-            deleteTooltip: "مسح",
-            editTooltip: "تعديل",
-            addTooltip: "اضافة",
-            editRow: {
-              deleteText: "هل انت متاكد من مسح الطلب",
-              cancelTooltip: "الغاء المسح",
-              saveTooltip: "تاكيد المسح",
+            exportButton: { csv: true },
+            grouping: true,
+            pageSizeOptions: [5, 10, 20, 40, 100, 200, 500, 1000, 10000],
+            actionsColumnIndex: -1,
+          }}
+          localization={{
+            toolbar: {
+              searchPlaceholder: "بحث",
+              searchTooltip: "بحث",
+              exportTitle: "تحميل التقرير",
+              exportName: "تحميل التقرير",
+              exportAriaLabel: "تحميل التقرير",
             },
-          },
-          grouping: {
-            placeholder:
-              "قم بسحب عنوان الصف والقاءه هنا لكي تقوم بالتصنيف بناء عليه (مثال قم بالضغط على نوع السند وجره الى هذا المستطيل)",
-            groupedBy: "التصنيف بناء على:",
-          },
-        }}
-      />
-    </div> : <Redirect to="/dashboard"/>
+            pagination: {
+              labelDisplayedRows: " {from} الى {to}  من اصل {count}",
+              lastTooltip: "النهاية",
+              firstTooltip: "البداية",
+              previousTooltip: "السابق",
+              nextTooltip: "التالي",
+              labelRowsSelect: "صفوف",
+            },
+            header: {
+              actions: "",
+            },
+            body: {
+              emptyDataSourceMessage: "لا توجد بيانات لطلبات الفحص بعد",
+              filterRow: {
+                filterTooltip: "تصنيف",
+              },
+              deleteTooltip: "مسح",
+              editTooltip: "تعديل",
+              addTooltip: "اضافة",
+              editRow: {
+                deleteText: "هل انت متاكد من مسح الطلب",
+                cancelTooltip: "الغاء المسح",
+                saveTooltip: "تاكيد المسح",
+              },
+            },
+            grouping: {
+              placeholder:
+                "قم بسحب عنوان الصف والقاءه هنا لكي تقوم بالتصنيف بناء عليه (مثال قم بالضغط على نوع السند وجره الى هذا المستطيل)",
+              groupedBy: "التصنيف بناء على:",
+            },
+          }}
+        />
+      </div>{" "}
+    </React.Fragment>
+  ) : (
+    <Redirect to="/dashboard" />
   );
 }
