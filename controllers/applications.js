@@ -374,25 +374,34 @@ exports.updateApplication = asyncHandler(async (req, res, next) => {
   ) {
     return next(new ErrorResponse(`لا يمكن تحويل الحالة لحالة سابقة`, 400));
   }
-
   if (
     req.body.paymentStatus === "paid" ||
     req.body.paymentStatus === "paid without commission"
   )
   {
-req.body.agencyPaymentStatus === "paid"
-  }
-
-    const newApplication = await Application.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      {
-        upsert: true,
-        runValidators: true,
-        setDefaultsOnInsert: true,
-        context: "query",
-      }
-    );
+     const newApplication = await Application.findByIdAndUpdate(
+       req.params.id,
+       { ...req.body, agencyPaymentStatus: "paid" },
+       {
+         upsert: true,
+         runValidators: true,
+         setDefaultsOnInsert: true,
+         context: "query",
+       }
+     );
+    }else {
+      const newApplication = await Application.findByIdAndUpdate(
+       req.params.id,
+       { ...req.body, agencyPaymentStatus: "not paid" },
+       {
+         upsert: true,
+         runValidators: true,
+         setDefaultsOnInsert: true,
+         context: "query",
+       }
+     );
+    }
+   
 
   if (
     (req.body.paymentStatus === "paid" ||
@@ -518,7 +527,6 @@ exports.getApplicationsByDates = asyncHandler(async (req, res, next) => {
       },
     ],
   }).populate("user");
-
   const credits = await Credit.find({application: {
     $in: datedApplications.map(app => app._id)
   }});

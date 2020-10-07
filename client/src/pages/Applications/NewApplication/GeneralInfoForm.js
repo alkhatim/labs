@@ -130,19 +130,24 @@ export default function GeneralInfoForm({
           />
         </Grid>
         <Grid dir="rtl" item xs={12}>
-          <FormControl className={classes.formControl}>
-            <InputLabel id="type">نوع الفحص</InputLabel>
-            <Select
-              labelId="type"
-              name="type"
-              error={errors.type}
-              value={application.type}
-              onChange={onChange}
-            >
-              <MenuItem value="internal">في المعمل</MenuItem>
-              <MenuItem value="external">فحص خارجي</MenuItem>
-            </Select>
-          </FormControl>
+          <Grid dir="rtl" item xs={6}>
+            <FormControl className={classes.formControl}>
+              <InputLabel id="type">نوع الفحص</InputLabel>
+              <Select
+                labelId="type"
+                name="type"
+                error={errors.type}
+                value={application.type}
+                onChange={onChange}
+              >
+                <MenuItem value="internal">في المعمل</MenuItem>
+                <MenuItem value="external">فحص خارجي</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid dir="rtl" item xs={6}>
+            <small>فحص في المعمل - خدمة منزلية</small>
+          </Grid>
         </Grid>
         {application.type === "external" && (
           <Grid item xs={12}>
@@ -200,7 +205,7 @@ export default function GeneralInfoForm({
             />
           </Grid>
         )}
-        <Grid item xs={12} sm={12}>
+        <Grid item xs={6} sm={12}>
           <TextField
             className={classes.texField}
             name="phoneNumber"
@@ -209,7 +214,9 @@ export default function GeneralInfoForm({
             onChange={onChange}
             value={application.phoneNumber}
           />
-          <small>أدخل رقم الهاتف بدون صفر البداية, مثال: 9123000000</small>
+          <Grid item xs={6} sm={12}>
+            <small>أدخل رقم الهاتف بدون صفر البداية, مثال: 9123000000</small>
+          </Grid>
         </Grid>
         <Grid item xs={12} sm={12}>
           <TextField
@@ -223,38 +230,34 @@ export default function GeneralInfoForm({
         </Grid>
 
         <Grid item xs={12}>
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-              }}
-            >
-              <KeyboardDatePicker
-                variant="inline"
-                format="dd/MM/yyyy"
-                margin="normal"
-                id="date-picker-inline"
-                disablePast
-                label="تاريخ السفر"
-                value={application.flightDate}
-                onChange={onFlightDateChange}
-                KeyboardButtonProps={{
-                  "aria-label": "change date",
-                }}
-              />
-              <span
+          <Grid item xs={6}>
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+              <div
                 style={{
-                  fontSize: 12,
-                  marginRight: 20,
-                  marginTop: 35,
-                  color: "gray",
+                  display: "flex",
+                  alignItems: "center",
                 }}
               >
-                يجب تحديد تاريخ السفر بدقة
-              </span>
-            </div>
-          </MuiPickersUtilsProvider>
+                <KeyboardDatePicker
+                  variant="inline"
+                  format="dd/MM/yyyy"
+                  margin="normal"
+                  id="date-picker-inline"
+                  disablePast
+                  label="تاريخ السفر"
+                  value={application.flightDate}
+                  onChange={onFlightDateChange}
+                  KeyboardButtonProps={{
+                    "aria-label": "change date",
+                  }}
+                />
+              </div>
+            </MuiPickersUtilsProvider>
+          </Grid>
+
+          <Grid item xs={6}>
+            <small>يجب تحديد تاريخ السفر بدقة</small>
+          </Grid>
         </Grid>
         <Grid>
           <form className={classes.container} noValidate>
@@ -278,38 +281,37 @@ export default function GeneralInfoForm({
           </form>
         </Grid>
         <Grid item xs={12}>
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-              }}
-            >
-              <KeyboardDatePicker
-                variant="inline"
-                format="dd/MM/yyyy"
-                margin="normal"
-                id="date-picker-inline"
-                disablePast
-                label="تاريخ الفحص"
-                value={application.testDate}
-                onChange={onTestDateChange}
-                KeyboardButtonProps={{
-                  "aria-label": "change date",
-                }}
-              />
-              <span
+          <Grid item xs={6}>
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+              <div
                 style={{
-                  fontSize: 12,
-                  marginRight: 20,
-                  marginTop: 35,
-                  color: "gray",
+                  display: "flex",
+                  alignItems: "center",
                 }}
               >
-                يجب تحديد تاريخ الفحص بدقة
-              </span>
-            </div>
-          </MuiPickersUtilsProvider>
+                <KeyboardDatePicker
+                  variant="inline"
+                  format="dd/MM/yyyy"
+                  margin="normal"
+                  id="date-picker-inline"
+                  disablePast
+                  label="تاريخ الفحص"
+                  value={application.testDate}
+                  onChange={onTestDateChange}
+                  KeyboardButtonProps={{
+                    "aria-label": "change date",
+                  }}
+                />
+              </div>
+            </MuiPickersUtilsProvider>
+          </Grid>
+          <Grid>
+            <small
+           
+            >
+              يجب تحديد تاريخ الفحص بدقة في فترة اقلها 24 ساعة قبل حضور المطار
+            </small>
+          </Grid>
         </Grid>
       </Grid>
     </React.Fragment>

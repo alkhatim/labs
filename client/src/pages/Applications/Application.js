@@ -361,7 +361,7 @@ export default (props) => {
               </Button>
             </DialogActions>
           </Dialog>
-          {(role === "lab" || role === "admin") && (
+          {(role === "lab" || role === "admin" || role === "super admin") && (
             <Grid container spacing={3} style={{ margin: 10 }}>
               <Grid item xs={6} sm={6}>
                 <FormControl className={classes.formControl}>
@@ -400,7 +400,8 @@ export default (props) => {
                     value={application.paymentStatus}
                     onChange={handleChange}
                   >
-                    {application.user.type !== "agency" && (
+                    {(application.user.type !== "agency" ||
+                      application.user.type === "recruitment office") && (
                       <MenuItem value="paid">تم السداد</MenuItem>
                     )}
                     {(application.user.type === "agency" ||
@@ -538,20 +539,28 @@ export default (props) => {
               />
             </Grid>
             <Grid dir="rtl" item xs={12}>
-              <FormControl className={classes.formControl}>
-                <InputLabel id="type">نوع الفحص</InputLabel>
-                <Select
-                  labelId="type"
-                  name="type"
-                  disabled
-                  error={errors.type}
-                  value={application.type}
-                  onChange={handleChange}
+              <Grid dir="rtl" item xs={6}>
+                <FormControl className={classes.formControl}>
+                  <InputLabel id="type">نوع الفحص</InputLabel>
+                  <Select
+                    labelId="type"
+                    name="type"
+                    disabled
+                    error={errors.type}
+                    value={application.type}
+                    onChange={handleChange}
+                  >
+                    <MenuItem value="internal">في المعمل</MenuItem>
+                    <MenuItem value="external">فحص خارجي</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
+              <Grid dir="rtl" item xs={6}>
+                <small
                 >
-                  <MenuItem value="internal">في المعمل</MenuItem>
-                  <MenuItem value="external">فحص خارجي</MenuItem>
-                </Select>
-              </FormControl>
+                  فحص في المعمل - خدمة منزلية
+                </small>
+              </Grid>
             </Grid>
             {application.type === "external" && (
               <Grid item xs={12}>

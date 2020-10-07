@@ -33,7 +33,6 @@ exports.register = asyncHandler(async (req, res, next) => {
   if (!isValid) {
     return next(new ErrorResponse(`${JSON.stringify(errors)}`, 400));
   }
-  console.log(req.body);
   const { userName, email, phoneNumber, password, role } = req.body;
   // Create user
   const user = await User.create({

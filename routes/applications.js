@@ -23,6 +23,7 @@ const {
 
 const { protect, authorize } = require("../middleware/auth");
 
+
 router
   .route("/")
   .get(
@@ -131,18 +132,18 @@ router
     printApplicationReceipt
   );
 
-router
-  .route("/:id")
-  .get(getApplication)
-  .put(
-    protect,
-    authorize("admin", "agency", "lab", "office coordinator", "super admin"),
-    updateApplication
-  )
-  .delete(
-    protect,
-    authorize("admin", "agency", "lab", "super admin"),
-    deleteApplication
-  );
-
+  router
+    .route("/:id")
+    .get(getApplication)
+    .put(
+      protect,
+      authorize("admin", "agency", "lab", "office coordinator", "super admin"),
+      updateApplication
+    )
+    .delete(
+      protect,
+      authorize("admin", "agency", "lab", "super admin"),
+      deleteApplication
+    );
+    
 module.exports = router;

@@ -108,7 +108,6 @@ export default function AddUser(props) {
       for (let item of error.details) {
         errors[item.path[0]] = item.message;
       }
-      console.log(error);
       setErrors(errors);
       return error;
     } else
