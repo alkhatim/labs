@@ -216,7 +216,17 @@ export default function GeneralInfoForm({
             value={application.phoneNumber}
           />
           <Grid item xs={6} sm={12}>
-            <small>أدخل رقم الهاتف بدون صفر البداية, مثال: 9123000000</small>
+            <div>
+            <small>
+              أدخل رقم الهاتف الخاص بالعميل بدون صفر البداية, مثال: 9123000000
+            </small>
+            </div>
+            <div>
+            <small>يجب الا يتكرر رقم الهاتف</small>
+            </div>
+            <div>
+            <small>رقم الهاتف يجب ان يكون 9 ارقام</small>
+            </div>
           </Grid>
         </Grid>
         <Grid item xs={12} sm={12}>
