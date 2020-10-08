@@ -60,6 +60,11 @@ export default function Users(props) {
   const role = useSelector((store) => store.authReducer.role);
 
   const [users, setUsers] = useState([]);
+  const [message, setMessage] = useState("");
+
+//   const handleMessageChange = (e) => {
+// setMessage({[e.target.name]: e.target.value,});
+//   }
 
   useEffect(() => {
     const fetchData = async () => {

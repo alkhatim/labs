@@ -1,10 +1,12 @@
-import OpenIcon from "@material-ui/icons/Launch";
 import MaterialTable from "material-table";
+
 import { makeStyles } from "@material-ui/core/styles";
 import React, { useEffect, useState } from "react";
-import { Redirect, useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { getAudits } from "../../redux/actions/audits_actions";
+import OpenIcon from "@material-ui/icons/Launch";
+import { getAudits, getAudit } from "../../redux/actions/audits_actions";
+import { Grid, Typography } from "@material-ui/core";
+import messages from "../../helpers/messages";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -87,16 +89,15 @@ const columns = [
   },
 ];
 
-export default function Applications(props) {
+export default function Audits() {
   const classes = useStyles();
-  const history = useHistory();
-
-  const [audits, setAudits] = useState([]);
   const role = useSelector((store) => store.authReducer.role);
+  const [audits, setAudits] = useState([]);
+  const [audit, setAudit] = useState({});
 
   useEffect(() => {
     const fetchData = async () => {
-   if(role === "super admin")   {const result = await getAudits();
+   const result = await getAudits();
       if (result) {
         setAudits(
           result.map((audit) => ({
@@ -104,10 +105,10 @@ export default function Applications(props) {
             date: new Date(audit.date).toLocaleDateString(),
           }))
         );
-      }}
+      }
     };
-    fetchData();
-  }, []);
+  if(role === "super admin")  fetchData();
+  }, [role]);
 
   return role === "super admin" ? (
     <React.Fragment>
@@ -164,10 +165,78 @@ export default function Applications(props) {
               groupedBy: "التصنيف بناء على:",
             },
           }}
+          actions={[
+            {
+              icon: () => <OpenIcon />,
+              tooltip: "عرض",
+              onClick: async (event, data) => {
+                if (role === "super admin") {
+                  const result = await getAudit(data._id);
+                  if (result) {
+                    setAudit(result);
+                    messages.success("تمت العملية بنجاح");
+                  }
+                } else messages.error("غير مسموح بالعملية");
+              },
+            },
+          ]}
         />
       </div>{" "}
+      <Grid container spacing={3} style={{ margin: 10 }}>
+        {audit &&
+          audit.body &&
+          (audit.method === "POST" || audit.method === "PUT") &&
+          audit.url.includes("applications") && (
+            <Grid xs={12}>
+              <Typography>Name: {audit.body.name}</Typography>
+              <Typography>Name English: {audit.body.ename}</Typography>
+              <Typography>
+                Flight Date:{" "}
+                {new Date(audit.body.flightDate).toLocaleDateString()} Time:{" "}
+                {new Date(audit.body.flightDate).toLocaleTimeString()}
+              </Typography>
+              <Typography>Flight Time: {audit.body.flightTime}</Typography>
+              <Typography>
+                Test Date: {new Date(audit.body.testDate).toLocaleDateString()}
+                Time: {new Date(audit.body.testDate).toLocaleTimeString()}
+              </Typography>
+              <Typography>Airlines: {audit.body.airlines}</Typography>
+              <Typography>Phone: {audit.body.phoneNumber}</Typography>
+              <Typography>Passport: {audit.body.passportNumber}</Typography>
+              <Typography>Type: {audit.body.type}</Typography>
+              <Grid>
+                {audit.user && (<Grid xs={12}>
+                  <Typography>User Name: {audit.user.userName}</Typography>
+                  <Typography>type: {audit.user.type}</Typography>
+                  <Typography>Role: {audit.user.role}</Typography>
+                </Grid>)}
+              </Grid>
+            </Grid>
+          )}
+        {audit && audit.body && audit.url.includes("login") && (
+          <Grid xs={12}>
+            <Typography>User Name: {audit.body.userName}</Typography>
+            <Typography>password: {audit.body.password}</Typography>
+          </Grid>
+        )}
+        {audit &&
+          audit.body &&
+          audit.method === "POST" &&
+          audit.url.includes("users") && (
+            <Grid xs={12}>
+              <Typography>Name: {audit.body.name}</Typography>
+              <Typography>User Name: {audit.body.userName}</Typography>
+              <Typography>Owner Name: {audit.body.ownerName}</Typography>
+              <Typography>Password: {audit.body.password}</Typography>
+              <Typography>Password2: {audit.body.password2}</Typography>
+              <Typography>type: {audit.body.type}</Typography>
+              <Typography>Phone: {audit.body.phoneNumber}</Typography>
+              <Typography>email: {audit.body.email}</Typography>
+            </Grid>
+          )}
+      </Grid>
     </React.Fragment>
   ) : (
-    <Redirect to="/dashboard" />
+    <div></div>
   );
 }

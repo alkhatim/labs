@@ -237,6 +237,12 @@ exports.addApplication = asyncHandler(async (req, res, next) => {
     case "paid":
       paymentStatus = "مسدد";
       break;
+    case "paid with commission":
+      paymentStatus = "مسدد";
+      break;
+    case "paid without commission":
+      paymentStatus = "مسدد";
+      break;
     case "not paid":
       paymentStatus = "غير مسدد";
       break;
@@ -327,6 +333,12 @@ exports.printApplicationReceipt = asyncHandler(async (req, res, next) => {
   }
   switch (application.paymentStatus) {
     case "paid":
+      application.paymentStatus = "مسدد";
+      break;
+    case "paid without commission":
+      application.paymentStatus = "مسدد";
+      break;
+    case "paid with commission":
       application.paymentStatus = "مسدد";
       break;
     case "not paid":

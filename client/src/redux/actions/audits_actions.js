@@ -9,3 +9,12 @@ export const getAudits = async () => {
     messages.error(error);
   }
 };
+
+export const getAudit = async (auditId) => {
+  try {
+    const result = await http.get(`/api/v1/audits/${auditId}`);
+    return result.data.data;
+  } catch (error) {
+    messages.error(error);
+  }
+};
