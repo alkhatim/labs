@@ -144,6 +144,24 @@ export default function Applications(props) {
             default:
               break;
           }
+
+          switch (application.paymentStatus) {
+            case "paid":
+              application.paymentStatus = "مسدد";
+              break;
+            case "paid without commission":
+              application.paymentStatus = "مسدد";
+              break;
+            case "paid with commission":
+              application.paymentStatus = "مسدد";
+              break;
+            case "not paid":
+              application.paymentStatus = "غير مسدد";
+              break;
+            default:
+              break;
+          }
+          
         });
         setApplications(
           result.map((app) => ({
