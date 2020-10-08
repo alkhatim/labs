@@ -1,9 +1,19 @@
 import OpenIcon from "@material-ui/icons/Launch";
 import MaterialTable from "material-table";
 import React, { useEffect, useState } from "react";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import Button from "@material-ui/core/Button";
+import DialogTitle from "@material-ui/core/DialogTitle";
 import { useSelector } from "react-redux";
+import Grid from "@material-ui/core/Grid";
+import TextField from "@material-ui/core/TextField";
 import { useHistory, Redirect } from "react-router-dom";
 import { getUsers, deleteUser } from "../../redux/actions/users_actions";
+import WhatsAppIcon from "@material-ui/icons/WhatsApp";
+import { set } from "date-fns";
+
 
 const columns = [
   {
@@ -60,11 +70,19 @@ export default function Users(props) {
   const role = useSelector((store) => store.authReducer.role);
 
   const [users, setUsers] = useState([]);
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState({
+    text: ""
+  });
+  const [userPhoneNumber, setUserPhoneNumber] = useState("");
+  const [whatsappModal, setWhatsappModal] = useState(false);
 
-//   const handleMessageChange = (e) => {
-// setMessage({[e.target.name]: e.target.value,});
-//   }
+  const handleMessageChange = (e) => {
+setMessage({[e.target.name]: e.target.value});
+  }
+
+  const handleCloseMessageModal = () => {
+setWhatsappModal(false)
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -82,6 +100,39 @@ export default function Users(props) {
 
   return role === "admin" || role === "super admin" ? (
     <div style={{ margin: "50px", width: "75vw" }}>
+      <Dialog open={whatsappModal} onClose={handleCloseMessageModal}>
+        <DialogTitle> ادخل الرسالة </DialogTitle>
+        <DialogContent>
+          <Grid container spacing={5}>
+            <Grid dir="rtl" item xs={12}>
+              <TextField
+                label="الرسالة"
+                dir="rtl"
+                name="text"
+                onChange={handleMessageChange}
+                value={message.text}
+              />
+            </Grid>
+          </Grid>
+        </DialogContent>
+        <DialogActions style={{ margin: "auto" }}>
+          <Button onClick={handleCloseMessageModal} color="primary">
+            انهاء
+          </Button>
+          <Button
+            onClick={() =>
+              window.open(
+                `https://api.whatsapp.com/send?phone=249${userPhoneNumber}&text=${message.text}`,
+                "_blank"
+              )
+            }
+            color="secondary"
+          >
+            ارسال الرسالة
+          </Button>
+        </DialogActions>
+      </Dialog>
+
       <MaterialTable
         title="المستخدمين"
         data={users}
@@ -134,9 +185,17 @@ export default function Users(props) {
             },
           },
           {
+            icon: () => <WhatsAppIcon></WhatsAppIcon>,
+            tooltip: "ارسال رسالة واتسب",
+            onClick: (event, data) => {
+              setUserPhoneNumber(data.phoneNumber);
+              setWhatsappModal(true);
+            },
+          },
+          {
             icon: "delete",
             tooltip: "حذف المستخدم",
-            disabled: role === "admin",
+            disabled: true,
             onClick: async (event, data) => {
               if (role === "super admin") {
                 await deleteUser(data._id).catch(() => {
