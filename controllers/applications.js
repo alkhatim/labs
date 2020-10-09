@@ -228,6 +228,9 @@ exports.addApplication = asyncHandler(async (req, res, next) => {
     case "Saudi":
       airlines = "السعودية";
       break;
+    case "other":
+      airlines = application.otherAirlines;
+      break;
     default:
       break;
   }
@@ -327,6 +330,9 @@ exports.printApplicationReceipt = asyncHandler(async (req, res, next) => {
       break;
     case "Turkey":
       application.airlines = "التركية";
+      break;
+    case "other":
+      application.airlines = application.otherAirlines;
       break;
     default:
       break;
