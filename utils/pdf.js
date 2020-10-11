@@ -15,12 +15,16 @@ module.exports = ({
   paymentStatus,
   order,
 }) => {
-const flightDateToMomObj = new Date(flightDate).toLocaleDateString()
+
+const flightDateToMomObj = new Date(flightDate).toLocaleDateString();
 const flightDateMomObj = moment(flightDateToMomObj, "DD/MM/YYYY");
 const displayFlightDate = flightDateMomObj.toDate();
+
 const testDateToMomObj = new Date(testDate).toLocaleDateString();
 const testDateMomObj = moment(testDateToMomObj, "DD/MM/YYYY");
 const displayTestDate = testDateMomObj.toDate();
+
+
   return `
   <!DOCTYPE html>
   <html dir="rtl">
@@ -243,14 +247,14 @@ p{
           </td>
 
           <td>
-            ${displayFlightDate.toLocaleDateString()}
+            ${new Date(flightDate).toLocaleDateString()}
           </td>
           <td>
            تاريخ الفحص
           </td>
 
           <td>
-            ${displayTestDate.toLocaleDateString()}
+            ${new Date(testDate).toLocaleDateString()}
           </td>
         </tr>
 
