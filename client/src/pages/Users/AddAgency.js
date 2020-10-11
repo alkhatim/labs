@@ -171,7 +171,7 @@ export default function AddUser(props) {
           }
         })
       }),
-      email: Joi.string().min(6).max(30).allow("").label("Email").error((errors) => {
+      email: Joi.string().min(6).max(50).allow("").label("Email").error((errors) => {
         return errors.map(error => {
           switch (error.type) { 
               case "string.min":
