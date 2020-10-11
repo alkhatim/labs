@@ -358,6 +358,7 @@ exports.printApplicationReceipt = asyncHandler(async (req, res, next) => {
       break;
   }
 
+  console.log(application.testDate);
   htmlPdf.create(pdf(application), {}).toFile("receipt.pdf", (err) => {
     if (err) {
       res.send(Promise.reject());
