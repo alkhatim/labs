@@ -146,7 +146,7 @@ exports.addApplication = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse(`تم اضافة الطلب مسبقا`, 400));
   }
 
-   if (applicationCheck.phoneNumber == req.body.phoneNumber) {
+   if (applicationCheck && applicationCheck.phoneNumber == req.body.phoneNumber) {
     return next(new ErrorResponse(`تم اضافة الطلب بنفس رقم الهاتف مسبقا الرجاء تغيير رقم الهاتف`, 400));
   }
 
