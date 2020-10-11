@@ -358,7 +358,12 @@ exports.printApplicationReceipt = asyncHandler(async (req, res, next) => {
       break;
   }
 
-  console.log(application.testDate);
+  
+
+  application.testDate = new Date(application.testDate);
+  application.testDate.setHours(0, 0, 0, 0);
+application.flightDate = new Date(application.flightDate);
+  application.flightDate.setHours(0, 0, 0, 0);
   htmlPdf.create(pdf(application), {}).toFile("receipt.pdf", (err) => {
     if (err) {
       res.send(Promise.reject());
