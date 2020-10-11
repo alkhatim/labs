@@ -102,37 +102,208 @@ export default function AddApplicationForm(props) {
 
   const generalFormSchema = Joi.object()
     .keys({
-      name1: Joi.string().min(3).max(15).required().label("Name1"),
-      name2: Joi.string().min(3).max(15).required().label("Name2"),
-      name3: Joi.string().min(3).max(15).required().label("Name3"),
-      name4: Joi.string().min(3).max(15).required().label("Name4"),
-      ename1: Joi.string().min(3).max(15).required().label("EName1"),
-      ename2: Joi.string().min(3).max(15).required().label("EName2"),
-      ename3: Joi.string().min(3).max(15).required().label("EName3"),
-      ename4: Joi.string().min(3).max(15).required().label("EName4"),
-      airlines: Joi.string().required().label("Airlines"),
-      destination: Joi.string().min(3).max(25).required().label("Destination"),
-      type: Joi.string().min(3).required().label("Type"),
+      name1: Joi.string().min(3).max(15).required().label("Name1").error((errors) => {
+        return errors.map(error => {
+          switch (error.type) { 
+              case "any.empty":
+              return { message: "يجب ادخال الاسم الاول" }; 
+              case "string.min":
+              return { message: "يجب الا تقل الاسم الاول عن 3 حروف" }; 
+              case "string.max":
+              return { message: "يجب الا يتجاوز الاسم الاول 15 حرف" };                 
+          }
+        })
+      }),
+      name2: Joi.string().min(3).max(15).required().label("Name2").error((errors) => {
+        return errors.map(error => {
+          switch (error.type) { 
+              case "any.empty":
+              return { message: "يجب ادخال الاسم الثاني" }; 
+              case "string.min":
+              return { message: "يجب الا تقل الاسم الثاني عن 3 حروف" }; 
+              case "string.max":
+              return { message: "يجب الا يتجاوز الاسم الثاني 15 حرف" };                 
+          }
+        })
+      }),
+      name3: Joi.string().min(3).max(15).required().label("Name3").error((errors) => {
+        return errors.map(error => {
+          switch (error.type) { 
+              case "any.empty":
+              return { message: "يجب ادخال الاسم الثالث" }; 
+              case "string.min":
+              return { message: "يجب الا تقل الاسم الثالث عن 3 حروف" }; 
+              case "string.max":
+              return { message: "يجب الا يتجاوز الاسم الثالث 15 حرف" };                 
+          }
+        })
+      }),
+      name4: Joi.string().min(3).max(15).required().label("Name4").error((errors) => {
+        return errors.map(error => {
+          switch (error.type) { 
+              case "any.empty":
+              return { message: "يجب ادخال الاسم الرابع" }; 
+              case "string.min":
+              return { message: "يجب الا تقل الاسم الرابع عن 3 حروف" }; 
+              case "string.max":
+              return { message: "يجب الا يتجاوز الاسم الرابع 15 حرف" };                 
+          }
+        })
+      }),
+      ename1: Joi.string().min(3).max(15).required().label("EName1").error((errors) => {
+        return errors.map(error => {
+          switch (error.type) { 
+              case "any.empty":
+              return { message: "يجب ادخال الاسم الاول باللغة الانجليزية" }; 
+              case "string.min":
+              return { message: "يجب الا تقل الاسم الاول باللغة الانجليزية عن 3 حروف" }; 
+              case "string.max":
+              return { message: "يجب الا يتجاوز الاسم الاول باللغة الانجليزية 15 حرف" };                 
+          }
+        })
+      }),
+      ename2: Joi.string().min(3).max(15).required().label("EName2").error((errors) => {
+        return errors.map(error => {
+          switch (error.type) { 
+              case "any.empty":
+              return { message: "يجب ادخال الاسم الثاني باللغة الانجليزية" }; 
+              case "string.min":
+              return { message: "يجب الا تقل الاسم الثاني باللغة الانجليزية عن 3 حروف" }; 
+              case "string.max":
+              return { message: "يجب الا يتجاوز الاسم الثاني باللغة الانجليزية 15 حرف" };                 
+          }
+        })
+      }),
+      ename3: Joi.string().min(3).max(15).required().label("EName3").error((errors) => {
+        return errors.map(error => {
+          switch (error.type) { 
+              case "any.empty":
+              return { message: "يجب ادخال الاسم الثالث باللغة الانجليزية" }; 
+              case "string.min":
+              return { message: "يجب الا تقل الاسم الثالث باللغة الانجليزية عن 3 حروف" }; 
+              case "string.max":
+              return { message: "يجب الا يتجاوز الاسم الثالث باللغة الانجليزية 15 حرف" };                 
+          }
+        })
+      }),
+      ename4: Joi.string().min(3).max(15).required().label("EName4").error((errors) => {
+        return errors.map(error => {
+          switch (error.type) { 
+              case "any.empty":
+              return { message: "يجب ادخال الاسم الرابع باللغة الانجليزية" }; 
+              case "string.min":
+              return { message: "يجب الا تقل الاسم الرابع باللغة الانجليزية عن 3 حروف" }; 
+              case "string.max":
+              return { message: "يجب الا يتجاوز الاسم الرابع باللغة الانجليزية 15 حرف" };                 
+          }
+        })
+      }),
+       type: Joi.string().valid(["internal", "external"]).required().label("Type").error((errors) => {
+        return errors.map(error => {
+          switch (error.type) { 
+              case "any.empty":
+              return { message: "يجب ادخال نوع الفحص" };                 
+          }
+        })
+      }),
+      destination: Joi.string().min(3).max(25).required().label("Destination").error((errors) => {
+        return errors.map(error => {
+          switch (error.type) { 
+              case "any.empty":
+              return { message: "يجب ادخال الوجهة" }; 
+              case "string.min":
+              return { message: "يجب الا تقل الوجهة المدخلة عن 3 حروف" }; 
+              case "string.max":
+              return { message: "يجب الا تتجاوز الوجهة المدخلة 25 حرف" };                 
+          }
+        })
+      }),
+      airlines: Joi.string().required().valid([ "Sudanair",
+      "Badr",
+      "Tarko",
+      "Eithiopian",
+      "Turkey",
+      "Fly Dubai",
+      "Qatar",
+      "Fly Emarits",
+      "Itihad",
+      "Nas",
+      "Saudi",
+      "other",]).label("Airlines").error((errors) => {
+        return errors.map(error => {
+          switch (error.type) { 
+              case "any.empty":
+              return { message: "يجب ادخال خطوط الطيران" };                 
+          }
+        })
+      }),
+       phoneNumber: Joi.string().min(9).max(9).required().label("PhoneNumber").error((errors) => {
+        return errors.map(error => {
+          switch (error.type) { 
+             case "any.empty":
+              return { message: "الرجاء ادخال رقم الهاتف" };  
+              case "string.min":
+              return { message: "يجب ادخال رقم الهاتف من غير صفر البداية و الا يقل الرقم عن 9 ارقام" }; 
+              case "string.max":
+              return { message: "يجب ادخال رقم الهاتف من غير صفر البداية و الا يتجاوز الرقم عن 9 ارقام" };                 
+          }
+        })
+      }),
       passportNumber: Joi.string()
         .min(6)
         .max(15)
         .required()
-        .label("PassportNumber"),
-      flightTime: Joi.string().min(2).required().label("FlightTime"),
-      flightDate: Joi.date().min(6).required().label("FlightDate"),
-      testDate: Joi.date().min(6).required().label("TestDate"),
-      phoneNumber: Joi.string().max(9).required().label("PhoneNumber"),
+        .label("PassportNumber").error((errors) => {
+        return errors.map(error => {
+          switch (error.type) { 
+              case "any.empty":
+              return { message: "يجب ادخال رقم الجواز" }; 
+              case "string.min":
+              return { message: "يجب الا يقل رقم الجواز المدخلة عن 6 حروف" }; 
+              case "string.max":
+              return { message: "يجب الا يتجاوز رقم الجواز المدخلة 15 حرف" };                 
+          }
+        })
+      }),
+      flightDate: Joi.date().required().label("FlightDate").error((errors) => {
+        return errors.map(error => {
+          switch (error.type) { 
+              case "any.empty":
+              return { message: "يجب ادخال تاريخ الرحلة " };
+          }
+        })
+      }),
+       flightTime: Joi.string().required().label("FlightTime").error((errors) => {
+        return errors.map(error => {
+          switch (error.type) { 
+              case "any.empty":
+              return { message: "يجب ادخال زمن الرحلة" };
+          }
+        })
+      }),
+      testDate: Joi.date().required().label("TestDate").error((errors) => {
+        return errors.map(error => {
+          switch (error.type) { 
+              case "any.empty":
+              return { message: "يجب ادخال تاريخ الحجز للفحص" };
+          }
+        })
+      }),
+     
     })
     .unknown(true);
 
   const validateGeneralForm = () => {
     const { error } = Joi.validate(application, generalFormSchema, {
-      abortEarly: false,
+      abortEarly: true,
     });
     if (error) {
       const errors = {};
       for (let item of error.details) {
         errors[item.path[0]] = item.message;
+      }
+       for (var key in errors) {
+          messages.error(errors[key]);
       }
       setErrors(errors);
       return error;

@@ -47,6 +47,10 @@ exports.getMyUserProfile = asyncHandler(async (req, res, next) => {
 // @route     POST /api/v1/auth/users
 // @access    Private/Admin
 exports.createUser = asyncHandler(async (req, res, next) => {
+  const userCheck = await User.find({$or: [{phoneNumber: req.body.phoneNumber}, {email: req.body.email}]});
+  if(userCheck){
+    return next(new ErrorResponse("تم تسجيل حساب بنفس بيانات رقم الهاتف او البريد الاليكتروني", 400));
+  }
   const user = await User.create(req.body);
   res.status(201).json({
     success: true,

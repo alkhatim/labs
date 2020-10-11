@@ -84,14 +84,84 @@ export default function AddUser(props) {
 
   const generalFormSchema = Joi.object()
     .keys({
-      userName: Joi.string().min(3).max(20).required().label("Username"),
-      password: Joi.string().min(6).max(20).label("Password"),
+      userName: Joi.string().min(3).max(30).required().label("Username").error((errors) => {
+        return errors.map(error => {
+          switch (error.type) {
+            case "any.empty":
+              return { message: "الرجاء ادخال اسم المستخدم" };  
+              case "string.min":
+              return { message: "يجب الا يقل اسم المستخدم عن 3 حروف" }; 
+              case "string.max":
+              return { message: "يجب الا يتجاوز اسم المستخدم 30 حرف" };                 
+          }
+        })
+      }),
+      password: Joi.string().required().min(6).max(20).label("Password").error((errors) => {
+        return errors.map(error => {
+          switch (error.type) {
+            case "any.empty":
+              return { message: "الرجاء ادخال كلمة المرور" };  
+              case "string.min":
+              return { message: "يجب الا تقل كلمة المرور عن 6 حروف" }; 
+              case "string.max":
+              return { message: "يجب الا تتجاوز كلمة المرور 20 حرف" };                 
+          }
+        })
+      }),
       password2: Joi.equal(Joi.ref("password")).required().label("Password"),
-      name: Joi.string().required().label("Name"),
-      ownerName: Joi.string().required().label("Owner Name"),
-      type: Joi.string().required().label("Type"),
-      phoneNumber: Joi.string().max(9).required().label("Phone Number"),
-      email: Joi.string().required().label("Email"),
+      name: Joi.string().min(7).max(30).required().label("Name").error((errors) => {
+        return errors.map(error => {
+          switch (error.type) {
+            case "any.empty":
+              return { message: "الرجاء ادخال الاسم" };  
+              case "string.min":
+              return { message: "يجب الا يقل الاسم عن 7 حروف" }; 
+              case "string.max":
+              return { message: "يجب الا يتجاوز الاسم 30 حرف" };                 
+          }
+        })
+      }),
+      ownerName: Joi.string().min(7).max(30).allow("").label("Owner Name").error((errors) => {
+        return errors.map(error => {
+          switch (error.type) {
+              case "string.min":
+              return { message: "يجب الا يقل اسم المالك عن 7 حروف" }; 
+              case "string.max":
+              return { message: "يجب الا يتجاوز اسم المالك 30 حرف" };                 
+          }
+        })
+      }),
+      type: Joi.string().required().valid(["recruitment office", "corporate", "agency", "organization", "diplomatic committee", "individuals", "other"])
+     .label("Type").error((errors) => {
+        return errors.map(error => {
+         switch (error.type) { 
+              case "any.empty":
+              return { message: "يجب ادخال نوع الجهة" };                 
+          }
+        })
+      }),
+      phoneNumber: Joi.string().min(9).max(9).required().label("Phone Number").error((errors) => {
+        return errors.map(error => {
+          switch (error.type) {
+            case "any.empty":
+              return { message: "الرجاء ادخال رقم الهاتف" };  
+              case "string.min":
+              return { message: "يجب ادخال رقم الهاتف من غير صفر البداية و الا يقل الرقم عن 9 ارقام" }; 
+              case "string.max":
+              return { message: "يجب ادخال رقم الهاتف من غير صفر البداية و الا يتجاوز الرقم عن 9 ارقام" };                 
+          }
+        })
+      }),
+      email: Joi.string().min(6).max(15).allow("").label("Email").error((errors) => {
+        return errors.map(error => {
+          switch (error.type) { 
+              case "string.min":
+              return { message: "يجب الا تقل البريد الاليكتروني عن 6 حروف" }; 
+              case "string.max":
+              return { message: "يجب الا يتجاوز البريد الاليكتروني 15 حرف" };                 
+          }
+        })
+      }),
       role: Joi.string()
         .valid(["lab", "admin", "agency", "user", "office coordinator"])
         .required()
@@ -101,12 +171,15 @@ export default function AddUser(props) {
 
   const validateGeneralForm = () => {
     const { error } = Joi.validate(user, generalFormSchema, {
-      abortEarly: false,
+      abortEarly: true,
     });
     if (error) {
       const errors = {};
       for (let item of error.details) {
         errors[item.path[0]] = item.message;
+      }
+       for (var key in errors) {
+          messages.error(errors[key]);
       }
       setErrors(errors);
       return error;

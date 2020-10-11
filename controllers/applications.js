@@ -146,6 +146,10 @@ exports.addApplication = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse(`تم اضافة الطلب مسبقا`, 400));
   }
 
+   if (applicationCheck.phoneNumber == req.body.phoneNumber) {
+    return next(new ErrorResponse(`تم اضافة الطلب بنفس رقم الهاتف مسبقا الرجاء تغيير رقم الهاتف`, 400));
+  }
+
   //Check dates validity
   let startDate = moment(new Date(req.body.testDate));
   let endDate = moment(new Date(req.body.flightDate));

@@ -119,6 +119,25 @@ export default function GeneralForm({ user, errors, onChange }) {
             </Select>
           </FormControl>
         </Grid>
+          <Grid item xs={6}>
+          <FormControl className={classes.formControl}>
+            <InputLabel id="type">نوع الجهة</InputLabel>
+            <Select
+              labelId="type"
+              name="type"
+              value={user.type}
+              onChange={onChange}
+            >
+              <MenuItem value="agency">وكالة سفر</MenuItem>
+              <MenuItem value="recruitment office">مكتب استخدام خارجي</MenuItem>
+              <MenuItem value="corporate">شركة</MenuItem>
+              <MenuItem value="organization">منظمة</MenuItem>
+              <MenuItem value="diplomatic committee">بعثة دبلوماسية</MenuItem>
+              <MenuItem value="individuals">افراد</MenuItem>
+              <MenuItem value="other">اخرى</MenuItem>
+            </Select>
+          </FormControl>
+        </Grid>
       </Grid>
     </React.Fragment>
   );
