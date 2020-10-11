@@ -372,10 +372,10 @@ export default function AddApplicationForm(props) {
             messages.success("تم إضافة طلب الفحص");
             props.history.push(`/my-applications`);
           }
-          if (result && (role === "lab" || role === "admin")) {
+          if (result && (role === "lab" || role === "admin" || role === "super admin")) {
             messages.success("تم إضافة طلب الفحص");
             props.history.push(`/all-applications`);
-          }
+          } 
         } catch (error) {
           messages.error(error);
         }
