@@ -37,10 +37,6 @@ const columns = [
     field: "phoneNumber",
   },
   {
-    title: "الايميل",
-    field: "email",
-  },
-  {
     title: "نوع الجهة",
     field: "type",
   },
