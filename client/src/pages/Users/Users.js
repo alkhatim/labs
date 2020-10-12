@@ -41,10 +41,38 @@ const columns = [
     field: "email",
   },
   {
-    title: "الصلاحية",
-    field: "role",
+    title: "نوع الجهة",
+    field: "type",
   },
 ];
+
+const getType = (type) => {
+  switch (type) {
+    case "corporate":
+      type = "شركة";
+      break;
+    case "organization":
+      type = "منظمة";
+      break;
+    case "agency":
+      type = "وكالة";
+      break;
+    case "diplomatic committee":
+      type = "بعثة دبلوماسية";
+      break;
+      case "recruitment office":
+      type = "مكتب استخدام";
+      break;
+      case "individuals":
+      type = "افراد";
+      break;
+      case "other":
+      type = "اخرى";
+      break;
+    default:
+      break;
+  }
+};
 
 const getRole = (role) => {
   switch (role) {
@@ -88,12 +116,42 @@ setWhatsappModal(false)
     const fetchData = async () => {
       if (role === "admin" || role === "super admin") {
         const result = await getUsers();
+      if(result)
+      
+      {
+        result.forEach(u => {
+    switch (u.type) {
+    case "corporate":
+      u.type = "شركة";
+      break;
+    case "organization":
+      u.type = "منظمة";
+      break;
+    case "agency":
+      u.type = "وكالة";
+      break;
+    case "diplomatic committee":
+      u.type = "بعثة دبلوماسية";
+      break;
+      case "recruitment office":
+      u.type = "مكتب استخدام";
+      break;
+      case "individuals":
+      u.type = "افراد";
+      break;
+      case "other":
+      u.type = "اخرى";
+      break;
+    default:
+      break;
+  }
+        })
         const users = result.map((user) => ({
           ...user,
           role: getRole(user.role),
         }));
         setUsers(users);
-      }
+      }}
     };
     fetchData();
   }, [role]);
