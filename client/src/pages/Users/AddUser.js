@@ -108,7 +108,16 @@ export default function AddUser(props) {
           }
         })
       }),
-      password2: Joi.equal(Joi.ref("password")).required().label("Password"),
+      password2: Joi.equal(Joi.ref("password")).required().label("Password").error((errors) => {
+          return errors.map((error) => {
+            switch (error.type) {
+              case "any.empty":
+                return { message: "الرجاء ادخال تأكيد كلمة المرور" };
+                 default:
+                return { message: "كلمة المرور التي ادخلتها غير متطابقة" };
+            }
+          });
+        }),
       name: Joi.string().min(7).max(30).required().label("Name").error((errors) => {
         return errors.map(error => {
           switch (error.type) {
@@ -158,7 +167,7 @@ export default function AddUser(props) {
               case "string.min":
               return { message: "يجب الا تقل البريد الاليكتروني عن 6 حروف" }; 
               case "string.max":
-              return { message: "يجب الا يتجاوز البريد الاليكتروني 15 حرف" };                 
+              return { message: "يجب الا يتجاوز البريد الاليكتروني 50 حرف" };                 
           }
         })
       }),
