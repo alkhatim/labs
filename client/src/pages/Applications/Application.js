@@ -300,9 +300,8 @@ export default (props) => {
             تفاصيل الفحص
           </Typography>
           <Grid container spacing={3} style={{ margin: 10 }}>
-            {(application.state === "registered" ||
+            {(
               role === "admin" ||
-              role === "super admin" ||
               role === "super admin" ||
               role === "office coordinator") && (
               <React.Fragment>
@@ -337,9 +336,7 @@ export default (props) => {
                 <WhatsAppIcon style={{ color: "#3cb371" }} fontSize="large" />
               </Button>
             </Tooltip>
-            {(application.state === "registered" ||
-              role === "admin" ||
-              role === "super admin") && (
+            {(role === "super admin") && (
               <Tooltip title="مسح">
                 <Button onClick={handleDeleteAttempt}>
                   <DeleteIcon color="secondary" fontSize="large" />
