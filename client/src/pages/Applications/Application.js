@@ -105,15 +105,7 @@ export default (props) => {
 
   const [application, setApplication] = useState({
     _id: "",
-    name: "",
-    name1: "",
-    name2: "",
-    name3: "",
-    name4: "",
-    ename1: "",
-    ename2: "",
-    ename3: "",
-    ename4: "",
+    ename: "",
     airlines: "",
     state: "",
     type: "",
@@ -130,19 +122,15 @@ export default (props) => {
       type: "",
       role: "",
     },
-    flightDate: new Date("8/7/2030"),
-    testDate: new Date("8/7/2030"),
+    flightDate: new Date("12/12/1995"),
+    testDate: new Date("12/12/1995"),
+    receipt: "",
+    receiptUrl: "",
+    fees: ""
   });
 
   const [errors, setErrors] = useState({
-    name1: false,
-    name2: false,
-    name3: false,
-    name4: false,
-    ename1: false,
-    ename2: false,
-    ename3: false,
-    ename4: false,
+    ename: false,
     airlines: false,
     state: false,
     destination: false,
@@ -156,14 +144,7 @@ export default (props) => {
 
   const generalFormSchema = Joi.object()
     .keys({
-      name1: Joi.string().min(3).required().label("Name1"),
-      name2: Joi.string().min(3).required().label("Name2"),
-      name3: Joi.string().min(3).required().label("Name3"),
-      name4: Joi.string().min(3).required().label("Name4"),
-      ename1: Joi.string().min(3).required().label("EName1"),
-      ename2: Joi.string().min(3).required().label("EName2"),
-      ename3: Joi.string().min(3).required().label("EName3"),
-      ename4: Joi.string().min(3).required().label("EName4"),
+      ename: Joi.string().min(3).required().label("EName"),
       airlines: Joi.string().required().label("Airlines"),
       type: Joi.string().required().label("Type"),
       state: Joi.string().min(3).required().label("State"),
@@ -193,10 +174,7 @@ export default (props) => {
       return error;
     }
     setErrors({
-      name1: false,
-      name2: false,
-      name3: false,
-      name4: false,
+      ename: false,
       airlines: false,
       state: false,
       destination: false,
@@ -287,6 +265,18 @@ export default (props) => {
     }
   };
 
+  const handleUpload = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    try {
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+        setApplication({ ...application, receipt: reader.result });
+      };
+    } catch (error) {
+      messages.error(error);
+    }
+  };
   const handleCloseDeleteModal = () => {
     setDeleteModal(false);
   };
@@ -300,10 +290,7 @@ export default (props) => {
             تفاصيل الفحص
           </Typography>
           <Grid container spacing={3} style={{ margin: 10 }}>
-            {(
-              role === "admin" ||
-              role === "super admin" ||
-              role === "office coordinator") && (
+           
               <React.Fragment>
                 <Tooltip title="تعديل">
                   <Button onClick={() => setReadOnly(!readOnly)}>
@@ -317,7 +304,7 @@ export default (props) => {
                   </Button>
                 </Tooltip>
               </React.Fragment>
-            )}
+            
 
             <Tooltip title="طباعة بيانات الطلب">
               <Button onClick={async () => await downloadReceipt(application)}>
@@ -418,6 +405,16 @@ export default (props) => {
                 </FormControl>
               </Grid>
               <Grid dir="rtl" item xs={12}>
+                 <Grid item xs={12}>
+                  <TextField
+                    className={classes.texField}
+                    name="fees"
+                    disabled={readOnly}
+                    label="الرسوم المسددة"
+                    onChange={handleChange}
+                    value={application.fees}
+                  />
+                </Grid>
                 <FormControl className={classes.formControl}>
                   <InputLabel id="paymentMethod">طريقة الدفع</InputLabel>
                   <Select
@@ -450,89 +447,12 @@ export default (props) => {
             <Grid item xs={12}>
               <TextField
                 className={classes.texField}
-                name="name1"
+                name="ename"
                 disabled={readOnly || application.state === "tested"}
-                error={errors.name1}
-                label="الاسم الاول"
+                error={errors.ename}
+                label="الاسم باللغة الانجليزية"
                 onChange={handleChange}
-                value={application.name1}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                className={classes.texField}
-                name="name2"
-                disabled={readOnly || application.state === "tested"}
-                error={errors.name2}
-                label="الاسم الثاني"
-                onChange={handleChange}
-                value={application.name2}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                className={classes.texField}
-                name="name3"
-                error={errors.name3}
-                disabled={readOnly || application.state === "tested"}
-                label="الاسم الثالث"
-                onChange={handleChange}
-                value={application.name3}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                className={classes.texField}
-                name="name4"
-                disabled={readOnly || application.state === "tested"}
-                error={errors.name4}
-                label="الاسم الرابع"
-                onChange={handleChange}
-                value={application.name4}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                className={classes.texField}
-                name="ename1"
-                disabled={readOnly || application.state === "tested"}
-                error={errors.ename1}
-                label="الاسم الاول باللغة الانجليزية"
-                onChange={handleChange}
-                value={application.ename1}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                className={classes.texField}
-                name="ename2"
-                disabled={readOnly || application.state === "tested"}
-                error={errors.ename2}
-                label="الاسم الثاني باللغة الانجليزية"
-                onChange={handleChange}
-                value={application.ename2}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                className={classes.texField}
-                name="ename3"
-                disabled={readOnly || application.state === "tested"}
-                error={errors.ename3}
-                label="الاسم الثالث باللغة الانجليزية"
-                onChange={handleChange}
-                value={application.ename3}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                className={classes.texField}
-                name="ename4"
-                disabled={readOnly || application.state === "tested"}
-                error={errors.ename4}
-                label="الاسم الرابع باللغة الانجليزية "
-                onChange={handleChange}
-                value={application.ename4}
+                value={application.ename}
               />
             </Grid>
             <Grid dir="rtl" item xs={12}>
@@ -662,7 +582,6 @@ export default (props) => {
                     margin="normal"
                     disabled={readOnly || application.state === "tested"}
                     id="date-picker-inline"
-                    disablePast
                     label="تاريخ السفر"
                     value={application.flightDate}
                     onChange={handleFlightDateChange}
@@ -698,7 +617,6 @@ export default (props) => {
                     margin="normal"
                     disabled={readOnly || application.state === "tested"}
                     id="date-picker-inline"
-                    disablePast
                     label="تاريخ الفحص"
                     value={application.testDate}
                     onChange={handleTestDateChange}
@@ -719,8 +637,26 @@ export default (props) => {
                 </div>
               </MuiPickersUtilsProvider>
             </Grid>
+           {(role === "super admin" || role === "admin" || role === "office coordinator") && ( <Grid item xs={12} sm={12}>
+              <input
+                type="file"
+                name="receipt"
+                accept=".png,.jpg,.jpeg,.svg,.gif"
+                // disabled={readOnly || application.state === "tested"}
+                label="اشعار ام بوك"
+                onChange={handleUpload}
+              />
+            </Grid>)}
           </Grid>
         </Paper>
+      {application.receiptUrl && (  <Paper className={classes.paper}>
+          <Grid container>
+            <Grid xs={12} align="center" alignContent="center" alignItems="center">
+              <img src={application.receiptUrl} style={{display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", height: "800px", width: "360px"}}/>
+            </Grid>
+
+          </Grid>
+          </Paper>)}
       </main>
     </React.Fragment>
   );

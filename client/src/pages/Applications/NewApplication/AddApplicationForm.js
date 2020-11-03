@@ -59,16 +59,7 @@ export default function AddApplicationForm(props) {
   const [activeStep, setActiveStep] = useState(0);
 
   const [application, setApplication] = useState({
-    name: "",
-    name1: "",
-    name2: "",
-    name3: "",
-    name4: "",
     ename: "",
-    ename1: "",
-    ename2: "",
-    ename3: "",
-    ename4: "",
     airlines: "",
     type: "",
     location: "",
@@ -82,14 +73,7 @@ export default function AddApplicationForm(props) {
   });
 
   const [errors, setErrors] = useState({
-    name1: false,
-    name2: false,
-    name3: false,
-    name4: false,
-    ename1: false,
-    ename2: false,
-    ename3: false,
-    ename4: false,
+    ename: false,
     airlines: false,
     type: false,
     destination: false,
@@ -102,99 +86,15 @@ export default function AddApplicationForm(props) {
 
   const generalFormSchema = Joi.object()
     .keys({
-      name1: Joi.string().min(3).max(15).required().label("Name1").error((errors) => {
+      ename: Joi.string().min(6).max(60).required().label("EName").error((errors) => {
         return errors.map(error => {
           switch (error.type) { 
               case "any.empty":
-              return { message: "يجب ادخال الاسم الاول" }; 
+              return { message: "يجب ادخال الاسم باللغة الانجليزية" }; 
               case "string.min":
-              return { message: "يجب الا تقل الاسم الاول عن 3 حروف" }; 
+              return { message: "يجب الا تقل الاسم باللغة الانجليزية عن 6 حروف" }; 
               case "string.max":
-              return { message: "يجب الا يتجاوز الاسم الاول 15 حرف" };                 
-          }
-        })
-      }),
-      name2: Joi.string().min(3).max(15).required().label("Name2").error((errors) => {
-        return errors.map(error => {
-          switch (error.type) { 
-              case "any.empty":
-              return { message: "يجب ادخال الاسم الثاني" }; 
-              case "string.min":
-              return { message: "يجب الا تقل الاسم الثاني عن 3 حروف" }; 
-              case "string.max":
-              return { message: "يجب الا يتجاوز الاسم الثاني 15 حرف" };                 
-          }
-        })
-      }),
-      name3: Joi.string().min(3).max(15).required().label("Name3").error((errors) => {
-        return errors.map(error => {
-          switch (error.type) { 
-              case "any.empty":
-              return { message: "يجب ادخال الاسم الثالث" }; 
-              case "string.min":
-              return { message: "يجب الا تقل الاسم الثالث عن 3 حروف" }; 
-              case "string.max":
-              return { message: "يجب الا يتجاوز الاسم الثالث 15 حرف" };                 
-          }
-        })
-      }),
-      name4: Joi.string().min(3).max(15).required().label("Name4").error((errors) => {
-        return errors.map(error => {
-          switch (error.type) { 
-              case "any.empty":
-              return { message: "يجب ادخال الاسم الرابع" }; 
-              case "string.min":
-              return { message: "يجب الا تقل الاسم الرابع عن 3 حروف" }; 
-              case "string.max":
-              return { message: "يجب الا يتجاوز الاسم الرابع 15 حرف" };                 
-          }
-        })
-      }),
-      ename1: Joi.string().min(3).max(15).required().label("EName1").error((errors) => {
-        return errors.map(error => {
-          switch (error.type) { 
-              case "any.empty":
-              return { message: "يجب ادخال الاسم الاول باللغة الانجليزية" }; 
-              case "string.min":
-              return { message: "يجب الا تقل الاسم الاول باللغة الانجليزية عن 3 حروف" }; 
-              case "string.max":
-              return { message: "يجب الا يتجاوز الاسم الاول باللغة الانجليزية 15 حرف" };                 
-          }
-        })
-      }),
-      ename2: Joi.string().min(3).max(15).required().label("EName2").error((errors) => {
-        return errors.map(error => {
-          switch (error.type) { 
-              case "any.empty":
-              return { message: "يجب ادخال الاسم الثاني باللغة الانجليزية" }; 
-              case "string.min":
-              return { message: "يجب الا تقل الاسم الثاني باللغة الانجليزية عن 3 حروف" }; 
-              case "string.max":
-              return { message: "يجب الا يتجاوز الاسم الثاني باللغة الانجليزية 15 حرف" };                 
-          }
-        })
-      }),
-      ename3: Joi.string().min(3).max(15).required().label("EName3").error((errors) => {
-        return errors.map(error => {
-          switch (error.type) { 
-              case "any.empty":
-              return { message: "يجب ادخال الاسم الثالث باللغة الانجليزية" }; 
-              case "string.min":
-              return { message: "يجب الا تقل الاسم الثالث باللغة الانجليزية عن 3 حروف" }; 
-              case "string.max":
-              return { message: "يجب الا يتجاوز الاسم الثالث باللغة الانجليزية 15 حرف" };                 
-          }
-        })
-      }),
-      ename4: Joi.string().min(3).max(15).required().label("EName4").error((errors) => {
-        return errors.map(error => {
-          switch (error.type) { 
-              case "any.empty":
-              return { message: "يجب ادخال الاسم الرابع باللغة الانجليزية" }; 
-              case "string.min":
-              return { message: "يجب الا تقل الاسم الرابع باللغة الانجليزية عن 3 حروف" }; 
-              case "string.max":
-              return { message: "يجب الا يتجاوز الاسم الرابع باللغة الانجليزية 15 حرف" };                 
+              return { message: "يجب الا يتجاوز الاسم باللغة الانجليزية 60 حرف" };                 
           }
         })
       }),
@@ -309,14 +209,7 @@ export default function AddApplicationForm(props) {
       return error;
     }
     setErrors({
-      name1: false,
-      name2: false,
-      name3: false,
-      name4: false,
-      ename1: false,
-      ename2: false,
-      ename3: false,
-      ename4: false,
+      ename: false,
       airlines: false,
       destination: false,
       type: false,
@@ -350,22 +243,6 @@ export default function AddApplicationForm(props) {
         try {
           const submit = {
             ...application,
-            name:
-              application.name1.trim() +
-              " " +
-              application.name2.trim() +
-              " " +
-              application.name3.trim() +
-              " " +
-              application.name4.trim(),
-            ename:
-              application.ename1.trim() +
-              " " +
-              application.ename2.trim() +
-              " " +
-              application.ename3.trim() +
-              " " +
-              application.ename4.trim(),
           };
           const result = await addApplication(submit);
           if (result && role === "agency") {

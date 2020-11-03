@@ -48,85 +48,15 @@ export default function GeneralInfoForm({
       <Typography variant="h6" gutterBottom>
         بيانات مطلوبة للفحص
       </Typography>
-      <Grid container spacing={3}>
+      <Grid container spacing={3}>  
         <Grid item xs={12}>
           <TextField
             className={classes.texField}
-            name="name1"
-            error={errors.name1}
-            label="الاسم الاول"
+            name="ename"
+            error={errors.ename}
+            label="الاسم باللغة الانجليزية"
             onChange={onChange}
-            value={application.name1}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            className={classes.texField}
-            name="name2"
-            error={errors.name2}
-            label="الاسم الثاني"
-            onChange={onChange}
-            value={application.name2}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            className={classes.texField}
-            name="name3"
-            error={errors.name3}
-            label="الاسم الثالث"
-            onChange={onChange}
-            value={application.name3}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            className={classes.texField}
-            name="name4"
-            error={errors.name4}
-            label="الاسم الرابع"
-            onChange={onChange}
-            value={application.name4}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            className={classes.texField}
-            name="ename1"
-            error={errors.ename1}
-            label="الاسم الاول باللغة الانجليزية"
-            onChange={onChange}
-            value={application.ename1}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            className={classes.texField}
-            name="ename2"
-            error={errors.ename2}
-            label="الاسم الثاني باللغة الانجليزية"
-            onChange={onChange}
-            value={application.ename2}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            className={classes.texField}
-            name="ename3"
-            error={errors.ename3}
-            label="الاسم الثالث باللغة الانجليزية"
-            onChange={onChange}
-            value={application.ename3}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            className={classes.texField}
-            name="ename4"
-            error={errors.ename4}
-            label="الاسم الرابع باللغة الانجليزية"
-            onChange={onChange}
-            value={application.ename4}
+            value={application.ename}
           />
         </Grid>
         <Grid dir="rtl" item xs={12}>

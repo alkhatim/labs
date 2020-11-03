@@ -68,9 +68,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const columns = [
-  {
+    {
     title: "الإسم",
-    field: "name",
+    field: "ename",
   },
   {
     title: "الجهة",

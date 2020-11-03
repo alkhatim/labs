@@ -186,11 +186,6 @@ p{
   <div class="invoice-box" dir="rtl">
   <table cellpadding="0" cellspacing="0">
    <tr class="heading">
-          <td>
-             الإسم:     <span>
-                     ${name}  
-                     </span>
-          </td>
         </tr>
         <tr class="heading" style="text-align: left;">
           <td>

@@ -10,6 +10,7 @@
   "author": "Mohammed Osman m.moneim.a@gmail.com",
   "license": "",
   "dependencies": {
+    "aws-sdk": "^2.781.0",
     "bcrypt": "^4.0.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.2",

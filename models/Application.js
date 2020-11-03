@@ -7,49 +7,16 @@ const ApplicationSchema = new Schema({
     type: Schema.Types.ObjectID,
     ref: "users",
   },
-  name: {
-    type: String,
-    required: true,
-  },
-  name1: {
-    type: String,
-    required: true,
-  },
-  name2: {
-    type: String,
-    required: true,
-  },
-  name3: {
-    type: String,
-    required: true,
-  },
-  name4: {
-    type: String,
-    required: true,
-  },
   ename: {
     type: String,
     required: true,
-  },
-  ename1: {
-    type: String,
-    required: true,
-  },
-  ename2: {
-    type: String,
-    required: true,
-  },
-  ename3: {
-    type: String,
-    required: true,
-  },
-  ename4: {
-    type: String,
-    required: true,
-  },
+},
   order: {
     type: Number,
     required: true,
+  },
+   fees: {
+    type: Number,
   },
   airlines: {
     type: String,
@@ -82,6 +49,9 @@ const ApplicationSchema = new Schema({
     enum: ["cash", "transfer"],
   },
   receiptNumber: {
+    type: String,
+  },
+  receiptUrl: {
     type: String,
   },
   agencyPaymentStatus: {

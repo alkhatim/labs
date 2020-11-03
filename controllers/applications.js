@@ -5,6 +5,8 @@ const htmlPdf = require("html-pdf");
 const QRCodeGenerator = require("qrcode");
 const moment = require("moment");
 const path = require("path");
+const uploadImage = require("../utils/uploadImage");
+const getImageUrl = require("../utils/getImageUrl");
 
 //Import Models
 const Application = require("../models/Application");
@@ -128,7 +130,9 @@ exports.getApplicationsCountAccordingToState = asyncHandler(
 );
 
 exports.getApplication = asyncHandler(async (req, res, next) => {
-  const application = await Application.findById(req.params.id).populate("user");
+  const application = await Application.findById(req.params.id).populate(
+    "user"
+  );
   if (!application) {
     return next(new ErrorResponse(`هذا الفحص لم يعد موجودا`, 404));
   }
@@ -146,8 +150,16 @@ exports.addApplication = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse(`تم اضافة الطلب مسبقا`, 400));
   }
 
-   if (applicationCheck && applicationCheck.phoneNumber == req.body.phoneNumber) {
-    return next(new ErrorResponse(`تم اضافة الطلب بنفس رقم الهاتف مسبقا الرجاء تغيير رقم الهاتف`, 400));
+  if (
+    applicationCheck &&
+    applicationCheck.phoneNumber == req.body.phoneNumber
+  ) {
+    return next(
+      new ErrorResponse(
+        `تم اضافة الطلب بنفس رقم الهاتف مسبقا الرجاء تغيير رقم الهاتف`,
+        400
+      )
+    );
   }
 
   //Check dates validity
@@ -172,9 +184,9 @@ exports.addApplication = asyncHandler(async (req, res, next) => {
 
   //Calculating Order:
   var start = new Date(req.body.testDate);
-  start.setHours(0, 0, 0, 0);
+  start.setHours(5, 0, 0, 0);
   var end = new Date(req.body.testDate);
-  end.setHours(23, 59, 59, 999);
+  end.setHours(20, 59, 59, 999);
   const applications = await Application.find({
     testDate: { $gte: start, $lt: end },
   });
@@ -358,11 +370,9 @@ exports.printApplicationReceipt = asyncHandler(async (req, res, next) => {
       break;
   }
 
-  
-
   application.testDate = new Date(application.testDate);
   application.testDate.setHours(0, 0, 0, 0);
-application.flightDate = new Date(application.flightDate);
+  application.flightDate = new Date(application.flightDate);
   application.flightDate.setHours(0, 0, 0, 0);
   htmlPdf.create(pdf(application), {}).toFile("receipt.pdf", (err) => {
     if (err) {
@@ -382,15 +392,15 @@ exports.updateApplication = asyncHandler(async (req, res, next) => {
   if (!applicationStateCheck) {
     return next(new ErrorResponse(`لم يتم العثور على الطلب`, 404));
   }
-   if (
-     applicationStateCheck.user._id.toString() !== req.user.id &&
-     (req.user.role !== "admin" &&
-     req.user.role !== "super admin" &&
-     req.user.role !== "lab" &&
-     req.user.role !== "office coordinator")
-   ) {
-     return next(new ErrorResponse(`غير مصرح باتمام العملية`, 403));
-   }
+  if (
+    applicationStateCheck.user._id.toString() !== req.user.id &&
+    req.user.role !== "admin" &&
+    req.user.role !== "super admin" &&
+    req.user.role !== "lab" &&
+    req.user.role !== "office coordinator"
+  ) {
+    return next(new ErrorResponse(`غير مصرح باتمام العملية`, 403));
+  }
   if (
     applicationStateCheck.state === "tested" &&
     req.body.state === "registered" &&
@@ -400,47 +410,56 @@ exports.updateApplication = asyncHandler(async (req, res, next) => {
   }
   if (
     (applicationStateCheck.paymentStatus === "paid" ||
-    applicationStateCheck.paymentStatus === "paid without commission" ||
-    applicationStateCheck.paymentStatus === "paid with commission")
-    &&
+      applicationStateCheck.paymentStatus === "paid without commission" ||
+      applicationStateCheck.paymentStatus === "paid with commission") &&
     req.body.paymentStatus === "not paid" &&
     req.user.role !== "super admin"
   ) {
     return next(new ErrorResponse(`لا يمكن تحويل الحالة لحالة سابقة`, 400));
   }
+
+  if (req.body.receipt) {
+    try {
+      await uploadImage(req.params.id, req.body.receipt);
+      const url = await getImageUrl(req.params.id);
+      req.body.receiptUrl = url;
+    } catch (error) {
+      console.log(error)
+      return next(new ErrorResponse(`Failed to save receipt to S3`, 500));
+    }
+  }
+
   if (
     req.body.paymentStatus === "paid" ||
     req.body.paymentStatus === "paid without commission"
-  )
-  {
-     const newApplication = await Application.findByIdAndUpdate(
-       req.params.id,
-       { ...req.body, agencyPaymentStatus: "paid" },
-       {
-         upsert: true,
-         runValidators: true,
-         setDefaultsOnInsert: true,
-         context: "query",
-       }
-     );
-    }else {
-      const newApplication = await Application.findByIdAndUpdate(
-       req.params.id,
-       { ...req.body, agencyPaymentStatus: "not paid" },
-       {
-         upsert: true,
-         runValidators: true,
-         setDefaultsOnInsert: true,
-         context: "query",
-       }
-     );
-    }
-   
+  ) {
+    const newApplication = await Application.findByIdAndUpdate(
+      req.params.id,
+      { ...req.body, agencyPaymentStatus: "paid" },
+      {
+        upsert: true,
+        runValidators: true,
+        setDefaultsOnInsert: true,
+        context: "query",
+      }
+    );
+  } else {
+    const newApplication = await Application.findByIdAndUpdate(
+      req.params.id,
+      { ...req.body, agencyPaymentStatus: "not paid" },
+      {
+        upsert: true,
+        runValidators: true,
+        setDefaultsOnInsert: true,
+        context: "query",
+      }
+    );
+  }
 
   if (
     (req.body.paymentStatus === "paid" ||
-     req.body.paymentStatus === "paid without commission" || 
-     req.body.paymentStatus === "paid with commission" ) &&
+      req.body.paymentStatus === "paid without commission" ||
+      req.body.paymentStatus === "paid with commission") &&
     applicationStateCheck.paymentStatus === "not paid"
   ) {
     const credit = {};
@@ -530,30 +549,22 @@ exports.getApplicationsByDates = asyncHandler(async (req, res, next) => {
   const datedApplications = await Application.find({
     $or: [
       {
-        labPaymentStatus: "not paid",
-        state: "tested",
         paymentStatus: "paid",
-        agencyPaymentStatus: "paid",
         testDate: {
           $gte: start,
           $lt: end,
         },
       },
       {
-        labPaymentStatus: "not paid",
-        state: "tested",
+       
         paymentStatus: "paid with commission",
-        agencyPaymentStatus: "not paid",
         testDate: {
           $gte: start,
           $lt: end,
         },
       },
       {
-        labPaymentStatus: "not paid",
-        state: "tested",
         paymentStatus: "paid without commission",
-        agencyPaymentStatus: "paid",
         testDate: {
           $gte: start,
           $lt: end,
@@ -561,24 +572,27 @@ exports.getApplicationsByDates = asyncHandler(async (req, res, next) => {
       },
     ],
   }).populate("user");
-  const credits = await Credit.find({application: {
-    $in: datedApplications.map(app => app._id)
-  }});
-  let lab =0, moniem =0, mazin=0;
-  credits.forEach(credit => {
-    lab += credit.lab;
-    moniem += credit.moniem;
-    mazin += credit.mazin;
+  const credits = await Credit.find({
+    application: {
+      $in: datedApplications.map((app) => app._id),
+    },
+  });
+  let lab = 0,
+    moniem = 0,
+    mazin = 0;
+  datedApplications.forEach((app) => {
+    lab += app.fees;
+    moniem += 200;
   });
 
   res.status(200).json({
     success: true,
     count: datedApplications.length,
     data: datedApplications,
-    lab, 
+    lab,
     moniem,
-    mazin, 
-    labDebit: moniem + mazin
+    mazin,
+    labDebit: moniem + mazin,
   });
 });
 
@@ -587,7 +601,10 @@ exports.deleteApplication = asyncHandler(async (req, res, next) => {
   if (!application) {
     return next(new ErrorResponse(`هذا الفحص لم يعد موجودا`, 404));
   }
-  if (application.state !== "registered" && (req.user.role !== "admin" || req.user.role !== "super admin")) {
+  if (
+    application.state !== "registered" &&
+    (req.user.role !== "admin" || req.user.role !== "super admin")
+  ) {
     return next(new ErrorResponse(`لا يمكن مسح الطلب`, 401));
   }
   await Application.findByIdAndDelete(req.params.id);

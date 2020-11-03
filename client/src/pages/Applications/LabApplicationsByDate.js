@@ -95,11 +95,11 @@ export default function WalletTransactionsDate(props) {
   const columns = [
     {
       title: "الإسم",
-      field: "name",
+      field: "ename",
     },
     {
-      title: "الحالة",
-      field: "state",
+      title: "الرسوم",
+      field: "fees",
     },
     {
       title: "نوع الفحص",
