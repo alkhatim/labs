@@ -68,6 +68,7 @@ export default function AddApplicationForm(props) {
     phoneNumber: "",
     passportNumber: "",
     flightTime: "",
+    notes: "",
     flightDate: new Date(),
     testDate: new Date(),
   });

@@ -252,6 +252,15 @@ export default function GeneralInfoForm({
             </small>
           </Grid>
         </Grid>
+         <Grid item xs={12}>
+          <TextField
+            className={classes.texField}
+            name="notes"
+            label="ملاحظات"
+            onChange={onChange}
+            value={application.notes}
+          />
+        </Grid>
       </Grid>
     </React.Fragment>
   );

@@ -123,6 +123,9 @@ const ApplicationSchema = new Schema({
     type: Boolean,
     default: false,
   },
+  notes: {
+    type: String,
+  },
   state: {
     type: String,
     enum: ["registered", "tested", "result issued", "result delivered"],

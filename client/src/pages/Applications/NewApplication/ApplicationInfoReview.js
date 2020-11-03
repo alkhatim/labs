@@ -179,6 +179,21 @@ export default function Review({ application }) {
             }
           />
         </ListItem>
+        <ListItem className={classes.listItem}>
+          <ListItemAvatar>
+            <Avatar>
+              <TodayIcon />
+            </Avatar>
+          </ListItemAvatar>
+          <ListItemText
+            primary="ملاحظات"
+            secondary={
+              <Typography variant="h6">
+                {application.notes}
+              </Typography>
+            }
+          />
+        </ListItem>
       </List>
     </React.Fragment>
   );
