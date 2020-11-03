@@ -28,7 +28,7 @@ export default function Routes() {
   return (
     <Switch>
       <DefaultRoute path="/" exact component={LoginPage} />
-      <DefaultRoute path="/register" exact component={AddUser} />
+      {/* <DefaultRoute path="/register" exact component={AddUser} /> */}
       <AppContainer>
         <Route path="/dashboard" exact component={DashboardPage} />
         <Route path="/all-users" exact component={Users} />
